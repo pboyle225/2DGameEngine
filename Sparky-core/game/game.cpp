@@ -82,7 +82,7 @@ public:
 	void render() override
 	{
 		//pass in player's location to only render sprites around them
-		cursor->update(window);
+		cursor->update(window, currLevel->entities, player->getLocation());
 
 		if (currLevel)
 		{
@@ -113,30 +113,6 @@ public:
 		isPlayerBehind =  renderLayerOrder->update(currLevel->entities, player->getLocation());
 
 		currLevel->scenes[currLevel->indexOfCurrScene]->update(player->getLocation());
-
-		bool isTouching = false;
-		for (int i = 0; i < currLevel->entities.size(); i++)
-		{
-			if (currLevel->entities[i]->getName() == "Player")
-			{
-				continue;
-			}
-			Transform * transformComp = static_cast<Transform *>(currLevel->entities[i]->getComponent(0));
-
-			if (transformComp)
-			{
-				if ((int)transformComp->location.x == (int)cursor->getWorldCoords(player->getLocation()).x && (int)transformComp->location.y == (int)cursor->getWorldCoords(player->getLocation()).y)
-				{
-					cursor->changeTexture(1);
-					isTouching = true;
-				}
-			}
-		}
-
-		if (!isTouching)
-		{
-			cursor->changeTexture(0);
-		}
 
 		//std::cout << cursor->getWorldCoords(player->getLocation()) << std::endl;
 

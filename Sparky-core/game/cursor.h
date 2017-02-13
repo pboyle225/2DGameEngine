@@ -30,7 +30,7 @@ public:
 		sprite = new Sprite(0, 0, 0, 1, 1, cursorTextures[1]);
 	}
 
-	void update(Window * window)
+	void update(Window * window, std::vector<Entity *> &entities, math::vec3 playerLoc)
 	{
 		double x, y;
 		window->getMousePosition(x, y);
@@ -41,6 +41,30 @@ public:
 		screenPosition.x = newx;
 		screenPosition.y = newy - sprite->getSize().y;
 		sprite->m_Position = screenPosition;
+
+		bool isTouching = false;
+		for (int i = 0; i < entities.size(); i++)
+		{
+			if (entities[i]->getName() == "Player")
+			{
+				continue;
+			}
+			Transform * transformComp = static_cast<Transform *>(entities[i]->getComponent(0));
+
+			if (transformComp)
+			{
+				if ((int)transformComp->location.x == (int)getWorldCoords(playerLoc).x && (int)transformComp->location.y == (int)getWorldCoords(playerLoc).y)
+				{
+					changeTexture(1);
+					isTouching = true;
+				}
+			}
+		}
+
+		if (!isTouching)
+		{
+			changeTexture(0);
+		}
 	}
 
 	//calculate world coords from player position
