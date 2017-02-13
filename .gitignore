@@ -16,6 +16,7 @@ $RECYCLE.BIN/
 *.obj
 *.log
 *.tlog
+*.exe
 
 # Windows shortcuts
 *.lnk
