@@ -12,7 +12,7 @@ public:
 		Layer * playerLayer, Layer * hudLayer);
 	~Scene();
 
-	void renderLayers(math::vec3 pos);
+	void renderLayers(math::vec3 pos, bool isPlayerBehindObjects);
 	void update(math::vec3 playerLoc);
 	Layer * getBackgroundLayer() { return backgroundLayer; }
 	Layer * getObjectLayer() { return objectLayer; }

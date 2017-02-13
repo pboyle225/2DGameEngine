@@ -1,6 +1,6 @@
 #pragma once
 
-#include "animation.h"
+#include "Components/animation.h"
 #include "../graphics/renderable2d.h"
 
 using namespace engine;

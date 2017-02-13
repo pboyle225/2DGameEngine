@@ -14,6 +14,10 @@ namespace engine {	namespace graphics {
 	public:
 		Window(const char * name, int width, int height);
 		~Window();
+		
+
+		void init2(const char * name, int width, int height);
+
 		void update();
 		bool closed() const;
 		void clear() const;

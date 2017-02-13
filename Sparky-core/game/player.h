@@ -2,27 +2,39 @@
 //#include "entity.h"
 
 #include "../Engine.h"
-#include "animation.h"
+#include "Components/animation.h"
 #include "tilelayer.h"
+#include "level.h"
+#include "Entities/entity.h"
 
 using namespace engine;
 using namespace graphics;
 
-class Player
+class Player : public Entity
 {
 public:
 	Player(SpriteSheet * playerSprites);
-	void update(Layer * layer, Window * window);
+	void update(Layer * layer);
 	inline Sprite * getSprite() { return sprite; }
 	math::vec3 getLocation();
 	void setLocation(math::vec3);
-	bool checkCollision(float x, float y); //takes in world coords
+	bool walkingUp;
+	bool walkingDown;
+	bool walkingLeft;
+	bool walkingRight;
+	bool isMoving;
+	void resetWalkingStates();
+	int lastWalkingState; //0-up, 1-down, 2-left, 3-right
+	void updateAnimation();
+	void addItemToInventory(Entity * item);
+	const std::vector<Entity *> & getInventory() const;
+
 private:
-	math::vec3 location;
 	int health;
-	Sprite * sprite;
 	float speed;
-	float angle;
+	Sprite* sprite;
+	math::vec3 location;
+	std::vector<Entity *> inventory;
 
 	//Animation sprites
 	std::vector<Sprite *> animationSprites;
@@ -37,13 +49,6 @@ private:
 	Animation *walkRight;
 	Animation *idle;
 	Animation *animation;
-	bool walkingUp;
-	bool walkingDown;
-	bool walkingLeft;
-	bool walkingRight;
-	bool isMoving;
-	void resetWalkingStates();
-	int lastWalkingState; //0-up, 1-down, 2-left, 3-right
 
 	void move(Window * window);
 	void changeAnimation(Animation* anim);

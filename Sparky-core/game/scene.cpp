@@ -20,26 +20,27 @@ Scene::~Scene()
 	delete hudLayer;
 }
 
-void Scene::renderLayers(math::vec3 pos)
+void Scene::renderLayers(math::vec3 pos, bool isPlayerBehindObjects)
 {
 	if (backgroundLayer)
 	{
 		backgroundLayer->render(pos);
 	}
 
-	if (objectLayer)
+	if (isPlayerBehindObjects && playerLayer && objectLayer)
+	{
+		playerLayer->render();
+		objectLayer->render(pos);
+	}
+	else if (playerLayer && objectLayer)
 	{
 		objectLayer->render(pos);
+		playerLayer->render();
 	}
 
 	if (collisionLayer)
 	{
 		//Don't render the collision layer
-	}
-
-	if (playerLayer)
-	{
-		playerLayer->render();
 	}
 
 	if (hudLayer)
@@ -76,12 +77,13 @@ void Scene::update(math::vec3 playerLoc)
 		hudLayer->update();
 	}
 	
-	backgroundLayer->getShader()->enable();
 	math::vec3 newLoc = playerLoc * math::vec3(-1, -1, -1);
+	backgroundLayer->getShader()->enable();
 	backgroundLayer->getShader()->setUniformMat4("vw_matrix", math::mat4::translation(newLoc));
 
 	objectLayer->getShader()->enable();
 	objectLayer->getShader()->setUniformMat4("vw_matrix", math::mat4::translation(newLoc));
+
 	/*
 	foregroundLayers[0]->getShader()->setUniformMat4("pr_matrix", math::mat4::orthographic(-zoomx, zoomx, -zoomy, zoomy, -1.0f, 1.0f));
 	

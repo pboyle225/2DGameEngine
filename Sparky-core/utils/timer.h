@@ -24,7 +24,7 @@ namespace engine {
 			QueryPerformanceCounter(&m_Start);
 		}
 
-		//return seconds
+		//returns seconds
 		float elapsed()
 		{
 			LARGE_INTEGER current;

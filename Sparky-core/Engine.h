@@ -38,7 +38,7 @@ namespace engine
 			delete m_Window;
 		}
 
-		graphics::Window*  createWindow(const char * name, int width, int height)
+		Window * createWindow(const char * name, int width, int height)
 		{
 			m_Window = new graphics::Window(name, width, height);
 			return m_Window;
@@ -59,9 +59,11 @@ namespace engine
 
 		const unsigned int getFPS() const { return m_FramesPerSecond; }
 		const unsigned int getUPS() const { return m_UpdatesPerSecond; }
-	private:
-		graphics::Window* m_Window; //main window of game
+	protected:
+
 		Timer* m_Timer; //main timer for window
+	private:
+		graphics::Window * m_Window; //main window of game
 		int m_FramesPerSecond, m_UpdatesPerSecond;
 
 		void run()

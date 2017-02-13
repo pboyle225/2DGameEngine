@@ -21,6 +21,8 @@ public:
 	SpriteSheet * getSpriteSheet();
 	bool isWalkableAtLoc(int x, int y);
 	bool isCollision();
+	int getHeight() { return height; }
+	int getWidth() { return width; }
 	
 	static std::vector<bool> isWalkable;
 	static int sizeOfTile;

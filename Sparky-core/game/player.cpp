@@ -2,11 +2,16 @@
 
 Player::Player(SpriteSheet * playerSprites)
 {
-	location = math::vec3(96, 117, 0);
-	speed = 0.08f;
-	health = 100;
+	name = "Player";
+	id = 0;
+
+	location = math::vec3(Level::worldToScreenCoords(math::vec3(35, 20, 0)));
+	
+	addComponent(new Transform(location));
+
+	health = 100; //TODO add component for health
+
 	lastWalkingState = -1;
-	angle = 0.0f;
 	
 	for (int i = 0; i < playerSprites->textures.size(); i++)
 	{
@@ -46,20 +51,22 @@ Player::Player(SpriteSheet * playerSprites)
 
 	animation = walkDown;
 	animation->stop();
+	addComponent(animation);
 	sprite = animation->getSprite();
 }
 
-void Player::update(Layer * layer, Window * window)
+void Player::update(Layer * layer)
 {
-	move(window);
 	animation->update();
 
 	if (sprite != animation->getSprite())
 	{
-		//animation->getSprite()->m_Position = location;
 		layer->removeAndReplace(sprite, animation->getSprite());
 		sprite = animation->getSprite();
 	}
+
+	Transform * locComp = static_cast<Transform * >(getComponent(0));
+	location = locComp->location;
 
 	//math::mat4 newLoc = math::mat4::rotation(angle, math::vec3(0, 1, 0));
 	//sprite->m_Position = newLoc.
@@ -68,64 +75,10 @@ void Player::update(Layer * layer, Window * window)
 	//sprite->m_Position= newLoc * sprite->m_Position;
 
 	//std::cout << "Player's Coords (" << location.x << ", " << location.y << ")" << std::endl;
-
 }
 
-void Player::move(Window * window)
+void Player::updateAnimation()
 {
-	//location = sprite->position;
-	isMoving = false;
-	math::vec3 movement(0.0f, 0.0f, 0.0f);
-
-	if (window->isKeyPressed(GLFW_KEY_W))
-	{
-		movement.y += speed;
-		isMoving = true;
-
-		if (!walkingUp)
-		{
-			resetWalkingStates();
-			walkingUp = true;
-		}
-	}
-
-	if (window->isKeyPressed(GLFW_KEY_S))
-	{
-		movement.y -= speed;
-		isMoving = true;
-
-		if (!walkingDown)
-		{
-			resetWalkingStates();
-			walkingDown = true;
-		}
-	}
-
-	if (window->isKeyPressed(GLFW_KEY_A))
-	{
-		movement.x -= speed;
-		isMoving = true;
-
-		if (!walkingLeft)
-		{
-			resetWalkingStates();
-			walkingLeft = true;
-		}
-	}
-
-	if (window->isKeyPressed(GLFW_KEY_D))
-	{
-		movement.x += speed;
-		isMoving = true;
-
-		if (!walkingRight)
-		{
-			resetWalkingStates();
-			walkingRight = true;
-		}
-	}
-
-
 	if (!isMoving)
 	{
 		animation->stop();
@@ -153,22 +106,6 @@ void Player::move(Window * window)
 		changeAnimation(walkRight);
 		lastWalkingState = 3;
 	}
-
-
-	math::vec3 temp = movement.normalize() * math::vec3(speed, speed, speed);
-	
-	if (checkCollision(location.x + temp.x, location.y + temp.y))
-	{
-		location += temp;
-	}
-	else
-	{	
-		// play some sound stream, looped
-		if (!SoundEngine::soundEngine->isCurrentlyPlaying("sounds/bomp.wav"))
-		{
-			SoundEngine::soundEngine->play2D("sounds/bomp.wav", false);
-		}
-	}
 }
 
 void Player::resetWalkingStates()
@@ -189,11 +126,7 @@ void Player::changeAnimation(Animation* anim)
 
 math::vec3 Player::getLocation()
 {
-
-	math::vec3 temp(location);
-	//temp.x += sprite->getAnchorPoint().x;
-	//temp.y += sprite->getAnchorPoint().y;
-	return temp;
+	return location;
 }
 
 void Player::setLocation(math::vec3 loc)
@@ -201,17 +134,12 @@ void Player::setLocation(math::vec3 loc)
 	location = loc;
 }
 
-bool Player::checkCollision(float x, float y)
+void Player::addItemToInventory(Entity * item)
 {
-	int index = (int)(y / TileLayer::sizeOfTile) * 100 + ((int)x / TileLayer::sizeOfTile);
+	inventory.push_back(item);
+}
 
-	//Player is out of bounds. Do some type of message?
-	if (index < 0 || index > TileLayer::isWalkable.size() - 1)
-	{
-		return false;
-	}
-	else
-	{
-		return TileLayer::isWalkable[index];
-	}
+const std::vector<Entity *> & Player::getInventory() const
+{
+	return inventory;
 }

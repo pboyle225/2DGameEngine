@@ -33,6 +33,31 @@ namespace engine {	namespace graphics {
 		glfwTerminate();
 	}
 
+	void Window::init2(const char * name, int width, int height)
+	{
+		m_Title = name;
+		m_Width = width;
+		m_Height = height;
+		if (!init())
+		{
+			glfwTerminate();
+		}
+
+		for (int i = 0; i < MAX_KEYS; i++)
+		{
+			m_Keys[i] = false;
+			m_KeyState[i] = false;
+			m_KeyTyped[i] = false;
+		}
+
+		for (int i = 0; i < MAX_BUTTONS; i++)
+		{
+			m_MouseButtons[i] = false;
+			m_MouseState[i] = false;
+			m_MouseClicked[i] = false;
+		}
+	}
+
 	void Window::clear() const
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

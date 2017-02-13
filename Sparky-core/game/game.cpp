@@ -2,12 +2,19 @@
 #include "player.h"
 #include "level.h"
 #include "TmxFile.h"
+#include "Components\input.h"
+#include "Systems\userInput.h"
+#include "Systems\checkCollision.h"
+#include "Systems\movement.h"
+#include "Systems/renderLayerOrder.h"
+#include "Systems\objectDestroyer.h"
+#include "Systems\rendering.h"
+#include "Systems\timerSystem.h"
+#include "cursor.h"
 
 using namespace engine;
 using namespace graphics;
 #pragma comment(lib, "irrKlang.lib") // link with irrKlang.dll
-
-
 
 class Game : public Engine
 {
@@ -28,6 +35,14 @@ public:
 		//Create window
 		window = createWindow("RPG BRO", 960, 540);
 
+		//Load systems
+		userInput = new UserInput();
+		checkCollision = new CheckCollision();
+		movement = new Movement();
+		renderLayerOrder = new RenderLayerOrder();
+		objectDestroyer = new ObjectDestroyer();
+		rendering = new Rendering();
+		timerSystem = new TimerSystem();
 
 		//Load WHOLE Spritesheets into memory
 		playerSprites = new SpriteSheet("imgs/playerSpritesheet.png", 4, 4, 16, 2);
@@ -35,8 +50,11 @@ public:
 		tileSprites = new SpriteSheet("imgs/dungeon.png", 64, 48, 3072, 1);
 
 		currLevel = new Level(0, tileSprites);
+
 		player = new Player(playerSprites);
-		cursor = new Sprite(0.0f, 0.0f, 1.0f, 2.0f, 2.0f, new Texture("cursor.png"));
+		player->addComponent(new Input(window));
+		player->addComponent(new Collision());
+		cursor = new Cursor();
 		
 		//Create background for health/mana
 		Group * group = new Group(math::mat4::translation(math::vec3(-1.0f, -1.0f, 0.0f)));
@@ -50,18 +68,30 @@ public:
 
 		currLevel->scenes[currLevel->indexOfCurrScene]->getPlayerLayer()->add(player->getSprite());
 		currLevel->scenes[currLevel->indexOfCurrScene]->getHudLayer()->add(group);
-		currLevel->scenes[currLevel->indexOfCurrScene]->getHudLayer()->add(cursor);
+		currLevel->scenes[currLevel->indexOfCurrScene]->getHudLayer()->add(cursor->getSprite());
 
 		SoundEngine::init();
-		//SoundEngine::soundEngine->play2D("sounds/backgroundMusic1.mp3", true);
+		SoundEngine::soundEngine->play2D("sounds/backgroundMusic1.mp3", true);
 		SoundEngine::soundEngine->setSoundVolume(0.1f);
+
+		currLevel->entities.push_back(player);
+		
+		isPlayerBehind = false;
 	}
 
 	void render() override
 	{
 		//pass in player's location to only render sprites around them
-		updateCursor();
-		currLevel->scenes[currLevel->indexOfCurrScene]->renderLayers(player->getLocation());
+		cursor->update(window);
+
+		if (currLevel)
+		{
+			currLevel->scenes[currLevel->indexOfCurrScene]->renderLayers(player->getLocation(), isPlayerBehind);
+		}
+		else
+		{
+			exit(-1);
+		}
 	}
 
 	void tick() override
@@ -72,50 +102,62 @@ public:
 
 	void update() override
 	{
-		player->update(currLevel->scenes[currLevel->indexOfCurrScene]->getPlayerLayer(), window);
+		userInput->update(currLevel->entities);
+		timerSystem->update(currLevel->entities);
+		checkCollision->update(currLevel->entities);
+		movement->update(currLevel->entities);
+		objectDestroyer->update(currLevel->entities);
+		rendering->update(currLevel->entities, currLevel->scenes[currLevel->indexOfCurrScene]);
 		
-		//TODO: make player derive from entity and throw in all entities to this funciton
-		checkCollisions(player);
+		player->update(currLevel->scenes[currLevel->indexOfCurrScene]->getPlayerLayer());
+		isPlayerBehind =  renderLayerOrder->update(currLevel->entities, player->getLocation());
 
-		//Updates view matrix based on players location so camera follows player
 		currLevel->scenes[currLevel->indexOfCurrScene]->update(player->getLocation());
 
-	}
+		bool isTouching = false;
+		for (int i = 0; i < currLevel->entities.size(); i++)
+		{
+			if (currLevel->entities[i]->getName() == "Player")
+			{
+				continue;
+			}
+			Transform * transformComp = static_cast<Transform *>(currLevel->entities[i]->getComponent(0));
 
-	void updateCursor()
-	{
-		double x, y;
-		window->getMousePosition(x, y);
+			if (transformComp)
+			{
+				if ((int)transformComp->location.x == (int)cursor->getWorldCoords(player->getLocation()).x && (int)transformComp->location.y == (int)cursor->getWorldCoords(player->getLocation()).y)
+				{
+					cursor->changeTexture(1);
+					isTouching = true;
+				}
+			}
+		}
 
-		float newx = (float)(x * 32.0f / window->getWidth() - 16.0f);
-		float newy = (float)(9.0f - y * 18.0f / window->getHeight());
+		if (!isTouching)
+		{
+			cursor->changeTexture(0);
+		}
 
-		cursor->m_Position.x = newx - 1.05f;
-		cursor->m_Position.y = newy - 1.3f;
-
-	}
-
-	void checkCollisions(Player * player)
-	{
+		//std::cout << cursor->getWorldCoords(player->getLocation()) << std::endl;
 
 	}
 
 private:
 	Window* window;
-	Layer* playerLayer;
-	Layer* backgroundLayer;
-	Sprite* playerSprite;
-	Sprite* cursor;
-	Shader* shader2;
-	Shader* shader;
 	SpriteSheet* playerSprites;
 	SpriteSheet* tileSprites;
 	Player * player;
-	bool isRendered;
-	float angle;
+	bool isPlayerBehind;
 	Level * currLevel;
-	//std::vector create a world that combines all layers to check collision with player
-	//Would have to update this every update()
+	Cursor * cursor;
+
+	UserInput * userInput;
+	CheckCollision * checkCollision;
+	Movement * movement;
+	RenderLayerOrder * renderLayerOrder;
+	ObjectDestroyer * objectDestroyer;
+	Rendering* rendering;
+	TimerSystem * timerSystem;
 };
 
 int main()
