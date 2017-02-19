@@ -1,8 +1,11 @@
 #pragma once
 #include <vector>
 #include <unordered_map>
+#include <bitset>
+//#include "../gameObjectManager.h"
 #include "../../math/_math.h"
 
+#define MAX_COMPONENTS 20
 
 class Entity;
 /*
@@ -17,6 +20,7 @@ ID List for Components:
 	7 - Sprite Component
 	8 - Timer Component
 	99 - To Delete
+	10 - attack
 */
 
 using namespace engine;
@@ -30,6 +34,7 @@ public:
 	{ 
 		this->entity = entity;
 	}
+
 	~Component() { }
 
 	int getID()
@@ -41,6 +46,8 @@ public:
 	{
 		return entity;
 	}
+
+	std::bitset<MAX_COMPONENTS> bitmask;
 protected:
 	std::string name;
 	int id;

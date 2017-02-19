@@ -11,6 +11,7 @@
 #include "Components\collectible.h"
 #include "Components\rectangleAppearance.h"
 #include "Components\SpriteComponent.h"
+#include "Components\attack.h"
 
 class Level
 {

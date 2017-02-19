@@ -60,7 +60,7 @@ void Level::loadLevel(int levelNumber, SpriteSheet * tileSprites)
 				key->addComponent(new SpriteComponent((Sprite*)objectLayer->getRenderables()[i]));
 				entities.push_back(key);
 			}
-			else //Disapearing Tile object
+			else if (objectLayer->getRenderables()[i]->getTID() == 1875)//Disapearing Tile object
 			{
 				DisapearingTile * disapearingTile = new DisapearingTile();
 				disapearingTile->addComponent(new Transform(objectCords));

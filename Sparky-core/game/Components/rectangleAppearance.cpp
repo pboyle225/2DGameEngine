@@ -6,4 +6,6 @@ RectangleAppearance::RectangleAppearance(float width, float height)
 	name = "Rectangle Appearance";
 	this->width = width;
 	this->height = height;
+
+	bitmask = 0x1 << 6;
 }

@@ -1,6 +1,6 @@
 #include "checkCollision.h"
 
-void CheckCollision::update(std::vector<Entity *> &entities)
+void CheckCollision::update(std::vector<Entity*> &entities)
 {
 	for (int i = 0; i < entities.size(); i++)
 	{
@@ -25,7 +25,7 @@ void CheckCollision::update(std::vector<Entity *> &entities)
 			{
 				//remove any type of velocity from entity because they are about to be
 				//on a non walkable tile
-				currEntity->removeComponent(4);
+				currEntity->removeComponent(velocityComp);
 				
 				if (!SoundEngine::soundEngine->isCurrentlyPlaying("sounds/bomp.wav"))
 				{

@@ -97,10 +97,10 @@ namespace engine {
 				//Only render sprites on screen and slightly off
 				float diffLeft = camera.x - 20;
 				float diffRight = camera.x + 20;
-				float diffUp = camera.y + 5;
-				float diffDown = camera.y - 5;
+				float diffUp = camera.y + 20;
+				float diffDown = camera.y - 20;
 
-				if ((renderable->m_Position.x < diffRight && renderable->m_Position.x > diffLeft)|| 
+				if ((renderable->m_Position.x < diffRight && renderable->m_Position.x > diffLeft)&& 
 					(renderable->m_Position.y < diffUp && renderable->m_Position.y > diffDown))
 				{
 					renderable->submit(m_Renderer);

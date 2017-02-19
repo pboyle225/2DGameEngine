@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../Entities/entity.h"
 #include "../Components/input.h"
-#include "../player.h"
 #include "../Components/Transform.h"
 #include "../Components/collision.h"
 #include "../Components/velocity.h"
 #include "../Components/toDelete.h"
 #include "../Components/timerComponent.h"
+#include "../player.h"
 #include "systemManager.h"
+//#include "../Entities/entity.h"
 #include <vector>
 
 /*
@@ -25,5 +25,6 @@
 class System
 {
 public:
-	virtual void update(std::vector<Entity *> &entities) = 0;
+	virtual void update(std::vector<Entity*> &entities) = 0;
+	std::vector<Entity *> systemEntities; //Each system will only hold the entities w/ components they care about
 };

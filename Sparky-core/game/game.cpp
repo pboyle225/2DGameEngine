@@ -10,7 +10,9 @@
 #include "Systems\objectDestroyer.h"
 #include "Systems\rendering.h"
 #include "Systems\timerSystem.h"
+#include "Systems\attackSystem.h"
 #include "cursor.h"
+#include "gameObjectManager.h"
 
 using namespace engine;
 using namespace graphics;
@@ -43,6 +45,7 @@ public:
 		objectDestroyer = new ObjectDestroyer();
 		rendering = new Rendering();
 		timerSystem = new TimerSystem();
+		attackSystem = new AttackSystem();
 
 		//Load WHOLE Spritesheets into memory
 		playerSprites = new SpriteSheet("imgs/playerSpritesheet.png", 4, 4, 16, 2);
@@ -100,14 +103,17 @@ public:
 		printf("%d ups\n", getUPS());
 	}
 
-	void update() override
+
+	void update() override	
 	{
-		userInput->update(currLevel->entities);
-		timerSystem->update(currLevel->entities);
-		checkCollision->update(currLevel->entities);
-		movement->update(currLevel->entities);
-		objectDestroyer->update(currLevel->entities);
-		rendering->update(currLevel->entities, currLevel->scenes[currLevel->indexOfCurrScene]);
+			
+		userInput->update(GameObjectManager::userInputEnts);
+		timerSystem->update(GameObjectManager::timerSystemEnts);
+		checkCollision->update(GameObjectManager::checkCollisionEnts);
+		movement->update(GameObjectManager::movementEnts);
+		attackSystem->update(GameObjectManager::attackSystemEnts);
+		objectDestroyer->update(GameObjectManager::objectDestroyerEnts);
+		rendering->update(GameObjectManager::renderingEnts, currLevel->scenes[currLevel->indexOfCurrScene]);
 		
 		player->update(currLevel->scenes[currLevel->indexOfCurrScene]->getPlayerLayer());
 		isPlayerBehind =  renderLayerOrder->update(currLevel->entities, player->getLocation());
@@ -134,6 +140,7 @@ private:
 	ObjectDestroyer * objectDestroyer;
 	Rendering* rendering;
 	TimerSystem * timerSystem;
+	AttackSystem * attackSystem;
 };
 
 int main()

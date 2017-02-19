@@ -5,7 +5,7 @@
 class ObjectDestroyer : public System
 {
 public:
-	void update(std::vector<Entity *>& entitiesvector) override;
+	void update(std::vector<Entity*> &entities) override;
 private:
 
 };

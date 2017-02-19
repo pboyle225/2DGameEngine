@@ -1,6 +1,6 @@
 #include "renderLayerOrder.h"
 
-bool RenderLayerOrder::update(std::vector<Entity *> &entities, math::vec3 playerLoc)
+bool RenderLayerOrder::update(std::vector<Entity*> &entities, math::vec3 playerLoc)
 {
 	Transform * closestTransform = findClosestEntity(entities, playerLoc);
 
@@ -47,6 +47,7 @@ Transform * RenderLayerOrder::findClosestEntity(std::vector<Entity *> entities, 
 
 	for (int i = 0; i < entities.size(); i++)
 	{
+
 		if (entities[i]->getID() == 0 || !entities[i]->getComponent(5))
 		{
 			//Entity is player or not collectible

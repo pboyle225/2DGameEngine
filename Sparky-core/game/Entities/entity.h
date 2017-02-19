@@ -1,5 +1,4 @@
 #pragma once
-
 #include "../Components/component.h"
 
 /*
@@ -13,40 +12,19 @@
 class Entity
 {
 public:
-	Entity() { }
-	~Entity()
-	{
-		for (int i = 0; i < components.size(); i++)
-		{
-			delete components[i];
-		}
-	}
+	Entity();
+	~Entity();
 
-	void addComponent(Component * component)
-	{
-		components[component->getID()] = component;
-	}
-
-	Component * getComponent(int id)
-	{
-		auto it = components.find(id);
-
-		if (it == components.end())
-		{
-			return nullptr;
-		}
-
-		return it->second;
-	}
-
-	void removeComponent(int id)
-	{		
-		components.erase(id);
-	}
+	void addComponent(Component * component);
+	Component * getComponent(int id);
+	void removeComponent(Component * component);
 
 	int getID() { return id; }
 	std::string getName() { return name; }
 	
+	int globalID;
+	std::bitset<MAX_COMPONENTS> bitset;
+	static int globalIDCounter;
 protected:
 	std::unordered_map<int, Component *> components;
 	std::string name;

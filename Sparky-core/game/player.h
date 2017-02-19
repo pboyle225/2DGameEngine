@@ -2,10 +2,10 @@
 //#include "entity.h"
 
 #include "../Engine.h"
-#include "Components/animation.h"
 #include "tilelayer.h"
-#include "level.h"
+#include "Components/animation.h"
 #include "Entities/entity.h"
+#include "level.h"
 
 using namespace engine;
 using namespace graphics;

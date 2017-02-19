@@ -1,12 +1,9 @@
 #pragma once
 #include "system.h"
 
-class UserInput : public System
+class AttackSystem : public System
 {
 public:
-	UserInput() { }
-	~UserInput() { }
+	AttackSystem();
 	void update(std::vector<Entity*> &entities) override;
-private:
-
 };

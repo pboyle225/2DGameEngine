@@ -1,7 +1,8 @@
 #include "timerSystem.h"
 
-void TimerSystem::update(std::vector<Entity *> &entities)
+void TimerSystem::update(std::vector<Entity*> &entities)
 {
+	bool happenOnce = false;
 	for (int i = 0; i < entities.size(); i++)
 	{
 		TimerComponent * timerComp = static_cast<TimerComponent *>(entities[i]->getComponent(8));

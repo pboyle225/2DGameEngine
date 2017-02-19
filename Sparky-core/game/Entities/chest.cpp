@@ -3,6 +3,7 @@
 Chest::Chest()
 {
 	id = 2;
+	globalID = Entity::globalIDCounter++;
 	name = "Chest";
 }
 

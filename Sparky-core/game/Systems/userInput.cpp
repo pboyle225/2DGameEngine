@@ -1,7 +1,7 @@
 #include "userInput.h"
 
 
-void UserInput::update(std::vector<Entity *> &entities)
+void UserInput::update(std::vector<Entity*> &entities)
 {
 	std::vector<Entity *> inputEntities;
 
@@ -75,10 +75,30 @@ void UserInput::update(std::vector<Entity *> &entities)
 			}
 
 			math::vec3 temp = movement.normalize() * math::vec3(speed, speed, speed);
-			player->addComponent(new Velocity(temp));
+
+			if (temp.x != 0 || temp.y != 0)
+			{
+				player->addComponent(new Velocity(temp));
+			}
+
+			if (inputComp->window->isMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT))
+			{
+				Attack * attackComp = static_cast<Attack *>(inputEntities[i]->getComponent(10));
+
+				if (attackComp)
+				{
+					if (attackComp->timer.elapsed() >= attackComp->attackSpeed)
+					{
+						//will attack this frame
+						attackComp->isAttacking = true;
+						attackComp->timer.reset();
+					}
+				}
+			}
+
 			player->updateAnimation();
 		}
-		//Menu widget?
+		//Menu widget or something
 		else if (inputEntities[i]->getID() == 999)
 		{
 

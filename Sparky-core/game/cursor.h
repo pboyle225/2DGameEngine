@@ -53,7 +53,8 @@ public:
 
 			if (transformComp)
 			{
-				if ((int)transformComp->location.x == (int)getWorldCoords(playerLoc).x && (int)transformComp->location.y == (int)getWorldCoords(playerLoc).y)
+				if (((int)transformComp->location.x == (int)getWorldCoords(playerLoc).x && (int)transformComp->location.y == (int)getWorldCoords(playerLoc).y)
+					|| (int)transformComp->location.x == (int)getWorldCoords(playerLoc).x && (int)transformComp->location.y - 1 == (int)getWorldCoords(playerLoc).y)
 				{
 					changeTexture(1);
 					isTouching = true;

@@ -1,6 +1,6 @@
 #include "movement.h"
 
-void Movement::update(std::vector<Entity *> & entities)
+void Movement::update(std::vector<Entity*> &entities)
 {
 	for (int i = 0; i < entities.size(); i++)
 	{
@@ -10,7 +10,7 @@ void Movement::update(std::vector<Entity *> & entities)
 		if (transformComp && velocityComp)
 		{
 			transformComp->location += velocityComp->velocity;
-			entities[i]->removeComponent(4);
+			entities[i]->removeComponent(velocityComp);
 		}
 	}
 }
