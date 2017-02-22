@@ -7,11 +7,16 @@
 #include "Entities\chest.h"
 #include "Entities\key.h"
 #include "Entities\disappearingTile.h"
+#include "Entities\slime.h"
+
 #include "Components\Transform.h"
 #include "Components\collectible.h"
 #include "Components\rectangleAppearance.h"
 #include "Components\SpriteComponent.h"
 #include "Components\attack.h"
+#include "Components\collision.h"
+#include "Components\AIComponent.h"
+#include "Components\circleAppearance.h"
 
 class Level
 {
@@ -33,8 +38,9 @@ public:
 
 	static int width;
 	static int height;
+	static math::vec3 playerLoc;
 
-	std::vector<Entity *> entities;
+	static std::vector<Entity *> entities;
 private:
 	static std::vector<bool> isWalkable; //Tiles that are walkable (used for collision)
 

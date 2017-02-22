@@ -1,5 +1,8 @@
 #include "scene.h"
-
+#include "Components\circleAppearance.h"
+#include "Components\rectangleAppearance.h"
+#include "Components\Transform.h"
+#include "Entities\entity.h"
 
 Scene::Scene(Layer * backgroundLayer, Layer * objectLayer, Layer * collisionLayer, 
 				Layer * playerLayer, Layer * hudLayer)
@@ -20,7 +23,7 @@ Scene::~Scene()
 	delete hudLayer;
 }
 
-void Scene::renderLayers(math::vec3 pos, bool isPlayerBehindObjects)
+void Scene::renderLayers(math::vec3 pos, bool isPlayerBehindObjects, std::vector<Entity *> & entities)
 {
 	if (backgroundLayer)
 	{
@@ -31,10 +34,74 @@ void Scene::renderLayers(math::vec3 pos, bool isPlayerBehindObjects)
 	{
 		playerLayer->render();
 		objectLayer->render(pos);
+
+		if (DEBUG_DRAW)
+		{
+			for (int j = 0; j < entities.size(); j++)
+			{
+				CircleAppearance * circleComp = static_cast<CircleAppearance *>(entities[j]->getComponent(12));
+				RectangleAppearance * rectangleComp = static_cast<RectangleAppearance *>(entities[j]->getComponent(6));
+				Transform * transComp = static_cast<Transform *>(entities[j]->getComponent(0));
+
+				if (circleComp && transComp)
+				{
+
+					int i;
+					int triangleAmount = 750;
+					GLfloat twicePi = 2.0f * 3.14f;
+
+					glBegin(GL_POINTS);
+					glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+					for (i = 0; i <= triangleAmount; i++)
+					{
+						glVertex2f(transComp->location.x + (circleComp->radius * cos(i * twicePi / triangleAmount)), transComp->location.y + (circleComp->radius * sin(i * twicePi / triangleAmount)));
+					}
+					glEnd();
+				}
+
+				if (rectangleComp)
+				{
+
+				}
+			}
+		}
+
 	}
 	else if (playerLayer && objectLayer)
 	{
 		objectLayer->render(pos);
+		
+		if (DEBUG_DRAW)
+		{
+			for (int j = 0; j < entities.size(); j++)
+			{
+				CircleAppearance * circleComp = static_cast<CircleAppearance *>(entities[j]->getComponent(12));
+				RectangleAppearance * rectangleComp = static_cast<RectangleAppearance *>(entities[j]->getComponent(6));
+				Transform * transComp = static_cast<Transform *>(entities[j]->getComponent(0));
+
+				if (circleComp && transComp)
+				{
+
+					int i;
+					int triangleAmount = 750;
+					GLfloat twicePi = 2.0f * 3.14f;
+
+					glBegin(GL_POINTS);
+					glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+					for (i = 0; i <= triangleAmount; i++)
+					{
+						glVertex2f(transComp->location.x + (circleComp->radius * cos(i * twicePi / triangleAmount)), transComp->location.y + (circleComp->radius * sin(i * twicePi / triangleAmount)));
+					}
+					glEnd();
+				}
+
+				if (rectangleComp)
+				{
+
+				}
+			}
+		}
+		
 		playerLayer->render();
 	}
 

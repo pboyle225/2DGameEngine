@@ -50,8 +50,9 @@ public:
 				continue;
 			}
 			Transform * transformComp = static_cast<Transform *>(entities[i]->getComponent(0));
+			Collectible * collectableComp = static_cast<Collectible *>(entities[i]->getComponent(5));
 
-			if (transformComp)
+			if (transformComp && collectableComp)
 			{
 				if (((int)transformComp->location.x == (int)getWorldCoords(playerLoc).x && (int)transformComp->location.y == (int)getWorldCoords(playerLoc).y)
 					|| (int)transformComp->location.x == (int)getWorldCoords(playerLoc).x && (int)transformComp->location.y - 1 == (int)getWorldCoords(playerLoc).y)

@@ -11,7 +11,6 @@ void ObjectDestroyer::update(std::vector<Entity*> &entities)
 		if (entities[i]->getComponent(99))
 		{
 			Entity * toDelete = entities[i];
-			GameObjectManager::clearEntFromSystems(toDelete);
 			//entities.erase(entities.begin() + i);
 			//delete toDelete;
 			//SystemManager::addMessage(0, "hello!");

@@ -81,18 +81,13 @@ void UserInput::update(std::vector<Entity*> &entities)
 				player->addComponent(new Velocity(temp));
 			}
 
-			if (inputComp->window->isMouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT))
+			if (inputComp->window->isMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
 			{
 				Attack * attackComp = static_cast<Attack *>(inputEntities[i]->getComponent(10));
 
 				if (attackComp)
 				{
-					if (attackComp->timer.elapsed() >= attackComp->attackSpeed)
-					{
-						//will attack this frame
-						attackComp->isAttacking = true;
-						attackComp->timer.reset();
-					}
+					attackComp->isAttacking = true;
 				}
 			}
 

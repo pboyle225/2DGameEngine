@@ -1,20 +1,26 @@
 #include "checkCollision.h"
+#include <algorithm>
 
 void CheckCollision::update(std::vector<Entity*> &entities)
 {
-	for (int i = 0; i < entities.size(); i++)
+	int size = entities.size();
+
+	std::vector<Entity *> removeVelocEnts;
+
+	for (int i = 0; i < size; i++)
 	{
-		Transform * transformComp = static_cast<Transform *>(entities[i]->getComponent(0));
-		Collision * collisionComp = static_cast<Collision *>(entities[i]->getComponent(3));
+		Entity * currEnt = entities[i];
+		Transform * transformComp = static_cast<Transform *>(currEnt->getComponent(0));
+		Collision * collisionComp = static_cast<Collision *>(currEnt->getComponent(3));
+		bool removeVeloc = false;
+		Velocity * velocityComp = static_cast<Velocity *>(currEnt->getComponent(4));
 		
 		//Check Transform and collision component to check first if entity is on a walkable tile
 		if (transformComp && collisionComp)
 		{
-			Entity * currEntity = entities[i];
 			math::vec3 position = transformComp->location;
 
 			//Check to see if enitity has a velocity this update
-			Velocity * velocityComp = static_cast<Velocity *>(entities[i]->getComponent(4));
 			
 			if (velocityComp)
 			{
@@ -24,10 +30,10 @@ void CheckCollision::update(std::vector<Entity*> &entities)
 			if (!checkTile(position))
 			{
 				//remove any type of velocity from entity because they are about to be
-				//on a non walkable tile
-				currEntity->removeComponent(velocityComp);
+				//on a non walkablea tile
+				removeVelocEnts.push_back(entities[i]);
 				
-				if (!SoundEngine::soundEngine->isCurrentlyPlaying("sounds/bomp.wav"))
+				if (currEnt->name == "Player" && !SoundEngine::soundEngine->isCurrentlyPlaying("sounds/bomp.wav"))
 				{
 					SoundEngine::soundEngine->play2D("sounds/bomp.wav", false);
 				}
@@ -37,10 +43,10 @@ void CheckCollision::update(std::vector<Entity*> &entities)
 		
 		//iterate through all game objects to see what is colliding with the player
 		// O(n^2) right now :(
-		if (entities[i]->getName() == "Player")
+		if (currEnt->getName() == "Player")
 		{
-			Player * player = static_cast<Player *>(entities[i]);
-			math::vec3 playerScreenCoords = player->getLocation();
+			Player * player = static_cast<Player *>(currEnt);
+			math::vec3 playerScreenCoords = transformComp->location;
 
 			for (int j = 0; j < entities.size(); j++)
 			{
@@ -60,9 +66,8 @@ void CheckCollision::update(std::vector<Entity*> &entities)
 						0.5f + playerScreenCoords.y > transformComp->location.y)
 					{
 						//Collision between player and rectangle entity
-						if (entities[j]->getComponent(5))
+						if (entities[j]->getComponent(5)) //has collectible component
 						{
-							//Collectible component add to player inventory
 							player->addItemToInventory(entities[j]);
 
 							entities[j]->addComponent(new ToDelete());
@@ -73,14 +78,51 @@ void CheckCollision::update(std::vector<Entity*> &entities)
 							{
 								SystemManager::notRenderedSprites.push_back(spriteComp->sprite);
 							}
+
+							entities[j]->removeComponent(5);
 						}
+						
+						if (entities[j]->getComponent(10)) //has attack component
+						{
+							Attack * attackComp = static_cast<Attack *>(entities[j]->getComponent(10));
+							attackComp->isAttacking = true;
+						}
+						
+						if (entities[j]->getComponent(420)) //has circle radius
+						{
+						}
+					}
+				}
+
+				CircleAppearance * aggroCircle = static_cast<CircleAppearance *>(entities[j]->getComponent(12));
+
+				if (transformComp && aggroCircle)
+				{
+					float DeltaX = transformComp->location.x - std::max(playerScreenCoords.x, std::min(transformComp->location.x, playerScreenCoords.x + 0.5f));
+					float DeltaY = transformComp->location.y - std::max(playerScreenCoords.y, std::min(transformComp->location.y, playerScreenCoords.y + 0.5f));
+					
+					AIComponent * aiComp = static_cast<AIComponent *>(entities[j]->getComponent(11));
+					
+					if ((DeltaX * DeltaX + DeltaY * DeltaY) < (aggroCircle->radius * aggroCircle->radius))
+					{
+						if (aiComp)
+						{
+							aiComp->isAggro = true;
+						}
+					}
+					else if(aiComp)
+					{
+						aiComp->isAggro = false;
 					}
 				}
 				
 			}
 		}
+	}
 
-
+	for (int j = 0; j < removeVelocEnts.size(); j++)
+	{
+		removeVelocEnts[j]->removeComponent(4);
 	}
 }
 

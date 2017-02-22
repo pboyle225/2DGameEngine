@@ -3,6 +3,8 @@
 std::vector<bool> Level::isWalkable;
 int Level::width;
 int Level::height;
+math::vec3 Level::playerLoc(0.0f, 0.0f, 0.0f);
+std::vector<Entity *> Level::entities;
 
 Level::Level(int levelNumber, SpriteSheet * tileSprites)
 {
@@ -21,7 +23,9 @@ void Level::loadLevel(int levelNumber, SpriteSheet * tileSprites)
 	if (levelNumber == 0)
 	{
 		//Load level data from file
-		TmxFile level1File("levels/levelTEST2.tmx");
+		
+		//TmxFile level1File("levels/levelTEST2.tmx");
+		TmxFile level1File("levels/DemoLevel.tmx");
 		level1File.loadTileLayersData();
 
 		TileLayer * backgroundLayer = new TileLayer(new Shader("shaders/basic.vert", "shaders/basic.frag"), tileSprites, level1File.getLayersData()[0], level1File.getAnimationData());
@@ -48,7 +52,7 @@ void Level::loadLevel(int levelNumber, SpriteSheet * tileSprites)
 				Chest * chest = new Chest();
 				chest->addComponent(new Transform(objectCords));
 				chest->addComponent(new Collectible());
-				entities.push_back(chest);
+				Level::entities.push_back(chest);
 			}
 			//Key object
 			else if (objectLayer->getRenderables()[i]->getTID() == 199)
@@ -58,7 +62,7 @@ void Level::loadLevel(int levelNumber, SpriteSheet * tileSprites)
 				key->addComponent(new RectangleAppearance((float)TileLayer::sizeOfTile, (float)TileLayer::sizeOfTile));
 				key->addComponent(new Collectible());
 				key->addComponent(new SpriteComponent((Sprite*)objectLayer->getRenderables()[i]));
-				entities.push_back(key);
+				Level::entities.push_back(key);
 			}
 			else if (objectLayer->getRenderables()[i]->getTID() == 1875)//Disapearing Tile object
 			{
@@ -66,7 +70,19 @@ void Level::loadLevel(int levelNumber, SpriteSheet * tileSprites)
 				disapearingTile->addComponent(new Transform(objectCords));
 				disapearingTile->addComponent(new SpriteComponent((Sprite*)objectLayer->getRenderables()[i]));
 				disapearingTile->addComponent(new TimerComponent(30.0f));
-				entities.push_back(disapearingTile);
+				Level::entities.push_back(disapearingTile);
+			}
+			else if (objectLayer->getRenderables()[i]->getTID() == 3121) //Slime Enemy
+			{
+				Slime * slime = new Slime();
+				slime->addComponent(new Transform(objectCords));
+				slime->addComponent(new RectangleAppearance((float)TileLayer::sizeOfTile, (float)TileLayer::sizeOfTile));
+				slime->addComponent(new SpriteComponent((Sprite*) objectLayer->getRenderables()[i]));
+				slime->addComponent(new Attack(1.0f, 2.0, true));
+				slime->addComponent(new Collision());
+				slime->addComponent(new AIComponent(true, 0.04f));
+				slime->addComponent(new CircleAppearance(5.0f));
+				Level::entities.push_back(slime);
 			}
 		}
 

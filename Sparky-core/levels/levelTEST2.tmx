@@ -12,15 +12,15 @@
   </tile>
   <tile id="677">
    <animation>
-    <frame tileid="677" duration="20"/>
-    <frame tileid="676" duration="20"/>
-    <frame tileid="675" duration="20"/>
-    <frame tileid="674" duration="20"/>
-    <frame tileid="673" duration="20"/>
-    <frame tileid="672" duration="20"/>
-    <frame tileid="671" duration="20"/>
-    <frame tileid="670" duration="20"/>
-    <frame tileid="669" duration="20"/>
+    <frame tileid="677" duration="10"/>
+    <frame tileid="676" duration="10"/>
+    <frame tileid="675" duration="10"/>
+    <frame tileid="674" duration="10"/>
+    <frame tileid="673" duration="10"/>
+    <frame tileid="672" duration="10"/>
+    <frame tileid="671" duration="10"/>
+    <frame tileid="670" duration="10"/>
+    <frame tileid="669" duration="10"/>
    </animation>
   </tile>
   <tile id="781">
@@ -182,7 +182,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1823
 </data>
  </layer>
  <layer name="Collision" width="50" height="50" visible="0">

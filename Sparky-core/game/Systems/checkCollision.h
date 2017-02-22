@@ -1,4 +1,6 @@
 #pragma once
+#define NOMINMAX
+
 
 #include "system.h"
 

@@ -14,6 +14,7 @@ Entity::~Entity()
 	{
 		delete components[i];
 	}
+	GameObjectManager::clearEntFromSystems(this);
 }
 
 void Entity::addComponent(Component * component)
@@ -39,6 +40,24 @@ Component * Entity::getComponent(int id)
 
 void Entity::removeComponent(Component * component)
 {
+	if (!component)
+		return;
+	std::bitset<MAX_COMPONENTS> temp = bitset & component->bitmask;
+	bitset &= temp.flip(); //!= is equal to XOR
+	GameObjectManager::onComponentRemoved(this);
+	components.erase(component->getID());
+	delete component;
+}
+
+void Entity::removeComponent(int id)
+{
+	Component * component = components[id];
+
+	if (!component)
+	{
+		return;
+	}
+
 	std::bitset<MAX_COMPONENTS> temp = bitset & component->bitmask;
 	bitset &= temp.flip(); //!= is equal to XOR
 	GameObjectManager::onComponentRemoved(this);

@@ -19,6 +19,7 @@
 	3 - objectDestroyer
 	4 - rendering 
 	5 - renderLayerOrder
+	6 - AISystem
 */
 
 

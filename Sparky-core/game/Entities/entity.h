@@ -7,6 +7,7 @@
 	ID 1 - Key
 	ID 2 - Chest
 	ID 3 - Disappearing Tile
+	ID 4 - Slime
 */
 
 class Entity
@@ -18,6 +19,7 @@ public:
 	void addComponent(Component * component);
 	Component * getComponent(int id);
 	void removeComponent(Component * component);
+	void removeComponent(int id);
 
 	int getID() { return id; }
 	std::string getName() { return name; }
@@ -25,9 +27,9 @@ public:
 	int globalID;
 	std::bitset<MAX_COMPONENTS> bitset;
 	static int globalIDCounter;
-protected:
-	std::unordered_map<int, Component *> components;
 	std::string name;
 	int id;
+protected:
+	std::unordered_map<int, Component *> components;
 };
 

@@ -11,6 +11,7 @@
 #include "Systems\rendering.h"
 #include "Systems\timerSystem.h"
 #include "Systems\attackSystem.h"
+#include "Systems\AISystem.h"
 #include "cursor.h"
 #include "gameObjectManager.h"
 
@@ -46,13 +47,16 @@ public:
 		rendering = new Rendering();
 		timerSystem = new TimerSystem();
 		attackSystem = new AttackSystem();
+		aiSystem = new AISystem();
 
 		//Load WHOLE Spritesheets into memory
 		playerSprites = new SpriteSheet("imgs/playerSpritesheet.png", 4, 4, 16, 2);
 		//tileSprites = new SpriteSheet("imgs/basictiles.png", 8, 15, 120, 1.5);
 		tileSprites = new SpriteSheet("imgs/dungeon.png", 64, 48, 3072, 1);
+		sandSprites = new SpriteSheet("imgs/Flooring.png", 8, 8, 64, 1);
 
-		currLevel = new Level(0, tileSprites);
+		//currLevel = new Level(0, tileSprites);
+		currLevel = new Level(0, sandSprites);
 
 		player = new Player(playerSprites);
 		player->addComponent(new Input(window));
@@ -74,12 +78,29 @@ public:
 		currLevel->scenes[currLevel->indexOfCurrScene]->getHudLayer()->add(cursor->getSprite());
 
 		SoundEngine::init();
-		SoundEngine::soundEngine->play2D("sounds/backgroundMusic1.mp3", true);
+		//SoundEngine::soundEngine->play2D("sounds/game_song_1.ogg", true);
 		SoundEngine::soundEngine->setSoundVolume(0.1f);
 
+		//Testing things
+		sword = new Sprite(0.1, 0.2, 0, 1.5, 1.5, tileSprites->textures[1822]);
+		sword->setAnchorPoint(math::vec2(0.0f, 0.0f));
+		rotation = 360.0f;
+		isPlayerAttacking = false;
 		currLevel->entities.push_back(player);
+
+		std::vector<Sprite *> fireAnim;
+		for (int i = 0; i < 35; i++)
+		{
+			std::string ii = std::to_string(i + 1);
+			fireAnim.push_back(new Sprite(0.15f, 0.2f, 1, 1, new Texture("imgs/fireAnimation/spell_decap_1_zoomblur_" + ii + ".png")));
+		}
+
+		swordAnim = new Animation(fireAnim, 2);
+		currSwordAnim = new Sprite(.5, 0.5, 1, 1, swordAnim->getSprite()->m_Texture);
 		
 		isPlayerBehind = false;
+
+
 	}
 
 	void render() override
@@ -89,7 +110,8 @@ public:
 
 		if (currLevel)
 		{
-			currLevel->scenes[currLevel->indexOfCurrScene]->renderLayers(player->getLocation(), isPlayerBehind);
+			currLevel->scenes[currLevel->indexOfCurrScene]->renderLayers(player->getLocation(), isPlayerBehind, currLevel->entities);
+
 		}
 		else
 		{
@@ -109,6 +131,7 @@ public:
 			
 		userInput->update(GameObjectManager::userInputEnts);
 		timerSystem->update(GameObjectManager::timerSystemEnts);
+		aiSystem->update(GameObjectManager::aiSystemEnts);
 		checkCollision->update(GameObjectManager::checkCollisionEnts);
 		movement->update(GameObjectManager::movementEnts);
 		attackSystem->update(GameObjectManager::attackSystemEnts);
@@ -119,8 +142,41 @@ public:
 		isPlayerBehind =  renderLayerOrder->update(currLevel->entities, player->getLocation());
 
 		currLevel->scenes[currLevel->indexOfCurrScene]->update(player->getLocation());
+		Level::playerLoc = player->getLocation();
 
-		//std::cout << cursor->getWorldCoords(player->getLocation()) << std::endl;
+
+		if (window->isMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT) || isPlayerAttacking)
+		{
+			rotation -= 8.0f;
+
+			if (!isPlayerAttacking)
+			{
+				currLevel->scenes[0]->getPlayerLayer()->add(sword);
+				currLevel->scenes[0]->getPlayerLayer()->add(currSwordAnim);
+				swordAnim->reset();
+				swordAnim->start();
+			}
+
+			if (rotation <= 270.0f)
+			{
+				isPlayerAttacking = false;
+				currLevel->scenes[0]->getPlayerLayer()->remove(sword);
+				rotation = 360.0f;
+				//swordAnim->reset();
+			}
+			else
+			{
+				isPlayerAttacking = true;
+			}
+
+			sword->setRotate(rotation, math::vec3(0, 0, 1));
+		}
+
+		swordAnim->update();
+		currSwordAnim->m_Texture = swordAnim->getSprite()->m_Texture;
+
+		Transform * transformComp = static_cast<Transform *>(player->getComponent(0));
+		//std::cout << transformComp->location << std::endl
 
 	}
 
@@ -128,6 +184,7 @@ private:
 	Window* window;
 	SpriteSheet* playerSprites;
 	SpriteSheet* tileSprites;
+	SpriteSheet* sandSprites;
 	Player * player;
 	bool isPlayerBehind;
 	Level * currLevel;
@@ -141,6 +198,15 @@ private:
 	Rendering* rendering;
 	TimerSystem * timerSystem;
 	AttackSystem * attackSystem;
+	AISystem * aiSystem;
+
+	//Testing things
+	Sprite * sword;
+	float rotation;
+	bool isPlayerAttacking;
+	Animation * swordAnim;
+	Sprite * currSwordAnim;
+
 };
 
 int main()

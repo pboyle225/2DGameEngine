@@ -1,25 +1,28 @@
 #include "gameObjectManager.h"
 
 std::vector<Entity*> GameObjectManager::userInputEnts;
- std::unordered_map<int, Entity*>GameObjectManager::userInputMap;
+std::unordered_map<int, Entity*>GameObjectManager::userInputMap;
 
- std::vector<Entity*> GameObjectManager::timerSystemEnts;
- std::unordered_map<int, Entity*>GameObjectManager::timerSystemMap;
+std::vector<Entity*> GameObjectManager::timerSystemEnts;
+std::unordered_map<int, Entity*>GameObjectManager::timerSystemMap;
 
- std::vector<Entity*> GameObjectManager::renderingEnts;
- std::unordered_map<int, Entity*>GameObjectManager::renderingMap;
+std::vector<Entity*> GameObjectManager::renderingEnts;
+std::unordered_map<int, Entity*>GameObjectManager::renderingMap;
 
- std::vector<Entity*> GameObjectManager::objectDestroyerEnts;
- std::unordered_map<int, Entity*>GameObjectManager::objectDestroyerMap;
+std::vector<Entity*> GameObjectManager::objectDestroyerEnts;
+std::unordered_map<int, Entity*>GameObjectManager::objectDestroyerMap;
 
- std::vector<Entity*> GameObjectManager::movementEnts;
+std::vector<Entity*> GameObjectManager::movementEnts;
  std::unordered_map<int, Entity*>GameObjectManager::movementMap;
 
- std::vector<Entity*> GameObjectManager::checkCollisionEnts;
+std::vector<Entity*> GameObjectManager::checkCollisionEnts;
 std::unordered_map<int, Entity*>GameObjectManager::checkCollisionMap;
 
- std::vector<Entity*> GameObjectManager::attackSystemEnts;
+std::vector<Entity*> GameObjectManager::attackSystemEnts;
 std::unordered_map<int, Entity*> GameObjectManager::attackSystemMap;
+
+std::vector<Entity*> GameObjectManager::aiSystemEnts;
+std::unordered_map<int, Entity*> GameObjectManager::aiSystemMap;
 
 GameObjectManager::GameObjectManager()
 {
@@ -85,6 +88,12 @@ void GameObjectManager::refreshSystemContainers(Entity * ent)
 	{
 		attackSystemEnts.push_back(ent);
 		attackSystemMap[ent->globalID] = ent;
+	}
+
+	if (aiSystemMap[ent->globalID] == NULL && ((ent->bitset & aiSystemMask) == aiSystemMask))
+	{
+		aiSystemEnts.push_back(ent);
+		aiSystemMap[ent->globalID] = ent;
 	}
 }
 
@@ -176,6 +185,19 @@ void GameObjectManager::clearEntFromSystems(Entity * ent)
 			{
 				attackSystemEnts.erase(attackSystemEnts.begin() + i);
 				attackSystemMap.erase(ent->globalID);
+				break;
+			}
+		}
+	}
+
+	if (aiSystemMap[ent->globalID] != NULL)
+	{
+		for (int i = 0; i < aiSystemEnts.size(); i++)
+		{
+			if (ent == aiSystemEnts[i])
+			{
+				aiSystemEnts.erase(aiSystemEnts.begin() + i);
+				aiSystemMap.erase(ent->globalID);
 				break;
 			}
 		}

@@ -37,7 +37,7 @@ namespace engine {
 			{
 				m_Position = position;
 				setUVDefaults();
-				anchorPoint = math::vec2(size.x / 2, size.y / 2);
+				anchorPoint = math::vec2(size.x / 2.0f, size.y / 2.0f);
 				rotation = math::mat4::identity();
 				m_Texture = NULL;
 			}
@@ -64,7 +64,7 @@ namespace engine {
 			void setRotate(float angle, math::vec3 axis)
 			{
 
-				math::vec3 halfSprite(m_Position.x + (m_Size.x / 2.0f),m_Position.y + (m_Size.y / 2.0f), 0);
+				math::vec3 halfSprite(m_Position.x + anchorPoint.x ,m_Position.y + anchorPoint.y, 0);
 				math::mat4 currMat = math::mat4::identity() * math::mat4::translation(-1 * halfSprite);
 				math::mat4 rotMat = math::mat4::rotation(angle, axis) * currMat;
 				
@@ -73,10 +73,16 @@ namespace engine {
 				rotation = rotMat;
 			}
 
+			void setAnchorPoint(math::vec2 newAnchorPoint)
+			{
+				anchorPoint = newAnchorPoint;
+			}
+
 			virtual void submit(Renderer2D* renderer) const
 			{
 				renderer->submit(this);
 			}
+
 
 			inline const math::vec3& getPosition() const { return m_Position; }
 			inline const math::vec2& getSize() const { return m_Size; }
@@ -93,8 +99,8 @@ namespace engine {
 				rotation = math::mat4::identity();
 				m_Texture = NULL;
 			}
-		private:
 			math::vec2 anchorPoint;
+		private:
 
 			void setUVDefaults()
 			{

@@ -21,6 +21,8 @@ ID List for Components:
 	8 - Timer Component
 	99 - To Delete
 	10 - attack
+	11 - AI Component
+	12 - Circle Appearance
 */
 
 using namespace engine;

@@ -3,7 +3,11 @@
 bool RenderLayerOrder::update(std::vector<Entity*> &entities, math::vec3 playerLoc)
 {
 	Transform * closestTransform = findClosestEntity(entities, playerLoc);
-
+	
+	if (!closestTransform)
+	{
+		return false;
+	}
 	//math::vec3 offsetPlayerLoc(playerLoc.x )
 	math::vec3 tile =  Level::screenToTileCoords(playerLoc);
 	float sizeOfTile = (float)TileLayer::sizeOfTile;

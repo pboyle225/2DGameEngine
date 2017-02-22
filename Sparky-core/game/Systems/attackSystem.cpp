@@ -13,11 +13,14 @@ void AttackSystem::update(std::vector<Entity*> &entities)
 
 		if (attackComp)
 		{
-			if (attackComp->isAttacking)
+			if (attackComp->isAttacking && attackComp->timer.elapsed() >= attackComp->attackSpeed)
 			{
+				//will attack this frame
 				std::cout << "Entity: " << entities[i]->getName() << " has just attacked for: " << attackComp->attackDamage << std::endl;
-				attackComp->isAttacking = false;
+				attackComp->timer.reset();
 			}
+			
+			attackComp->isAttacking = false;
 		}
 	}
 }

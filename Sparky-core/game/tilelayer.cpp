@@ -121,6 +121,7 @@ void TileLayer::update()
 			tiles[indexOfAnimatedTiles[i]].update(this);
 		}
 	}
+	
 }
 
 SpriteSheet * TileLayer::getSpriteSheet()
