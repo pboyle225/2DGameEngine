@@ -88,19 +88,8 @@ public:
 		isPlayerAttacking = false;
 		currLevel->entities.push_back(player);
 
-		std::vector<Sprite *> fireAnim;
-		for (int i = 0; i < 35; i++)
-		{
-			std::string ii = std::to_string(i + 1);
-			fireAnim.push_back(new Sprite(0.15f, 0.2f, 1, 1, new Texture("imgs/fireAnimation/spell_decap_1_zoomblur_" + ii + ".png")));
-		}
-
-		swordAnim = new Animation(fireAnim, 2);
-		currSwordAnim = new Sprite(.5, 0.5, 1, 1, swordAnim->getSprite()->m_Texture);
 		
 		isPlayerBehind = false;
-
-
 	}
 
 	void render() override
@@ -133,8 +122,8 @@ public:
 		timerSystem->update(GameObjectManager::timerSystemEnts);
 		aiSystem->update(GameObjectManager::aiSystemEnts);
 		checkCollision->update(GameObjectManager::checkCollisionEnts);
-		movement->update(GameObjectManager::movementEnts);
 		attackSystem->update(GameObjectManager::attackSystemEnts);
+		movement->update(GameObjectManager::movementEnts);
 		objectDestroyer->update(GameObjectManager::objectDestroyerEnts);
 		rendering->update(GameObjectManager::renderingEnts, currLevel->scenes[currLevel->indexOfCurrScene]);
 		
@@ -152,9 +141,6 @@ public:
 			if (!isPlayerAttacking)
 			{
 				currLevel->scenes[0]->getPlayerLayer()->add(sword);
-				currLevel->scenes[0]->getPlayerLayer()->add(currSwordAnim);
-				swordAnim->reset();
-				swordAnim->start();
 			}
 
 			if (rotation <= 270.0f)
@@ -162,7 +148,6 @@ public:
 				isPlayerAttacking = false;
 				currLevel->scenes[0]->getPlayerLayer()->remove(sword);
 				rotation = 360.0f;
-				//swordAnim->reset();
 			}
 			else
 			{
@@ -171,9 +156,6 @@ public:
 
 			sword->setRotate(rotation, math::vec3(0, 0, 1));
 		}
-
-		swordAnim->update();
-		currSwordAnim->m_Texture = swordAnim->getSprite()->m_Texture;
 
 		Transform * transformComp = static_cast<Transform *>(player->getComponent(0));
 		//std::cout << transformComp->location << std::endl

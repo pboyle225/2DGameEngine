@@ -23,6 +23,8 @@ ID List for Components:
 	10 - attack
 	11 - AI Component
 	12 - Circle Appearance
+	13 - Health Component
+	14 - Knockback
 */
 
 using namespace engine;

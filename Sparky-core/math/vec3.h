@@ -18,6 +18,7 @@ struct vec3
 	vec3& divide(const vec3& other);
 
 	vec3& normalize();
+	float distance(math::vec3 vec);
 
 	friend vec3 operator+(vec3 left, const vec3& right);
 	friend vec3 operator-(vec3 left, const vec3& right);

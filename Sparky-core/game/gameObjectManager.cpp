@@ -72,7 +72,8 @@ void GameObjectManager::refreshSystemContainers(Entity * ent)
 		objectDestroyerMap[ent->globalID] = ent;
 	}
 
-	if (movementMap[ent->globalID] == NULL && ((ent->bitset & movementMask) == movementMask))
+	//For movement component
+	if (movementMap[ent->globalID] == NULL && (((ent->bitset & movementMask) == movementMask) || ((ent->bitset & knockbackMask) == knockbackMask)))
 	{
 		movementEnts.push_back(ent);
 		movementMap[ent->globalID] = ent;

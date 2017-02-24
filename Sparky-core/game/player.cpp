@@ -6,10 +6,11 @@ Player::Player(SpriteSheet * playerSprites)
 	id = 0;
 	globalID = globalIDCounter++;
 
-	location = math::vec3(Level::worldToScreenCoords(math::vec3(24, 40, 0)));
+	location = math::vec3(Level::worldToScreenCoords(math::vec3(14, 40, 0)));
 	
 	addComponent(new Transform(location));
-	addComponent(new Attack(5.0f, 1.0f, false));
+	addComponent(new Attack(5.0f, 0.5f, true, false));
+	addComponent(new HealthComponent(100.0f));
 
 	health = 100; //TODO add component for health
 

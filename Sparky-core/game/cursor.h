@@ -77,7 +77,7 @@ public:
 
 	void changeTexture(int key)
 	{
-			sprite->m_Texture = cursorTextures[key];
+		sprite->m_Texture = cursorTextures[key];
 	}
 
 	Sprite * getSprite()

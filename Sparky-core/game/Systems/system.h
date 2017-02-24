@@ -6,6 +6,8 @@
 #include "../Components/velocity.h"
 #include "../Components/toDelete.h"
 #include "../Components/timerComponent.h"
+#include "../Components/healthComponent.h"
+#include "../Components/knockBack.h"
 #include "../player.h"
 #include "systemManager.h"
 //#include "../Entities/entity.h"

@@ -78,10 +78,11 @@ void Level::loadLevel(int levelNumber, SpriteSheet * tileSprites)
 				slime->addComponent(new Transform(objectCords));
 				slime->addComponent(new RectangleAppearance((float)TileLayer::sizeOfTile, (float)TileLayer::sizeOfTile));
 				slime->addComponent(new SpriteComponent((Sprite*) objectLayer->getRenderables()[i]));
-				slime->addComponent(new Attack(1.0f, 2.0, true));
+				slime->addComponent(new Attack(1.0f, 2.0, true, true));
 				slime->addComponent(new Collision());
 				slime->addComponent(new AIComponent(true, 0.04f));
 				slime->addComponent(new CircleAppearance(5.0f));
+				slime->addComponent(new HealthComponent(100.0f));
 				Level::entities.push_back(slime);
 			}
 		}

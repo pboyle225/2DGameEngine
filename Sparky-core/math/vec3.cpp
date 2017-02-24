@@ -64,6 +64,15 @@ namespace engine {	namespace math {
 
 		return *this;
 	}
+	float vec3::distance(math::vec3 vec)
+	{
+		float diffx = this->x - vec.x;
+		float diffy = this->y - vec.y;
+		float diffZ = this->z - vec.z;
+
+		return sqrt((diffx * diffx) + (diffy * diffy) + (diffZ * diffZ));
+	}
+
 
 	std::ostream& operator << (std::ostream& stream, const vec3& vector)
 	{

@@ -8,6 +8,9 @@ public:
 	Velocity(math::vec3 velocity);
 	~Velocity();
 	math::vec3 velocity;
+
+	bool isBeingKnockedBack;
+
 private:
 
 };

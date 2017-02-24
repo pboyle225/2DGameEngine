@@ -5,41 +5,10 @@ void CheckCollision::update(std::vector<Entity*> &entities)
 {
 	int size = entities.size();
 
-	std::vector<Entity *> removeVelocEnts;
-
 	for (int i = 0; i < size; i++)
 	{
 		Entity * currEnt = entities[i];
 		Transform * transformComp = static_cast<Transform *>(currEnt->getComponent(0));
-		Collision * collisionComp = static_cast<Collision *>(currEnt->getComponent(3));
-		bool removeVeloc = false;
-		Velocity * velocityComp = static_cast<Velocity *>(currEnt->getComponent(4));
-		
-		//Check Transform and collision component to check first if entity is on a walkable tile
-		if (transformComp && collisionComp)
-		{
-			math::vec3 position = transformComp->location;
-
-			//Check to see if enitity has a velocity this update
-			
-			if (velocityComp)
-			{
-				position += velocityComp->velocity;
-			}
-
-			if (!checkTile(position))
-			{
-				//remove any type of velocity from entity because they are about to be
-				//on a non walkablea tile
-				removeVelocEnts.push_back(entities[i]);
-				
-				if (currEnt->name == "Player" && !SoundEngine::soundEngine->isCurrentlyPlaying("sounds/bomp.wav"))
-				{
-					SoundEngine::soundEngine->play2D("sounds/bomp.wav", false);
-				}
-			}
-		}
-
 		
 		//iterate through all game objects to see what is colliding with the player
 		// O(n^2) right now :(
@@ -60,6 +29,30 @@ void CheckCollision::update(std::vector<Entity*> &entities)
 				
 				if (rectComp && transformComp)
 				{
+					Attack * playerAttack = static_cast<Attack *>(player->getComponent(10));
+					
+					//check if player's melee attack is touching entity
+					if (playerAttack->isAttacking && playerAttack->isMelee)
+					{
+						float meleeDistance = playerScreenCoords.distance(transformComp->location);
+						
+						if (meleeDistance <= 1.9f)
+						{
+							float angle = atan2(transformComp->location.y - playerScreenCoords.y, transformComp->location.x - playerScreenCoords.x);
+
+							angle -= 0.0f; //player can only attack right lel
+							angle = abs(angle);
+							meleeDistance = abs(meleeDistance);
+							std::cout << angle << std::endl;
+
+							if (angle < 1.5f || meleeDistance <= 0.001f) //180 degrees
+							{
+								playerAttack->attackThisEntity = entities[j];
+							}
+						}
+					}
+
+					//check if player is touching entity's rectangle box
 					if (playerScreenCoords.x < transformComp->location.x + rectComp->width &&
 						playerScreenCoords.x + 0.5f > transformComp->location.x &&
 						playerScreenCoords.y < transformComp->location.y + rectComp->height &&
@@ -85,7 +78,13 @@ void CheckCollision::update(std::vector<Entity*> &entities)
 						if (entities[j]->getComponent(10)) //has attack component
 						{
 							Attack * attackComp = static_cast<Attack *>(entities[j]->getComponent(10));
-							attackComp->isAttacking = true;
+
+							if (attackComp->isEnemy)
+							{
+								//Enemy is attacking friendly target
+								attackComp->isAttacking = true;
+								attackComp->attackThisEntity = currEnt;
+							}
 						}
 						
 						if (entities[j]->getComponent(420)) //has circle radius
@@ -118,11 +117,6 @@ void CheckCollision::update(std::vector<Entity*> &entities)
 				
 			}
 		}
-	}
-
-	for (int j = 0; j < removeVelocEnts.size(); j++)
-	{
-		removeVelocEnts[j]->removeComponent(4);
 	}
 }
 

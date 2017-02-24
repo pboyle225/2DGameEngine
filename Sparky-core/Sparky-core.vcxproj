@@ -144,7 +144,9 @@
     <ClCompile Include="game\Components\circleAppearance.cpp" />
     <ClCompile Include="game\Components\collectible.cpp" />
     <ClCompile Include="game\Components\collision.cpp" />
+    <ClCompile Include="game\Components\healthComponent.cpp" />
     <ClCompile Include="game\Components\input.cpp" />
+    <ClCompile Include="game\Components\knockBack.cpp" />
     <ClCompile Include="game\Components\rectangleAppearance.cpp" />
     <ClCompile Include="game\Components\spriteComponent.cpp" />
     <ClCompile Include="game\Components\TimerComponent.cpp" />
@@ -203,6 +205,8 @@
     <ClInclude Include="game\Components\animation.h" />
     <ClInclude Include="game\Components\attack.h" />
     <ClInclude Include="game\Components\circleAppearance.h" />
+    <ClInclude Include="game\Components\healthComponent.h" />
+    <ClInclude Include="game\Components\knockBack.h" />
     <ClInclude Include="game\Components\rectangleAppearance.h" />
     <ClInclude Include="game\Components\collectible.h" />
     <ClInclude Include="game\Components\collision.h" />
@@ -225,6 +229,7 @@
     <ClInclude Include="game\player.h" />
     <ClInclude Include="game\scene.h" />
     <ClInclude Include="game\Systems\AISystem.h" />
+    <ClInclude Include="game\Systems\AttackAndSpells.h" />
     <ClInclude Include="game\Systems\attackSystem.h" />
     <ClInclude Include="game\Systems\checkCollision.h" />
     <ClInclude Include="game\Systems\movement.h" />

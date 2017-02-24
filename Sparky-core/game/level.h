@@ -17,6 +17,7 @@
 #include "Components\collision.h"
 #include "Components\AIComponent.h"
 #include "Components\circleAppearance.h"
+#include "Components\healthComponent.h"
 
 class Level
 {

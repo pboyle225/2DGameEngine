@@ -9,6 +9,7 @@ const std::bitset <MAX_COMPONENTS> timerSystemMask = 0x100;
 const std::bitset <MAX_COMPONENTS> renderingMask = 0x1111;
 const std::bitset <MAX_COMPONENTS> objectDestroyerMask = 0x200;
 const std::bitset <MAX_COMPONENTS> movementMask = 0x11;
+const std::bitset <MAX_COMPONENTS> knockbackMask = 0x4000;
 const std::bitset <MAX_COMPONENTS> checkCollisionMask = 0x0;
 const std::bitset <MAX_COMPONENTS> attackSystemMask = 0x400;
 const std::bitset <MAX_COMPONENTS> aiSystemMask = 0x800;

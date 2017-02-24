@@ -1,0 +1,5 @@
+#pragma once
+
+
+#define MELEE_ATTACK_DEFAULT 0
+#define RANGED_ATTACK_DEFAULT 100

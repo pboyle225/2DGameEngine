@@ -195,6 +195,12 @@
     <ClCompile Include="game\Systems\AISystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="game\Components\healthComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Components\knockBack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\vec2.h">
@@ -411,6 +417,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\Systems\AISystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Systems\AttackAndSpells.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Components\healthComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Components\knockBack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
