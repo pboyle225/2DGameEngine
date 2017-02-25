@@ -25,6 +25,7 @@ ID List for Components:
 	12 - Circle Appearance
 	13 - Health Component
 	14 - Knockback
+	15 - Direction
 */
 
 using namespace engine;
