@@ -11,6 +11,7 @@ void AISystem::update(std::vector<Entity*> &entities)
 	{
 		AIComponent * aiComp = static_cast<AIComponent *>(entities[i]->getComponent(11));
 		Transform * transformComp = static_cast<Transform *>(entities[i]->getComponent(0));
+		Direction * directionComp = static_cast<Direction *>(entities[i]->getComponent(15));
 
 		if (aiComp->isAggro)
 		{
@@ -35,6 +36,13 @@ void AISystem::update(std::vector<Entity*> &entities)
 			}
 
 			math::vec3 temp = dir.normalize() * math::vec3(aiComp->speed, aiComp->speed, aiComp->speed);
+			
+			if (directionComp)
+			{
+				directionComp->updateDirection(temp);
+				std::cout << entities[i]->getName() << " is facing " << directionComp->currDirection << std::endl;
+			}
+			
 			entities[i]->addComponent(new Velocity(temp));
 		}
 	}

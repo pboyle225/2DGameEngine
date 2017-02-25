@@ -144,6 +144,7 @@
     <ClCompile Include="game\Components\circleAppearance.cpp" />
     <ClCompile Include="game\Components\collectible.cpp" />
     <ClCompile Include="game\Components\collision.cpp" />
+    <ClCompile Include="game\Components\direction.cpp" />
     <ClCompile Include="game\Components\healthComponent.cpp" />
     <ClCompile Include="game\Components\input.cpp" />
     <ClCompile Include="game\Components\knockBack.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="game\Components\animation.h" />
     <ClInclude Include="game\Components\attack.h" />
     <ClInclude Include="game\Components\circleAppearance.h" />
+    <ClInclude Include="game\Components\direction.h" />
     <ClInclude Include="game\Components\healthComponent.h" />
     <ClInclude Include="game\Components\knockBack.h" />
     <ClInclude Include="game\Components\rectangleAppearance.h" />

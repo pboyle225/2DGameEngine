@@ -76,6 +76,7 @@ void Level::loadLevel(int levelNumber, SpriteSheet * tileSprites)
 			{
 				Slime * slime = new Slime();
 				slime->addComponent(new Transform(objectCords));
+				slime->addComponent(new Direction());
 				slime->addComponent(new RectangleAppearance((float)TileLayer::sizeOfTile, (float)TileLayer::sizeOfTile));
 				slime->addComponent(new SpriteComponent((Sprite*) objectLayer->getRenderables()[i]));
 				slime->addComponent(new Attack(1.0f, 2.0, true, true));

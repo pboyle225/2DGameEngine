@@ -18,6 +18,7 @@
 #include "Components\AIComponent.h"
 #include "Components\circleAppearance.h"
 #include "Components\healthComponent.h"
+#include "Components\direction.h"
 
 class Level
 {

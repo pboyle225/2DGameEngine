@@ -11,7 +11,7 @@ Player::Player(SpriteSheet * playerSprites)
 	addComponent(new Transform(location));
 	addComponent(new Attack(5.0f, 0.5f, true, false));
 	addComponent(new HealthComponent(100.0f));
-
+	addComponent(new Direction());
 	health = 100; //TODO add component for health
 
 	lastWalkingState = -1;
@@ -82,6 +82,7 @@ void Player::update(Layer * layer)
 
 void Player::updateAnimation()
 {
+	Direction * directionComp = static_cast<Direction *>(getComponent(15));
 	if (!isMoving)
 	{
 		animation->stop();
@@ -93,21 +94,25 @@ void Player::updateAnimation()
 	{
 		changeAnimation(walkUp);
 		lastWalkingState = 0;
+		directionComp->currDirection = UP;
 	}
 	else if (walkingDown && lastWalkingState != 1)
 	{
 		changeAnimation(walkDown);
 		lastWalkingState = 1;
+		directionComp->currDirection = DOWN;
 	}
 	else if (walkingLeft && lastWalkingState != 2)
 	{
 		changeAnimation(walkLeft);
 		lastWalkingState = 2;
+		directionComp->currDirection = LEFT;
 	}
 	else if (walkingRight && lastWalkingState != 3)
 	{
 		changeAnimation(walkRight);
 		lastWalkingState = 3;
+		directionComp->currDirection = RIGHT;
 	}
 }
 
