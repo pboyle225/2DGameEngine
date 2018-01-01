@@ -19,6 +19,11 @@ void Movement::update(std::vector<Entity*> &entities)
 		
 		if (transformComp && knockbackComp)
 		{
+			if (entities[i]->name == "Player")
+			{
+				std::cout << "Player has knockback!" << std::endl;
+			}
+
 			//entity is currently being knocked back
 			newPosition.x = transformComp->location.x + (knockbackComp->direction.x * knockbackComp->currFrameDistance);
 			newPosition.y = transformComp->location.y + (knockbackComp->direction.y * knockbackComp->currFrameDistance);
@@ -27,16 +32,20 @@ void Movement::update(std::vector<Entity*> &entities)
 			if (!isWalkable
 				|| (int)newPosition.x == (int)knockbackComp->knockBackLoc.x && (int)newPosition.y == (int)knockbackComp->knockBackLoc.y)
 			{
-				if (!isWalkable && entities[i]->getName() != "Player")
+				if (!isWalkable && entities[i]->getName() == "Player")
 				{
 					playBoundrySound();
 				}
+
+				//transformComp->location = newPosition;
+				//knockbackComp->currFrameDistance = max(0.1f, knockbackComp->currFrameDistance / 1.035f);
+
 				removeKnock.push_back(entities[i]);
 			}
 			else
 			{
 				transformComp->location = newPosition;
-				knockbackComp->currFrameDistance = max(0.1f, knockbackComp->currFrameDistance / 1.035f);
+				knockbackComp->currFrameDistance = max(0.1f, knockbackComp->currFrameDistance / 1.03f);
 			}
 		}
 		else if (transformComp && velocityComp)
@@ -47,9 +56,13 @@ void Movement::update(std::vector<Entity*> &entities)
 			{
 				transformComp->location = newPosition;
 			}
-			else
+			else if(entities[i]->name == "Player")
 			{
 				playBoundrySound();
+			}
+			else if (entities[i]->getComponent(16))
+			{
+				entities[i]->addComponent(new ToDelete());
 			}
 		}
 		
@@ -60,7 +73,7 @@ void Movement::update(std::vector<Entity*> &entities)
 			spriteComp->sprite->m_Position = transformComp->location;
 		}
 
-		entities[i]->removeComponent(velocityComp);
+		removeVel.push_back(entities[i]);
 
 		if (size != entities.size())
 		{
@@ -72,6 +85,11 @@ void Movement::update(std::vector<Entity*> &entities)
 	for (int i = 0; i < removeKnock.size(); i++)
 	{
 		removeKnock[i]->removeComponent(14);
+	}
+
+	for (int i = 0; i < removeVel.size(); i++)
+	{
+		removeVel[i]->removeComponent(4);
 	}
 }
 

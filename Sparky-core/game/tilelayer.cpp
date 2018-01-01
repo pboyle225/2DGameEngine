@@ -52,20 +52,20 @@ TileLayer::TileLayer(Shader * shader, SpriteSheet * spriteSheet, LayerData layer
 							isAnimated = true;
 
 							Sprite* initialSprite = new Sprite(x, y, sizeOfTile, sizeOfTile, spriteSheet->textures[tempIndex]);
-							std::vector<Sprite *> animatedSprites;
+							std::vector<Texture *> animatedSprites;
 							std::vector<int> frameDurations;
 
 							for (int j = 0; j < animationsData[i].frameData.size(); j++)
 							{
 								int indexOfTexture = atoi(animationsData[i].frameData[j].tileID.c_str());
-								animatedSprites.push_back(new Sprite(x, y, sizeOfTile, sizeOfTile, spriteSheet->textures[indexOfTexture]));
+								animatedSprites.push_back(spriteSheet->textures[indexOfTexture]);
 								frameDurations.push_back(atoi(animationsData[i].frameData[j].duration.c_str()));
 							}
 
-							Tile tileTemp(initialSprite, math::vec3(x, y, 0), new Animation(animatedSprites, frameDurations));
+							Tile tileTemp(initialSprite->m_Texture, math::vec3(x, y, 0), new Animation(animatedSprites, frameDurations));
 
 							tileTemp.getAnimation()->start();
-							this->add(tileTemp.getSprite()); //The rendered version
+							this->add(initialSprite); //The rendered version
 							int index = (y / sizeOfTile) * height + (x/ sizeOfTile);
 							
 							tiles[index] = tileTemp;	  //The world version
@@ -82,7 +82,7 @@ TileLayer::TileLayer(Shader * shader, SpriteSheet * spriteSheet, LayerData layer
 						Sprite* temp = new Sprite(x, y, sizeOfTile, sizeOfTile, spriteSheet->textures[tempIndex]);
 						this->add(temp);
 						int index = (y / sizeOfTile) * height + (x / sizeOfTile);
-						tiles[index] = Tile(temp, math::vec3(x, y, 0));
+						tiles[index] = Tile(temp->m_Texture, math::vec3(x, y, 0));
 					}
 					else
 					{

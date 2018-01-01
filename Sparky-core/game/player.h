@@ -3,7 +3,7 @@
 
 #include "../Engine.h"
 #include "tilelayer.h"
-#include "Components/animation.h"
+#include "Components/animationComponent.h"
 #include "Entities/entity.h"
 #include "level.h"
 
@@ -38,11 +38,11 @@ private:
 
 	//Animation sprites
 	std::vector<Sprite *> animationSprites;
-	std::vector<Sprite *> walkUpSprites;
-	std::vector<Sprite *> walkDownSprites;
-	std::vector<Sprite *> walkLeftSprites;
-	std::vector<Sprite *> walkRightSprites;
-	std::vector<Sprite *> idleSprites;
+	std::vector<Texture *> walkUpSprites;
+	std::vector<Texture *> walkDownSprites;
+	std::vector<Texture *> walkLeftSprites;
+	std::vector<Texture *> walkRightSprites;
+	std::vector<Texture *> idleSprites;
 	Animation *walkUp;
 	Animation *walkDown;
 	Animation *walkLeft;
@@ -51,5 +51,5 @@ private:
 	Animation *animation;
 
 	void move(Window * window);
-	void changeAnimation(Animation* anim);
+	void changeAnimation(AnimationState state, AnimationComponent * animComp);
 };

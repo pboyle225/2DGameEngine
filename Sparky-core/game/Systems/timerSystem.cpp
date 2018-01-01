@@ -15,10 +15,12 @@ void TimerSystem::update(std::vector<Entity*> &entities)
 				timerComp->isAlive = false;
 				SpriteComponent * spriteComp = static_cast<SpriteComponent *>(entities[i]->getComponent(7));
 				
+				/*
 				if (spriteComp)
 				{
 					SystemManager::notRenderedSprites.push_back(spriteComp->sprite);
 				}
+				*/
 
 				//Entity has no revive
 				if (!(timerComp->timeDead > 0))

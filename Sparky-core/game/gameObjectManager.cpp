@@ -24,6 +24,9 @@ std::unordered_map<int, Entity*> GameObjectManager::attackSystemMap;
 std::vector<Entity*> GameObjectManager::aiSystemEnts;
 std::unordered_map<int, Entity*> GameObjectManager::aiSystemMap;
 
+std::vector<Entity*> GameObjectManager::animationSystemEnts;
+std::unordered_map<int, Entity*> GameObjectManager::animationSystemMap;
+
 GameObjectManager::GameObjectManager()
 {
 
@@ -95,6 +98,12 @@ void GameObjectManager::refreshSystemContainers(Entity * ent)
 	{
 		aiSystemEnts.push_back(ent);
 		aiSystemMap[ent->globalID] = ent;
+	}
+
+	if (animationSystemMap[ent->globalID] == NULL && ((ent->bitset & animationSystemMask) == animationSystemMask))
+	{
+		animationSystemEnts.push_back(ent);
+		animationSystemMap[ent->globalID] = ent;
 	}
 }
 
@@ -199,6 +208,19 @@ void GameObjectManager::clearEntFromSystems(Entity * ent)
 			{
 				aiSystemEnts.erase(aiSystemEnts.begin() + i);
 				aiSystemMap.erase(ent->globalID);
+				break;
+			}
+		}
+	}
+
+	if (animationSystemMap[ent->globalID] != NULL)
+	{
+		for (int i = 0; i < animationSystemEnts.size(); i++)
+		{
+			if (ent == animationSystemEnts[i])
+			{
+				animationSystemEnts.erase(animationSystemEnts.begin() + i);
+				animationSystemMap.erase(ent->globalID);
 				break;
 			}
 		}

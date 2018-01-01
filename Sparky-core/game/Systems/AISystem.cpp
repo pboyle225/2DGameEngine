@@ -12,11 +12,21 @@ void AISystem::update(std::vector<Entity*> &entities)
 		AIComponent * aiComp = static_cast<AIComponent *>(entities[i]->getComponent(11));
 		Transform * transformComp = static_cast<Transform *>(entities[i]->getComponent(0));
 		Direction * directionComp = static_cast<Direction *>(entities[i]->getComponent(15));
+		Projectile * projectileComp = static_cast<Projectile *>(entities[i]->getComponent(16));
 
-		if (aiComp->isAggro)
+		math::vec3 dir;
+		
+		if (projectileComp)
 		{
-			math::vec3 dir = math::vec3(Level::playerLoc - transformComp->location);
+			math::vec3 temp = projectileComp->direction * math::vec3(aiComp->speed, aiComp->speed, aiComp->speed);
 			
+			entities[i]->addComponent(new Velocity(temp));
+		}
+		else if (aiComp->isAggro)
+		{
+			dir = math::vec3(Level::playerLoc - transformComp->location);
+			math::vec3 dir2 = dir;
+
 			if (dir.x > 0.0f)
 			{
 				dir.x = aiComp->speed;
@@ -36,14 +46,14 @@ void AISystem::update(std::vector<Entity*> &entities)
 			}
 
 			math::vec3 temp = dir.normalize() * math::vec3(aiComp->speed, aiComp->speed, aiComp->speed);
-			
+
 			if (directionComp)
 			{
-				directionComp->updateDirection(temp);
-				std::cout << entities[i]->getName() << " is facing " << directionComp->currDirection << std::endl;
+				directionComp->updateDirection(dir2);
 			}
-			
+
 			entities[i]->addComponent(new Velocity(temp));
+			aiComp->isAggro = false;
 		}
 	}
 }

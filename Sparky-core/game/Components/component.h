@@ -26,6 +26,8 @@ ID List for Components:
 	13 - Health Component
 	14 - Knockback
 	15 - Direction
+	16 - Projectile
+	17 - Label Component
 */
 
 using namespace engine;

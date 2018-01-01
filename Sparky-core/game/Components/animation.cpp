@@ -1,10 +1,7 @@
 #include "animation.h"
 
-Animation::Animation(std::vector<Sprite* > frames, int frameDelay)
+Animation::Animation(std::vector<Texture* > frames, int frameDelay)
 {
-	id = 1;
-	name = "Animation";
-
 	this->stopped = true;
 
 	for (int i = 0; i < frames.size(); i++)
@@ -19,7 +16,7 @@ Animation::Animation(std::vector<Sprite* > frames, int frameDelay)
 	this->totalFrames = this->frames.size();
 }
 
-Animation::Animation(std::vector<Sprite *> frames, std::vector<int> frameDelay)
+Animation::Animation(std::vector<Texture *> frames, std::vector<int> frameDelay)
 {
 	this->stopped = true;
 
@@ -77,7 +74,7 @@ void Animation::reset()
 	this->currFrame = 0;
 }
 
-void Animation::addFrame(Sprite* sprite, int duration)
+void Animation::addFrame(Texture* sprite, int duration)
 {
 	if (duration <= 0)
 	{
@@ -89,7 +86,7 @@ void Animation::addFrame(Sprite* sprite, int duration)
 	currFrame = 0;
 }
 
-Sprite* Animation::getSprite()
+Texture* Animation::getSprite()
 {
 	return frames[currFrame].getFrame();
 }

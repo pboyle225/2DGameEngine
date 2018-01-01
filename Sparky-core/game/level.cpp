@@ -5,6 +5,7 @@ int Level::width;
 int Level::height;
 math::vec3 Level::playerLoc(0.0f, 0.0f, 0.0f);
 std::vector<Entity *> Level::entities;
+math::vec3 Level::cursorPos;
 
 Level::Level(int levelNumber, SpriteSheet * tileSprites)
 {
@@ -77,13 +78,34 @@ void Level::loadLevel(int levelNumber, SpriteSheet * tileSprites)
 				Slime * slime = new Slime();
 				slime->addComponent(new Transform(objectCords));
 				slime->addComponent(new Direction());
-				slime->addComponent(new RectangleAppearance((float)TileLayer::sizeOfTile, (float)TileLayer::sizeOfTile));
-				slime->addComponent(new SpriteComponent((Sprite*) objectLayer->getRenderables()[i]));
-				slime->addComponent(new Attack(1.0f, 2.0, true, true));
+				slime->addComponent(new RectangleAppearance(2.0f, 2.0f));
+				slime->addComponent(new CircleAppearance(10.0f));
+				SpriteComponent * spriteComp = new SpriteComponent((Sprite*)objectLayer->getRenderables()[i]);
+				spriteComp->sprite->setAnchorPoint(math::vec3(1.0f, 0.5f, 0.0f));
+				slime->addComponent(spriteComp);
+				slime->addComponent(new Attack(1.0f, 2.0, true, false, 1, true));
 				slime->addComponent(new Collision());
 				slime->addComponent(new AIComponent(true, 0.04f));
-				slime->addComponent(new CircleAppearance(5.0f));
-				slime->addComponent(new HealthComponent(100.0f));
+				slime->addComponent(new HealthComponent(200.0f));
+
+				AnimationComponent * animComp = new AnimationComponent(IDLE);
+
+				std::vector<Texture *> animTextures;
+				animTextures.push_back(tileSprites->textures[25]);
+				animTextures.push_back(tileSprites->textures[26]);
+				animTextures.push_back(tileSprites->textures[27]);
+				animTextures.push_back(tileSprites->textures[26]);
+				animComp->addAnimation(IDLE, animTextures, 10);
+
+				animTextures.clear();
+
+				animTextures.push_back(tileSprites->textures[24]);
+				animTextures.push_back(tileSprites->textures[9]);
+				animTextures.push_back(tileSprites->textures[16]);
+				animTextures.push_back(tileSprites->textures[17]);
+				animComp->addAnimation(ATTACK_0, animTextures, 10);
+				slime->addComponent(animComp);
+
 				Level::entities.push_back(slime);
 			}
 		}

@@ -17,6 +17,11 @@ namespace engine
 			m_TID = load(pixels);
 		}
 
+		Texture::Texture(Texture & tex)
+		{
+
+		}
+
 		Texture::~Texture()
 		{
 

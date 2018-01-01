@@ -7,6 +7,7 @@ namespace engine {
 			: Renderable2D(math::vec3(x, y, 0), math::vec2(width, height), color), position(m_Position)
 		{
 			rotation = math::mat4::identity();
+			m_Texture = NULL;
 		}
 
 		Sprite::Sprite(float x, float y, float width, float height, Texture* texture)
@@ -15,6 +16,7 @@ namespace engine {
 			m_Color = math::vec4(1, 1, 1, 1);
 			m_Texture = texture;
 			rotation = math::mat4::identity();
+			texID = texture->getID();
 		}
 	
 		Sprite::Sprite(float x, float y, float z, float width, float height, Texture* texture)
@@ -24,5 +26,11 @@ namespace engine {
 			m_Color = math::vec4(1, 1, 1, 1);
 			m_Texture = texture;
 			rotation = math::mat4::identity();
+			texID = texture->getID();
+		}
+
+		Sprite::~Sprite()
+		{
+			m_Texture = NULL;
 		}
 }}

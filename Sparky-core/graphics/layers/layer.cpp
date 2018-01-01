@@ -50,6 +50,7 @@ namespace engine {
 				if (renderable == m_Renderables[i])
 				{
 					m_Renderables.erase(m_Renderables.begin() + i);
+					break;
 				}
 			}
 		}

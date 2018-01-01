@@ -31,13 +31,14 @@ namespace engine {
 			std::vector<math::vec2> m_UV;
 			Texture * m_Texture;
 			math::mat4 rotation;
+			int texID;
 
 			Renderable2D(math::vec3 position, math::vec2 size, math::vec4 color)
 				: m_Size(size), m_Color(color)
 			{
 				m_Position = position;
 				setUVDefaults();
-				anchorPoint = math::vec2(size.x / 2.0f, size.y / 2.0f);
+				anchorPoint = math::vec3(0.0f, 0.0f, 0.0f);
 				rotation = math::mat4::identity();
 				m_Texture = NULL;
 			}
@@ -73,7 +74,7 @@ namespace engine {
 				rotation = rotMat;
 			}
 
-			void setAnchorPoint(math::vec2 newAnchorPoint)
+			void setAnchorPoint(math::vec3 newAnchorPoint)
 			{
 				anchorPoint = newAnchorPoint;
 			}
@@ -88,18 +89,28 @@ namespace engine {
 			inline const math::vec2& getSize() const { return m_Size; }
 			inline const math::vec4& getColor() const { return m_Color; }
 			inline const std::vector<math::vec2>& getUV() const { return m_UV; }
-			inline const math::vec2& getAnchorPoint() { return anchorPoint; }
+			inline const math::vec3& getAnchorPoint() const { return anchorPoint; }
 
-			inline const GLuint getTID() const { return m_Texture == nullptr ? 0 : m_Texture->getID(); }
+			inline const GLuint getTID() const 
+			{ 
+				if (m_Texture == NULL)
+				{
+					return 0;
+				}
+				
+				//return m_Texture->getID();
+				return texID;
+			}
+
 
 		protected:
 			Renderable2D() {
 				setUVDefaults();
-				anchorPoint = math::vec2(0, 0);
+				anchorPoint = math::vec3(0, 0, 0);
 				rotation = math::mat4::identity();
 				m_Texture = NULL;
 			}
-			math::vec2 anchorPoint;
+			math::vec3 anchorPoint;
 		private:
 
 			void setUVDefaults()

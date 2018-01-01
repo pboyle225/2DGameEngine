@@ -10,5 +10,6 @@ public:
 	bool canMove;
 	bool isAggro;
 	float speed;
+	Entity * entThatAggro;
 
 };

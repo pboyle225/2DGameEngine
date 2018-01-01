@@ -8,114 +8,102 @@ void CheckCollision::update(std::vector<Entity*> &entities)
 	for (int i = 0; i < size; i++)
 	{
 		Entity * currEnt = entities[i];
-		Transform * transformComp = static_cast<Transform *>(currEnt->getComponent(0));
-		
-		//iterate through all game objects to see what is colliding with the player
-		// O(n^2) right now :(
-		if (currEnt->getName() == "Player")
+		Transform * transformCompMain = static_cast<Transform *>(currEnt->getComponent(0));
+		Attack * attackCompMain = static_cast<Attack *>(entities[i]->getComponent(10));
+		RectangleAppearance * rectCompMain = static_cast<RectangleAppearance *>(entities[i]->getComponent(6));
+		CircleAppearance * aggroCircleMain = static_cast<CircleAppearance *>(entities[i]->getComponent(12));
+		Collision * collisionCompMain = static_cast<Collision  *>(entities[i]->getComponent(3));
+
+		if (collisionCompMain)
 		{
-			Player * player = static_cast<Player *>(currEnt);
-			math::vec3 playerScreenCoords = transformComp->location;
+			collisionCompMain->entsCollidedWith.clear();
 
-			for (int j = 0; j < entities.size(); j++)
+		}
+
+
+		for (int j = 0 ; j < entities.size(); j++)
+		{
+			if (entities[i]->globalID == entities[j]->globalID)
 			{
-				if (entities[j]->getName() == "Player")
-				{
-					continue;
-				}
-
-				RectangleAppearance * rectComp = static_cast<RectangleAppearance *>(entities[j]->getComponent(6));
-				Transform * transformComp = static_cast<Transform *>(entities[j]->getComponent(0));
-				
-				if (rectComp && transformComp)
-				{
-					Attack * playerAttack = static_cast<Attack *>(player->getComponent(10));
-					
-					//check if player's melee attack is touching entity
-					if (playerAttack->isAttacking && playerAttack->isMelee)
-					{
-						float meleeDistance = playerScreenCoords.distance(transformComp->location);
-						
-						if (meleeDistance <= 1.9f)
-						{
-							float angle = atan2(transformComp->location.y - playerScreenCoords.y, transformComp->location.x - playerScreenCoords.x);
-
-							angle -= 0.0f; //player can only attack right lel
-							angle = abs(angle);
-							meleeDistance = abs(meleeDistance);
-							std::cout << angle << std::endl;
-
-							if (angle < 1.5f || meleeDistance <= 0.001f) //180 degrees
-							{
-								playerAttack->attackThisEntity = entities[j];
-							}
-						}
-					}
-
-					//check if player is touching entity's rectangle box
-					if (playerScreenCoords.x < transformComp->location.x + rectComp->width &&
-						playerScreenCoords.x + 0.5f > transformComp->location.x &&
-						playerScreenCoords.y < transformComp->location.y + rectComp->height &&
-						0.5f + playerScreenCoords.y > transformComp->location.y)
-					{
-						//Collision between player and rectangle entity
-						if (entities[j]->getComponent(5)) //has collectible component
-						{
-							player->addItemToInventory(entities[j]);
-
-							entities[j]->addComponent(new ToDelete());
-							SoundEngine::soundEngine->play2D("sounds/pickupKey.wav", false);
-							SpriteComponent * spriteComp = static_cast<SpriteComponent *>(entities[j]->getComponent(7));
-							
-							if (spriteComp)
-							{
-								SystemManager::notRenderedSprites.push_back(spriteComp->sprite);
-							}
-
-							entities[j]->removeComponent(5);
-						}
-						
-						if (entities[j]->getComponent(10)) //has attack component
-						{
-							Attack * attackComp = static_cast<Attack *>(entities[j]->getComponent(10));
-
-							if (attackComp->isEnemy)
-							{
-								//Enemy is attacking friendly target
-								attackComp->isAttacking = true;
-								attackComp->attackThisEntity = currEnt;
-							}
-						}
-						
-						if (entities[j]->getComponent(420)) //has circle radius
-						{
-						}
-					}
-				}
-
-				CircleAppearance * aggroCircle = static_cast<CircleAppearance *>(entities[j]->getComponent(12));
-
-				if (transformComp && aggroCircle)
-				{
-					float DeltaX = transformComp->location.x - std::max(playerScreenCoords.x, std::min(transformComp->location.x, playerScreenCoords.x + 0.5f));
-					float DeltaY = transformComp->location.y - std::max(playerScreenCoords.y, std::min(transformComp->location.y, playerScreenCoords.y + 0.5f));
-					
-					AIComponent * aiComp = static_cast<AIComponent *>(entities[j]->getComponent(11));
-					
-					if ((DeltaX * DeltaX + DeltaY * DeltaY) < (aggroCircle->radius * aggroCircle->radius))
-					{
-						if (aiComp)
-						{
-							aiComp->isAggro = true;
-						}
-					}
-					else if(aiComp)
-					{
-						aiComp->isAggro = false;
-					}
-				}
-				
+				continue;
 			}
+
+			RectangleAppearance * rectCompSecond = static_cast<RectangleAppearance *>(entities[j]->getComponent(6));
+			Transform * transformCompSecond = static_cast<Transform *>(entities[j]->getComponent(0));
+			Attack * attackCompSecondary = static_cast<Attack *>(entities[j]->getComponent(10));
+				
+			//find ents in melee range if they need it
+			if (attackCompMain)
+			{
+				if (attackCompMain->isAttacking && (attackCompMain->attackID == 0)) //attack is default melee attack
+				{
+					float meleeDistance = transformCompMain->location.distance(transformCompSecond->location);
+
+					if (meleeDistance <= 2.8f)
+					{
+						attackCompMain->meleeRangeEnts.push_back(entities[j]);
+					}
+				}
+			}
+
+			if (rectCompMain && transformCompMain && rectCompSecond && transformCompSecond && collisionCompMain)
+			{
+				//rectangle rectangle collision
+				if (transformCompMain->location.x < transformCompSecond->location.x + rectCompSecond->width &&
+					transformCompMain->location.x + rectCompMain->width > transformCompSecond->location.x &&
+					transformCompMain->location.y < transformCompSecond->location.y + rectCompSecond->height &&
+					rectCompMain->height + transformCompMain->location.y > transformCompSecond->location.y)
+				{
+					if ((attackCompMain->isFriendly && !attackCompSecondary->isFriendly)
+						|| (!attackCompMain->isFriendly && attackCompSecondary->isFriendly))
+					{
+						//Entities that collided are friendly and enemy
+						if (!attackCompMain->isFriendly)
+						{
+							//Current Entity is an enemy and has hit a friendly entity
+							collisionCompMain->entsCollidedWith.push_back(entities[j]);
+						}
+						else
+						{
+							collisionCompMain->entsCollidedWith.push_back(entities[j]);
+						}
+					}
+				}
+			}
+
+			CircleAppearance * aggroCircleMain = static_cast<CircleAppearance *>(entities[i]->getComponent(12));
+
+			//Circle and rectangle collision
+			if (transformCompMain && rectCompMain && transformCompSecond && aggroCircleMain && attackCompMain && attackCompSecondary)
+			{
+				float DeltaX = transformCompSecond->location.x - std::max(transformCompMain->location.x, std::min(transformCompSecond->location.x, transformCompMain->location.x + rectCompMain->width));
+				float DeltaY = transformCompSecond->location.y - std::max(transformCompMain->location.y, std::min(transformCompSecond->location.y, transformCompMain->location.y + rectCompMain->height));
+
+				AIComponent * aiCompMain = static_cast<AIComponent *>(entities[i]->getComponent(11));
+
+				if ((DeltaX * DeltaX + DeltaY * DeltaY) < (aggroCircleMain->radius * aggroCircleMain->radius))
+				{
+					//Rectangle circle collision occured
+
+					if ((attackCompMain->isFriendly && !attackCompSecondary->isFriendly)
+						|| (!attackCompMain->isFriendly && attackCompSecondary->isFriendly))
+					{
+						//Friendly and enemy
+						if (!aiCompMain->isAggro && !attackCompMain->isFriendly && entities[j]->name == "Player")
+						{
+							aiCompMain->isAggro = true;
+							aiCompMain->entThatAggro = entities[j];
+						}
+					}
+				}
+				
+				else if (aiCompMain && aiCompMain->entThatAggro == entities[j])
+				{
+					aiCompMain->isAggro = false;
+					aiCompMain->entThatAggro = NULL;
+				}
+				
+			}		
 		}
 	}
 }

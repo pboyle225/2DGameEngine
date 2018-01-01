@@ -140,6 +140,7 @@
     <ClCompile Include="..\Dependencies\FreeType-gl\vector.c" />
     <ClCompile Include="game\Components\AIComponent.cpp" />
     <ClCompile Include="game\Components\animation.cpp" />
+    <ClCompile Include="game\Components\animationComponent.cpp" />
     <ClCompile Include="game\Components\attack.cpp" />
     <ClCompile Include="game\Components\circleAppearance.cpp" />
     <ClCompile Include="game\Components\collectible.cpp" />
@@ -148,6 +149,8 @@
     <ClCompile Include="game\Components\healthComponent.cpp" />
     <ClCompile Include="game\Components\input.cpp" />
     <ClCompile Include="game\Components\knockBack.cpp" />
+    <ClCompile Include="game\Components\labelComponent.cpp" />
+    <ClCompile Include="game\Components\projectile.cpp" />
     <ClCompile Include="game\Components\rectangleAppearance.cpp" />
     <ClCompile Include="game\Components\spriteComponent.cpp" />
     <ClCompile Include="game\Components\TimerComponent.cpp" />
@@ -165,6 +168,7 @@
     <ClCompile Include="game\player.cpp" />
     <ClCompile Include="game\scene.cpp" />
     <ClCompile Include="game\Systems\AISystem.cpp" />
+    <ClCompile Include="game\Systems\animationSystem.cpp" />
     <ClCompile Include="game\Systems\attackSystem.cpp" />
     <ClCompile Include="game\Systems\checkCollision.cpp" />
     <ClCompile Include="game\Systems\movement.cpp" />
@@ -204,11 +208,14 @@
     <ClInclude Include="..\Dependencies\FreeType-gl\vector.h" />
     <ClInclude Include="game\Components\AIComponent.h" />
     <ClInclude Include="game\Components\animation.h" />
+    <ClInclude Include="game\Components\animationComponent.h" />
     <ClInclude Include="game\Components\attack.h" />
     <ClInclude Include="game\Components\circleAppearance.h" />
     <ClInclude Include="game\Components\direction.h" />
     <ClInclude Include="game\Components\healthComponent.h" />
     <ClInclude Include="game\Components\knockBack.h" />
+    <ClInclude Include="game\Components\labelComponent.h" />
+    <ClInclude Include="game\Components\projectile.h" />
     <ClInclude Include="game\Components\rectangleAppearance.h" />
     <ClInclude Include="game\Components\collectible.h" />
     <ClInclude Include="game\Components\collision.h" />
@@ -220,9 +227,11 @@
     <ClInclude Include="game\Components\Transform.h" />
     <ClInclude Include="game\Components\velocity.h" />
     <ClInclude Include="game\cursor.h" />
+    <ClInclude Include="game\Entities\attackTextEntity.h" />
     <ClInclude Include="game\Entities\chest.h" />
     <ClInclude Include="game\Entities\disappearingTile.h" />
     <ClInclude Include="game\Entities\entity.h" />
+    <ClInclude Include="game\Entities\fireball.h" />
     <ClInclude Include="game\Entities\slime.h" />
     <ClInclude Include="game\Entities\key.h" />
     <ClInclude Include="game\Components\frame.h" />
@@ -231,8 +240,10 @@
     <ClInclude Include="game\player.h" />
     <ClInclude Include="game\scene.h" />
     <ClInclude Include="game\Systems\AISystem.h" />
-    <ClInclude Include="game\Systems\AttackAndSpells.h" />
+    <ClInclude Include="game\Systems\animationSystem.h" />
     <ClInclude Include="game\Systems\attackSystem.h" />
+    <ClInclude Include="game\Systems\Attacks\CombatSkill.h" />
+    <ClInclude Include="game\Systems\Attacks\JumpAttack.h" />
     <ClInclude Include="game\Systems\checkCollision.h" />
     <ClInclude Include="game\Systems\movement.h" />
     <ClInclude Include="game\Systems\objectDestroyer.h" />

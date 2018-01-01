@@ -14,6 +14,7 @@ namespace engine {
 			//Texture() {}
 			Texture(const std::string& filename);
 			Texture(BYTE* pixels, GLuint width, GLuint height);
+			Texture(Texture & tex);
 			~Texture();
 			void bind() const;
 			void unbind() const;

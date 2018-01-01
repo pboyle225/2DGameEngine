@@ -9,108 +9,94 @@ Player::Player(SpriteSheet * playerSprites)
 	location = math::vec3(Level::worldToScreenCoords(math::vec3(14, 40, 0)));
 	
 	addComponent(new Transform(location));
-	addComponent(new Attack(5.0f, 0.5f, true, false));
+	addComponent(new Attack(5.0f, 0.3f, true, true, 2, false));
 	addComponent(new HealthComponent(100.0f));
 	addComponent(new Direction());
-	health = 100; //TODO add component for health
+	addComponent(new RectangleAppearance(2.0f, 2.0f));
 
 	lastWalkingState = -1;
+
+	AnimationComponent * animComp = new AnimationComponent(IDLE);
 	
 	for (int i = 0; i < playerSprites->textures.size(); i++)
 	{
-		animationSprites.push_back(new Sprite(-1, -0.5, 2, 2, playerSprites->textures[i]));
-	}
-
-	//right now there is 16 animations. hard coded for now
-	for (int i = 0; i < animationSprites.size(); i++)
-	{
 		if (i < 4)
 		{
-			walkDownSprites.push_back(animationSprites[i]);
+			walkDownSprites.push_back(playerSprites->textures[i]);
 		}
 		else if (i >= 4 && i < 8)
 		{
-			walkLeftSprites.push_back(animationSprites[i]);
+			walkLeftSprites.push_back(playerSprites->textures[i]);
 		}
 		else if (i >= 8 && i < 12)
 		{
-			walkRightSprites.push_back(animationSprites[i]);
+			walkRightSprites.push_back(playerSprites->textures[i]);
 		}
 		else
 		{
-			walkUpSprites.push_back(animationSprites[i]);
+			walkUpSprites.push_back(playerSprites->textures[i]);
 		}
 	}
 
-	walkUp = new Animation(walkUpSprites, 10);
+	idleSprites.push_back(walkDownSprites[0]);
+
+	animComp->addAnimation(WALK_UP, walkUpSprites, 10);
+	animComp->addAnimation(WALK_DOWN, walkDownSprites, 10);
+	animComp->addAnimation(WALK_RIGHT, walkRightSprites, 10);
+	animComp->addAnimation(WALK_LEFT, walkLeftSprites, 10);
+	animComp->addAnimation(IDLE, idleSprites, 10);
+	addComponent(animComp);
+
 	walkingUp = false;
-	walkDown = new Animation(walkDownSprites, 10);
 	walkingDown = false;
-	walkLeft = new Animation(walkLeftSprites, 10);
 	walkingLeft = false;
-	walkRight = new Animation(walkRightSprites, 10);
 	walkingRight = false;
 	isMoving = false;
 
-	animation = walkDown;
-	animation->stop();
-	addComponent(animation);
-	sprite = animation->getSprite();
+	sprite = new Sprite(0, 0, 0, 2, 2, idleSprites[0]);
+	sprite->setAnchorPoint(math::vec3(0.5f, 0.0f, 0.0f));
+	addComponent(new SpriteComponent(sprite));
 }
 
 void Player::update(Layer * layer)
 {
-	animation->update();
-
-	if (sprite != animation->getSprite())
-	{
-		layer->removeAndReplace(sprite, animation->getSprite());
-		sprite = animation->getSprite();
-	}
-
 	Transform * locComp = static_cast<Transform * >(getComponent(0));
 	location = locComp->location;
-
-	//math::mat4 newLoc = math::mat4::rotation(angle, math::vec3(0, 1, 0));
-	//sprite->m_Position = newLoc.
-
-	//angle += 30;
-	//sprite->m_Position= newLoc * sprite->m_Position;
-
-	//std::cout << "Player's Coords (" << location.x << ", " << location.y << ")" << std::endl;
 }
 
 void Player::updateAnimation()
 {
 	Direction * directionComp = static_cast<Direction *>(getComponent(15));
+	AnimationComponent * animComp = static_cast<AnimationComponent *>(getComponent(1));
+
 	if (!isMoving)
 	{
-		animation->stop();
-		animation->reset();
+		animComp->stopAnimation();
+		animComp->resetAnimation();
 		resetWalkingStates();
 		lastWalkingState = -1;
 	}
 	else if (walkingUp && lastWalkingState != 0)
 	{
-		changeAnimation(walkUp);
 		lastWalkingState = 0;
+		changeAnimation(WALK_UP, animComp);
 		directionComp->currDirection = UP;
 	}
 	else if (walkingDown && lastWalkingState != 1)
 	{
-		changeAnimation(walkDown);
+		changeAnimation(WALK_DOWN, animComp);
 		lastWalkingState = 1;
 		directionComp->currDirection = DOWN;
 	}
 	else if (walkingLeft && lastWalkingState != 2)
 	{
-		changeAnimation(walkLeft);
+		changeAnimation(WALK_LEFT, animComp);
 		lastWalkingState = 2;
 		directionComp->currDirection = LEFT;
 	}
 	else if (walkingRight && lastWalkingState != 3)
 	{
-		changeAnimation(walkRight);
+		changeAnimation(WALK_RIGHT, animComp);
 		lastWalkingState = 3;
 		directionComp->currDirection = RIGHT;
 	}
@@ -124,12 +110,12 @@ void Player::resetWalkingStates()
 	walkingRight = false;
 }
 
-void Player::changeAnimation(Animation* anim)
+void Player::changeAnimation(AnimationState state, AnimationComponent * animComp)
 {
-	animation->stop();
-	animation->reset();
-	animation = anim;
-	animation->start();
+	animComp->stopAnimation();
+	animComp->resetAnimation();
+	animComp->setAnimation(state);
+	animComp->startAnimation();
 }
 
 math::vec3 Player::getLocation()

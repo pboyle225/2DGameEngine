@@ -8,4 +8,6 @@ public:
 
 	Collision();
 	~Collision();
+
+	std::vector<Entity *> entsCollidedWith;
 };

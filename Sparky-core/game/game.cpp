@@ -12,6 +12,7 @@
 #include "Systems\timerSystem.h"
 #include "Systems\attackSystem.h"
 #include "Systems\AISystem.h"
+#include "Systems/animationSystem.h"
 #include "cursor.h"
 #include "gameObjectManager.h"
 
@@ -48,6 +49,7 @@ public:
 		timerSystem = new TimerSystem();
 		attackSystem = new AttackSystem();
 		aiSystem = new AISystem();
+		animSystem = new AnimationSystem();
 
 		//Load WHOLE Spritesheets into memory
 		playerSprites = new SpriteSheet("imgs/playerSpritesheet.png", 4, 4, 16, 2);
@@ -69,21 +71,24 @@ public:
 		group->add(new Sprite(0, -0.6f, 3.0f, 0.5f, math::vec4(0.0f, 0.0f, 0.95f, 0.8f)));
 		
 		//Create text for health/mana
-		Label * playerHealth = new Label("Health: 100%", 0.1f, 0.1f, math::vec4(1, 1, 1, 1));
+
+		playerHealth = new Label("Health: 100%", 0.1f, 0.1f, math::vec4(1, 1, 1, 1));
 		group->add(playerHealth);
-		group->add(new Label("Mana: 100%", 0.1f, -0.5f, math::vec4(1, 1, 1, 1)));
+		group->add(new Label("Mana: 100", 0.1f, -0.5f, math::vec4(1, 1, 1, 1)));
 
 		currLevel->scenes[currLevel->indexOfCurrScene]->getPlayerLayer()->add(player->getSprite());
 		currLevel->scenes[currLevel->indexOfCurrScene]->getHudLayer()->add(group);
 		currLevel->scenes[currLevel->indexOfCurrScene]->getHudLayer()->add(cursor->getSprite());
 
+		animSystem->init(GameObjectManager::animationSystemEnts); //start animations
+
 		SoundEngine::init();
-		//SoundEngine::soundEngine->play2D("sounds/game_song_1.ogg", true);
 		SoundEngine::soundEngine->setSoundVolume(0.1f);
+		SoundEngine::soundEngine->play2D("sounds/dialogue_music.ogg", true);
 
 		//Testing things
 		sword = new Sprite(0.1, 0.2, 0, 1.5, 1.5, tileSprites->textures[1822]);
-		sword->setAnchorPoint(math::vec2(0.0f, 0.0f));
+		sword->setAnchorPoint(math::vec3(0.0f, 0.0f, 0.0f));
 		rotation = 360.0f;
 		isPlayerAttacking = false;
 		currLevel->entities.push_back(player);
@@ -117,6 +122,7 @@ public:
 
 	void update() override	
 	{
+		Level::cursorPos = cursor->getWorldCoords(player->getLocation());
 			
 		userInput->update(GameObjectManager::userInputEnts);
 		timerSystem->update(GameObjectManager::timerSystemEnts);
@@ -126,6 +132,7 @@ public:
 		movement->update(GameObjectManager::movementEnts);
 		objectDestroyer->update(GameObjectManager::objectDestroyerEnts);
 		rendering->update(GameObjectManager::renderingEnts, currLevel->scenes[currLevel->indexOfCurrScene]);
+		animSystem->update(GameObjectManager::animationSystemEnts);
 		
 		player->update(currLevel->scenes[currLevel->indexOfCurrScene]->getPlayerLayer());
 		isPlayerBehind =  renderLayerOrder->update(currLevel->entities, player->getLocation());
@@ -157,9 +164,11 @@ public:
 			sword->setRotate(rotation, math::vec3(0, 0, 1));
 		}
 
-		Transform * transformComp = static_cast<Transform *>(player->getComponent(0));
-		//std::cout << transformComp->location << std::endl
+		HealthComponent * healthComp = static_cast<HealthComponent *>(player->getComponent(13));
 
+		playerHealth->text = "Health: " + std::to_string((int)healthComp->health);
+
+		//std::cout << currLevel->scenes[0]->getObjectLayer()->getRenderables().size() << std::endl;
 	}
 
 private:
@@ -171,6 +180,7 @@ private:
 	bool isPlayerBehind;
 	Level * currLevel;
 	Cursor * cursor;
+	Label * playerHealth;
 
 	UserInput * userInput;
 	CheckCollision * checkCollision;
@@ -181,6 +191,7 @@ private:
 	TimerSystem * timerSystem;
 	AttackSystem * attackSystem;
 	AISystem * aiSystem;
+	AnimationSystem * animSystem;
 
 	//Testing things
 	Sprite * sword;

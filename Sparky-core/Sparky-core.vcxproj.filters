@@ -204,6 +204,18 @@
     <ClCompile Include="game\Components\direction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="game\Components\projectile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Systems\animationSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Components\animationComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Components\labelComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\vec2.h">
@@ -422,9 +434,6 @@
     <ClInclude Include="game\Systems\AISystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="game\Systems\AttackAndSpells.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="game\Components\healthComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -432,6 +441,30 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\Components\direction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Systems\Attacks\JumpAttack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Systems\Attacks\CombatSkill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Entities\fireball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Components\projectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Systems\animationSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Components\animationComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Components\labelComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Entities\attackTextEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

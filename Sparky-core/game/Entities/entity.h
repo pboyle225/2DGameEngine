@@ -8,6 +8,8 @@
 	ID 2 - Chest
 	ID 3 - Disappearing Tile
 	ID 4 - Slime
+	ID 5 - Fireball
+	ID 6 - Attack Text Entity
 */
 
 class Entity

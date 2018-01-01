@@ -9,4 +9,5 @@ AIComponent::AIComponent(bool canMove, float speed)
 	this->canMove = canMove;
 	this->isAggro = false;
 	this->speed = speed;
+	this->entThatAggro = NULL;
 }

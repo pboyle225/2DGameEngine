@@ -1,20 +1,19 @@
 #pragma once
 #include <vector>
 #include "frame.h"
-#include "component.h"
 
-class Animation : public Component
+class Animation
 {
 public:
 	//Animation();
-	Animation(std::vector<Sprite *> frames, int frameDelay);
-	Animation(std::vector<Sprite *> frames, std::vector<int> frameDelay);
+	Animation(std::vector<Texture *> frames, int frameDelay);
+	Animation(std::vector<Texture *> frames, std::vector<int> frameDelay);
 	void start();
 	void stop();
 	void restart();
 	void reset();
-	void addFrame(Sprite* sprite, int duration);
-	Sprite* getSprite();
+	void addFrame(Texture* sprite, int duration);
+	Texture* getSprite();
 	void update();
 private:
 	int frameCount;

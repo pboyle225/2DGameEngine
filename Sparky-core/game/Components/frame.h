@@ -8,18 +8,18 @@ using namespace graphics;
 class Frame
 {
 public:
-	Frame(Sprite* sprite, int duration)
+	Frame(Texture* sprite, int duration)
 	{
 		this->frame = sprite;
 		this->duration = duration;
 	}
 
-	Sprite* getFrame()
+	Texture * getFrame()
 	{
 		return frame;
 	}
 
-	void setFrame(Sprite* sprite)
+	void setFrame(Texture* sprite)
 	{
 		this->frame = sprite;
 	}
@@ -34,7 +34,7 @@ public:
 		this->duration = duration;
 	}
 
-	Sprite* frame;
+	Texture * frame;
 private:
 	int duration;
 

@@ -13,6 +13,7 @@ const std::bitset <MAX_COMPONENTS> knockbackMask = 0x4000;
 const std::bitset <MAX_COMPONENTS> checkCollisionMask = 0x0;
 const std::bitset <MAX_COMPONENTS> attackSystemMask = 0x400;
 const std::bitset <MAX_COMPONENTS> aiSystemMask = 0x800;
+const std::bitset <MAX_COMPONENTS> animationSystemMask = 0x2;
 
 class GameObjectManager
 {
@@ -51,4 +52,7 @@ public:
 
 	static std::vector<Entity*> aiSystemEnts;
 	static std::unordered_map<int, Entity*> aiSystemMap;
+
+	static std::vector<Entity*> animationSystemEnts;
+	static std::unordered_map<int, Entity*> animationSystemMap;
 };

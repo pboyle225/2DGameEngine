@@ -23,7 +23,7 @@ public:
 	Layer * getCollisionLayer() { return collisionLayer; }
 	Layer * getPlayerLayer() { return playerLayer; }
 	Layer * getHudLayer() { return hudLayer; }
-private:
+
 	Layer * backgroundLayer; //scene can have any # of layers
 	Layer * objectLayer;
 	Layer * collisionLayer;

@@ -1,6 +1,6 @@
 #include "attack.h"
 
-Attack::Attack(float attackDamage, float attackSpeed, bool isMelee, bool isEnemy)
+Attack::Attack(float attackDamage, float attackSpeed, bool isMelee, bool isFriendly, int attackID, bool hurtsWhenTouched)
 {
 	id = 10;
 	name = "Attack";
@@ -9,10 +9,24 @@ Attack::Attack(float attackDamage, float attackSpeed, bool isMelee, bool isEnemy
 	this->attackDamage = attackDamage;
 	this->isMelee = isMelee;
 	isAttacking = false;
-	attackID = 0; //default
-	this->isEnemy = isEnemy;
+	this->isFriendly = isFriendly;
 	this->attackThisEntity = NULL;
-	float knockbackAmount = 1.0f;
+	this->attackID = attackID;
+	this->combatSkill = NULL;
+	this->hurtsWhentouched = hurtsWhenTouched;
+
+	if (attackID == 0)
+	{
+		knockBackAmount = 3.0f;
+	}
+	else if (attackID == 1)
+	{
+		knockBackAmount = 1.0f;
+	}
+	else if (attackID == 2)
+	{
+		knockBackAmount = 2.0f;
+	}
 
 	timer.reset();
 }

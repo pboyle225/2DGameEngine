@@ -18,20 +18,20 @@ public:
 		walkable = false;
 	}
 
-	Tile(Sprite* texture, math::vec3 position)
+	Tile(Texture * texture, math::vec3 position)
 		: texture(texture), position(position)
 	{
 		animation = NULL;
 		walkable = false;
 	}
 
-	Tile(Sprite* texture, math::vec3 position, Animation* animation)
+	Tile(Texture * texture, math::vec3 position, Animation* animation)
 		: texture(texture), position(position), animation(animation)
 	{
 		walkable = false;
 	}
 
-	Tile(Sprite* texture, math::vec3 position, Animation* animation, bool isWalkable)
+	Tile(Texture * texture, math::vec3 position, Animation* animation, bool isWalkable)
 		: texture(texture), position(position), animation(animation)
 	{
 		this->walkable = isWalkable;
@@ -45,20 +45,20 @@ public:
 	void update(Layer * layer)
 	{
 		animation->update();
-		Sprite * animSprite = animation->getSprite();
+		Texture * animSprite = animation->getSprite();
 
 		if (texture != animSprite)
 		{
 			//layer->removeAndReplace(texture, animation->getSprite());
-			texture->m_Texture = animSprite->m_Texture;
+			texture = animSprite;
 		}
 	}
 
 	Animation * getAnimation() { return animation; }
-	Renderable2D * getSprite() { return texture; }
+	Texture * getSprite() { return texture; }
 	bool isWalkable(){ return walkable; }
 private:
-	Sprite * texture;
+	Texture * texture;
 	Animation * animation;
 	math::vec3 position;
 	bool walkable;

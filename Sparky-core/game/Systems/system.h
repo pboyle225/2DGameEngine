@@ -8,6 +8,7 @@
 #include "../Components/timerComponent.h"
 #include "../Components/healthComponent.h"
 #include "../Components/knockBack.h"
+#include "../Components/labelComponent.h"
 #include "../player.h"
 #include "systemManager.h"
 //#include "../Entities/entity.h"

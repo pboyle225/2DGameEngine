@@ -13,9 +13,8 @@ namespace engine {
 			Sprite(float x, float y, float width, float height, math::vec4& color);
 			Sprite(float x, float y, float z, float width, float height, Texture * texture);
 			Sprite(float x, float y, float width, float height, Texture * texture);
-
+			~Sprite();
 		private:
-
 		};
 	}
 }

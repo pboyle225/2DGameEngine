@@ -118,7 +118,8 @@ void Scene::renderLayers(math::vec3 pos, bool isPlayerBehindObjects, std::vector
 
 void Scene::update(math::vec3 playerLoc)
 {
-
+	
+	/*
 	if (backgroundLayer)
 	{
 		backgroundLayer->update();
@@ -143,6 +144,7 @@ void Scene::update(math::vec3 playerLoc)
 	{
 		hudLayer->update();
 	}
+	*/
 	
 	math::vec3 newLoc = playerLoc * math::vec3(-1, -1, -1);
 	backgroundLayer->getShader()->enable();

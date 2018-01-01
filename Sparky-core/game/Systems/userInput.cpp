@@ -30,6 +30,7 @@ void UserInput::update(std::vector<Entity*> &entities)
 			{
 				movement.y += speed;
 				player->isMoving = true;
+				
 
 				if (!player->walkingUp)
 				{
@@ -81,14 +82,15 @@ void UserInput::update(std::vector<Entity*> &entities)
 				player->addComponent(new Velocity(temp));
 			}
 
-			if (inputComp->window->isMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
+			Attack * attackComp = static_cast<Attack *>(inputEntities[i]->getComponent(10));
+			
+			if (inputComp->window->isMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT) && attackComp)
 			{
-				Attack * attackComp = static_cast<Attack *>(inputEntities[i]->getComponent(10));
-
-				if (attackComp)
-				{
-					attackComp->isAttacking = true;
-				}
+				attackComp->isAttacking = true;
+			}
+			else if(attackComp)
+			{
+				attackComp->isAttacking = false;
 			}
 
 			player->updateAnimation();

@@ -27,7 +27,7 @@ public:
 		cursorTextures[0] = new Texture("imgs/defaultCursor.png");
 		cursorTextures[1] = new Texture("imgs/handCursor.png");
 
-		sprite = new Sprite(0, 0, 0, 1, 1, cursorTextures[1]);
+		sprite = new Sprite(0, 0, 0, 1, 1, cursorTextures[0]);
 	}
 
 	void update(Window * window, std::vector<Entity *> &entities, math::vec3 playerLoc)

@@ -65,8 +65,7 @@ namespace engine {
 
 		void BatchRenderer2D::submit(const Renderable2D* renderable)
 		{
-
-			const math::vec3& position = renderable->getPosition();
+			const math::vec3 position = renderable->getPosition() - renderable->getAnchorPoint();
 			const math::vec2& size = renderable->getSize();
 			const math::vec4& color = renderable->getColor();
 			const std::vector<math::vec2>& uv = renderable->getUV();
