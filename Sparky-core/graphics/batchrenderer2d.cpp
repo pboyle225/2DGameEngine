@@ -41,6 +41,8 @@ namespace engine {
 
 			GLushort indices[RENDERER_INDICES_SIZE];
 
+
+			//vertex points of each square that makes up the sprite
 			int offset = 0;
 			for (int i = 0; i < RENDERER_INDICES_SIZE; i += 6)
 			{
@@ -138,6 +140,7 @@ namespace engine {
 			m_IndexCount += 6;
 		}
 
+		//Rendering font funciton
 		void BatchRenderer2D::drawString(std::string text, const math::vec3& position, const math::vec4& color)
 		{
 			using namespace ftgl;

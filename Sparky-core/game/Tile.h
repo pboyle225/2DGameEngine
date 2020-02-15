@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Components/animation.h"
 #include "../graphics/renderable2d.h"
 
 using namespace engine;
@@ -13,7 +12,7 @@ public:
 	Tile()
 	{
 		texture = NULL;
-		animation = NULL;
+		//animation = NULL;
 		position = math::vec3(0, 0, 0);
 		walkable = false;
 	}
@@ -21,21 +20,21 @@ public:
 	Tile(Texture * texture, math::vec3 position)
 		: texture(texture), position(position)
 	{
-		animation = NULL;
+		//animation = NULL;
 		walkable = false;
 	}
 
-	Tile(Texture * texture, math::vec3 position, Animation* animation)
-		: texture(texture), position(position), animation(animation)
-	{
-		walkable = false;
-	}
+	//Tile(Texture * texture, math::vec3 position, Animation* animation)
+	//	: texture(texture), position(position), animation(animation)
+	//{
+	//	walkable = false;
+	//}
 
-	Tile(Texture * texture, math::vec3 position, Animation* animation, bool isWalkable)
-		: texture(texture), position(position), animation(animation)
-	{
-		this->walkable = isWalkable;
-	}
+	//Tile(Texture * texture, math::vec3 position, Animation* animation, bool isWalkable)
+	//	: texture(texture), position(position), animation(animation)
+	//{
+	//	this->walkable = isWalkable;
+	//}
 
 	~Tile() 
 	{ 
@@ -44,22 +43,22 @@ public:
 
 	void update(Layer * layer)
 	{
-		animation->update();
-		Texture * animSprite = animation->getSprite();
+		//animation->update();
+		//Texture * animSprite = animation->getSprite();
 
-		if (texture != animSprite)
-		{
-			//layer->removeAndReplace(texture, animation->getSprite());
-			texture = animSprite;
-		}
+		//if (texture != animSprite)
+		//{
+		//	//layer->removeAndReplace(texture, animation->getSprite());
+		//	texture = animSprite;
+		//}
 	}
 
-	Animation * getAnimation() { return animation; }
+	//Animation * getAnimation() { return animation; }
 	Texture * getSprite() { return texture; }
 	bool isWalkable(){ return walkable; }
 private:
 	Texture * texture;
-	Animation * animation;
+	//Animation * animation;
 	math::vec3 position;
 	bool walkable;
 };

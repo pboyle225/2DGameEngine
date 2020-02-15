@@ -1,17 +1,23 @@
 #pragma once
 
-#include "../Components/input.h"
-#include "../Components/Transform.h"
-#include "../Components/collision.h"
-#include "../Components/velocity.h"
+#include "../Components/Control/input.h"
+#include "../Entities/fireball.h"
+#include "../Entities/attackTextEntity.h"
+#include "../Components/attack.h"
+#include "../Components/Control/Transform.h"
+#include "../Components/Physics/Collision.h"
+#include "../Components/Physics/Velocity.h"
 #include "../Components/toDelete.h"
+#include "../Components/Action/Render.h"
 #include "../Components/timerComponent.h"
 #include "../Components/healthComponent.h"
 #include "../Components/knockBack.h"
-#include "../Components/labelComponent.h"
+#include "..\\Components\Action\Animation.h"
+#include "..\\Components\Physics\RectangleCollider.h"
 #include "../player.h"
 #include "systemManager.h"
-//#include "../Entities/entity.h"
+#include "..\\Enums\GlobalId.h"
+#include "..\\Enums\ComponentIDEnum.h"
 #include <vector>
 
 /*
@@ -29,6 +35,6 @@
 class System
 {
 public:
-	virtual void update(std::vector<Entity*> &entities) = 0;
-	std::vector<Entity *> systemEntities; //Each system will only hold the entities w/ components they care about
+	virtual void update(std::vector<Entity*> &entities) { }
+	std::vector<Entity *> systemEntities;
 };

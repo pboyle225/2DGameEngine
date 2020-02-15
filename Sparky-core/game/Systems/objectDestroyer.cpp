@@ -1,7 +1,7 @@
 #include "objectDestroyer.h"
 
 #include "../gameObjectManager.h"
-#include "../level.h"
+#include "../Levels/level0.h"
 
 void ObjectDestroyer::update(std::vector<Entity*> &entities)
 {
@@ -11,33 +11,33 @@ void ObjectDestroyer::update(std::vector<Entity*> &entities)
 
 	for (int i = 0; i < size; i++)
 	{
-		if (entities[i]->getComponent(99))
-		{
-			SpriteComponent * spriteComp = static_cast<SpriteComponent *>(entities[i]->getComponent(7));
+		//if (entities[i]->getComponent(99))
+		//{
+		//	//SpriteComponent * spriteComp = static_cast<SpriteComponent *>(entities[i]->getComponent(7));
 
-			if (spriteComp)
-			{
-				SystemManager::notRenderedSprites.push_back(spriteComp->sprite);
-			}
-			else
-			{
-				LabelComponent * labelComponent = static_cast<LabelComponent *>(entities[i]->getComponent(17));
-				SystemManager::notRenderedLabels.push_back(labelComponent->label);
-			}
+		//	if (spriteComp)
+		//	{
+		//		SystemManager::notRenderedSprites.push_back(spriteComp->sprite);
+		//	}
+		//	else
+		//	{
+		//		LabelComponent * labelComponent = static_cast<LabelComponent *>(entities[i]->getComponent(17));
+		//		SystemManager::notRenderedLabels.push_back(labelComponent->label);
+		//	}
 
-			toDeleteEnts.push_back(entities[i]);
-			//GameObjectManager::clearEntFromSystems(entities[i]);
+		//	toDeleteEnts.push_back(entities[i]);
+		//	//GameObjectManager::clearEntFromSystems(entities[i]);
 
-			for (int j = 0; j < Level::entities.size(); j++)
-			{
-				if (entities[i]->globalID == Level::entities[j]->globalID)
-				{
-					Level::entities.erase(Level::entities.begin() + j);
-					break;
-				}
-			}
+		//	for (int j = 0; j < Level::entities.size(); j++)
+		//	{
+		//		if (entities[i]->globalID == Level::entities[j]->globalID)
+		//		{
+		//			Level::entities.erase(Level::entities.begin() + j);
+		//			break;
+		//		}
+		//	}
 
-		}
+		//}
 
 		if (size != entities.size())
 		{

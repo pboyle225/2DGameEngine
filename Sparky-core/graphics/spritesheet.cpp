@@ -13,7 +13,6 @@ namespace engine {
 
 			std::deque<Texture *> queue;
 			std::deque<Texture *> queue2;
-			//memcpy(temp, pixels, spriteSize);
 
 			//Extract all sprites from sheet
 			for (int row = 0; row < m_NumRows; row++)
@@ -39,8 +38,6 @@ namespace engine {
 					}
 
 					Texture * tex = new Texture(temp, spriteWidth, spriteHeight);
-					//Sprite * tempSprite = new Sprite(0.0f, 0.0f, spriteDimension, spriteDimension, tex);
-
 					queue.push_back(tex);
 				}
 

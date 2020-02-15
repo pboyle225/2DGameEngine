@@ -13,7 +13,7 @@ void TimerSystem::update(std::vector<Entity*> &entities)
 			if (timerComp->isAlive && timerComp->timer->elapsed() >= timerComp->timeAlive)
 			{
 				timerComp->isAlive = false;
-				SpriteComponent * spriteComp = static_cast<SpriteComponent *>(entities[i]->getComponent(7));
+				//SpriteComponent * spriteComp = static_cast<SpriteComponent *>(entities[i]->getComponent(7));
 				
 				/*
 				if (spriteComp)
@@ -34,12 +34,12 @@ void TimerSystem::update(std::vector<Entity*> &entities)
 			{
 				timerComp->isAlive = true;
 
-				SpriteComponent * spriteComp = static_cast<SpriteComponent *>(entities[i]->getComponent(7));
+				//SpriteComponent * spriteComp = static_cast<SpriteComponent *>(entities[i]->getComponent(7));
 				
-				if (spriteComp)
-				{
-					//entity has a sprite so need to add it back to the layer somehow
-				}
+				//if (spriteComp)
+				//{
+				//	//entity has a sprite so need to add it back to the layer somehow
+				//}
 
 				timerComp->timer->reset();
 			}

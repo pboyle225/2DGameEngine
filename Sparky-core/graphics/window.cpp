@@ -41,7 +41,7 @@ namespace engine {	namespace graphics {
 		if (!init())
 		{
 			glfwTerminate();
-		}
+		} 
 
 		for (int i = 0; i < MAX_KEYS; i++)
 		{
@@ -115,6 +115,8 @@ namespace engine {	namespace graphics {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glfwSwapInterval(0);
+
+		std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 
 		if (glewInit() != GLEW_OK)
 		{

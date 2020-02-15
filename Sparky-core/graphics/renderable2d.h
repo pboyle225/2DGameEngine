@@ -74,6 +74,18 @@ namespace engine {
 				rotation = rotMat;
 			}
 
+			void setPosition(math::vec3 newPos)
+			{
+
+				m_Position = newPos;
+			}
+
+			void setSize(const math::vec2 size)
+			{
+
+				m_Size = size;
+			}
+
 			void setAnchorPoint(math::vec3 newAnchorPoint)
 			{
 				anchorPoint = newAnchorPoint;

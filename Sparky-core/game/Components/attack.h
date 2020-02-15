@@ -2,7 +2,6 @@
 
 #include "component.h"
 #include "../../utils/timer.h"
-#include "../Systems/Attacks/CombatSkill.h"
 
 class Attack : public Component
 {
@@ -19,7 +18,6 @@ public:
 	bool hurtsWhentouched;
 	Entity * attackThisEntity;
 	std::vector<Entity *> meleeRangeEnts;
-	CombatSkill * combatSkill;
 
 	Timer timer;
 };

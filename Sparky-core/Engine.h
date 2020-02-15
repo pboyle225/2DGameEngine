@@ -83,7 +83,7 @@ namespace engine
 				m_Window->clear();
 
 				//limit to 60 updates a frame
-				if (m_Timer->elapsed() - updateTimer > updateTick)
+				if ((m_Timer->elapsed() - updateTimer) > updateTick)
 				{
 					updates++;
 					update();

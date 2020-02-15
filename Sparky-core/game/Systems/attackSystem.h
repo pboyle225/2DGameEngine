@@ -1,7 +1,6 @@
 #pragma once
 #include "system.h"
 #include "../gameObjectManager.h"
-#include "Attacks\JumpAttack.h"
 
 class AttackSystem : public System
 {

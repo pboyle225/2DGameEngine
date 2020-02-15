@@ -2,33 +2,27 @@
 #include <vector>
 #include <unordered_map>
 #include <bitset>
-//#include "../gameObjectManager.h"
 #include "../../math/_math.h"
+#include "..\\Enums\ComponentIDEnum.h"
 
 #define MAX_COMPONENTS 20
 
+const std::bitset <MAX_COMPONENTS> INPUT_MASK = 0x1 << ComponentIDEnum::InputComp;
+const std::bitset <MAX_COMPONENTS> AI_MASK = INPUT_MASK;
+const std::bitset <MAX_COMPONENTS> TRANSFORM_MASK = 0x1 << ComponentIDEnum::TransformComp;
+const std::bitset <MAX_COMPONENTS> MOVEMENT_MASK = INPUT_MASK;
+const std::bitset <MAX_COMPONENTS> ANIMATION_MASK = 0x1 << ComponentIDEnum::AnimComp;
+const std::bitset <MAX_COMPONENTS> RENDER_MASK = 0x1 << ComponentIDEnum::RenderComp;
+const std::bitset <MAX_COMPONENTS> RECTANGLE_COLLIDER_MASK = 0x1 << ComponentIDEnum::RectangleColliderComp;
+const std::bitset <MAX_COMPONENTS> PHYSICS_MASK = RECTANGLE_COLLIDER_MASK;
+const std::bitset <MAX_COMPONENTS> COLLISION_MASK = 0x1 << ComponentIDEnum::CollisionComp;
+
+//const std::bitset <MAX_COMPONENTS> TIMER_MASK = 0x100;
+//const std::bitset <MAX_COMPONENTS> OBJECT_DESTROYER_MASK = 0x200;
+//const std::bitset <MAX_COMPONENTS> KNOCKBACK_MASK = 0x4000;
+//const std::bitset <MAX_COMPONENTS> ATTACK_MASK = 0x400;
+
 class Entity;
-/*
-ID List for Components:
-	0 - Transform
-	1 - Animation
-	2 - Input
-	3 - Collision
-	4 - Velocity
-	5 - Collectible
-	6 - Rectangle Appearance
-	7 - Sprite Component
-	8 - Timer Component
-	99 - To Delete
-	10 - attack
-	11 - AI Component
-	12 - Circle Appearance
-	13 - Health Component
-	14 - Knockback
-	15 - Direction
-	16 - Projectile
-	17 - Label Component
-*/
 
 using namespace engine;
 
@@ -37,19 +31,19 @@ class Component
 public:
 	Component() { }
 
-	Component(Entity * entity) 
-	{ 
+	Component(Entity* entity)
+	{
 		this->entity = entity;
 	}
 
-	~Component() { }
+	virtual ~Component() { }
 
 	int getID()
 	{
 		return id;
 	}
 
-	Entity * getEntity()
+	Entity* getEntity()
 	{
 		return entity;
 	}
@@ -58,5 +52,5 @@ public:
 protected:
 	std::string name;
 	int id;
-	Entity * entity;
+	Entity* entity;
 };

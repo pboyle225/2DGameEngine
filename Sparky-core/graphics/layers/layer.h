@@ -14,7 +14,6 @@ namespace engine { namespace graphics {
 		virtual void remove(Renderable2D * renderable);
 		virtual void removeAndReplace(Renderable2D * removedRenderable, Renderable2D * replacedRenderable);
 		virtual void render();
-		virtual void update() { }
 		virtual void render(math::vec3 camera);
 		Shader* getShader() { return m_Shader; }
 

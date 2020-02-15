@@ -1,31 +1,35 @@
 #include "gameObjectManager.h"
 
-std::vector<Entity*> GameObjectManager::userInputEnts;
-std::unordered_map<int, Entity*>GameObjectManager::userInputMap;
+std::unordered_map<int, Entity*>GameObjectManager::inputMap;
+std::vector<Entity*> GameObjectManager::inputEnts;
 
-std::vector<Entity*> GameObjectManager::timerSystemEnts;
-std::unordered_map<int, Entity*>GameObjectManager::timerSystemMap;
-
-std::vector<Entity*> GameObjectManager::renderingEnts;
-std::unordered_map<int, Entity*>GameObjectManager::renderingMap;
-
-std::vector<Entity*> GameObjectManager::objectDestroyerEnts;
-std::unordered_map<int, Entity*>GameObjectManager::objectDestroyerMap;
-
-std::vector<Entity*> GameObjectManager::movementEnts;
- std::unordered_map<int, Entity*>GameObjectManager::movementMap;
-
-std::vector<Entity*> GameObjectManager::checkCollisionEnts;
-std::unordered_map<int, Entity*>GameObjectManager::checkCollisionMap;
-
-std::vector<Entity*> GameObjectManager::attackSystemEnts;
-std::unordered_map<int, Entity*> GameObjectManager::attackSystemMap;
-
-std::vector<Entity*> GameObjectManager::aiSystemEnts;
-std::unordered_map<int, Entity*> GameObjectManager::aiSystemMap;
-
-std::vector<Entity*> GameObjectManager::animationSystemEnts;
 std::unordered_map<int, Entity*> GameObjectManager::animationSystemMap;
+std::vector<Entity*> GameObjectManager::animationEnts;
+
+std::unordered_map<int, Entity*>GameObjectManager::renderingMap;
+std::vector<Entity*> GameObjectManager::renderEnts;
+
+std::unordered_map<int, Entity*> GameObjectManager::aiSystemMap;
+std::vector<Entity*> GameObjectManager::aiEnts;
+
+std::unordered_map<int, Entity*>GameObjectManager::movementMap;
+std::vector<Entity*> GameObjectManager::movementEnts;
+
+std::unordered_map<int, Entity*>GameObjectManager::physicsMap;
+std::vector<Entity*> GameObjectManager::physicsEnts;
+
+std::unordered_map<int, Entity*>GameObjectManager::timerSystemMap;
+std::vector<Entity*> GameObjectManager::timerEnts;
+
+std::unordered_map<int, Entity*>GameObjectManager::objectDestroyerMap;
+std::vector<Entity*> GameObjectManager::objectDestroyEnts;
+
+
+std::unordered_map<int, Entity*> GameObjectManager::attackSystemMap;
+std::vector<Entity*> GameObjectManager::attackEnts;
+
+
+
 
 GameObjectManager::GameObjectManager()
 {
@@ -50,177 +54,80 @@ void GameObjectManager::onComponentRemoved(Entity * ent)
 
 void GameObjectManager::refreshSystemContainers(Entity * ent)
 {	
+	addEntToSystem(inputMap, inputEnts, INPUT_MASK, ent);
+	addEntToSystem(movementMap, movementEnts, MOVEMENT_MASK, ent);
+	addEntToSystem(animationSystemMap, animationEnts, ANIMATION_MASK, ent);
+	addEntToSystem(renderingMap, renderEnts, RENDER_MASK, ent);
+	addEntToSystem(physicsMap, physicsEnts, PHYSICS_MASK, ent);
 
-	if (userInputMap[ent->globalID] == NULL && (ent->bitset & userInputMask) == userInputMask)
-	{
-		userInputEnts.push_back(ent);
-		userInputMap[ent->globalID] = ent;
-	}
+	//if (objectDestroyerMap[ent->globalID] == NULL && ((ent->bitset & objectDestroyerMask) == objectDestroyerMask))
+	//{
+	//	objectDestroyerEnts.push_back(ent);
+	//	objectDestroyerMap[ent->globalID] = ent;
+	//}
 
-	if (timerSystemMap[ent->globalID] == NULL && ((ent->bitset & timerSystemMask) == timerSystemMask))
-	{
-		timerSystemEnts.push_back(ent);
-		timerSystemMap[ent->globalID] = ent;
-	}
+	//if (timerSystemMap[ent->globalID] == NULL && ((ent->bitset & timerSystemMask) == timerSystemMask))
+	//{
+	//	timerSystemEnts.push_back(ent);
+	//	timerSystemMap[ent->globalID] = ent;
+	//}
 
-	if (renderingMap[ent->globalID] == NULL && ((ent->bitset & renderingMask) == renderingMask))
-	{
-		renderingEnts.push_back(ent);
-		renderingMap[ent->globalID] = ent;
-	}
+	//if (checkCollisionMap[ent->globalID] == NULL && ((ent->bitset & checkCollisionMask) == checkCollisionMask))
+	//{
+	//	checkCollisionEnts.push_back(ent);
+	//	checkCollisionMap[ent->globalID] = ent;
+	//}
 
-	if (objectDestroyerMap[ent->globalID] == NULL && ((ent->bitset & objectDestroyerMask) == objectDestroyerMask))
-	{
-		objectDestroyerEnts.push_back(ent);
-		objectDestroyerMap[ent->globalID] = ent;
-	}
+	//if (attackSystemMap[ent->globalID] == NULL && ((ent->bitset & attackSystemMask) == attackSystemMask))
+	//{
+	//	attackSystemEnts.push_back(ent);
+	//	attackSystemMap[ent->globalID] = ent;
+	//}
 
-	//For movement component
-	if (movementMap[ent->globalID] == NULL && (((ent->bitset & movementMask) == movementMask) || ((ent->bitset & knockbackMask) == knockbackMask)))
-	{
-		movementEnts.push_back(ent);
-		movementMap[ent->globalID] = ent;
-	}
-
-	if (checkCollisionMap[ent->globalID] == NULL && ((ent->bitset & checkCollisionMask) == checkCollisionMask))
-	{
-		checkCollisionEnts.push_back(ent);
-		checkCollisionMap[ent->globalID] = ent;
-	}
-
-	if (attackSystemMap[ent->globalID] == NULL && ((ent->bitset & attackSystemMask) == attackSystemMask))
-	{
-		attackSystemEnts.push_back(ent);
-		attackSystemMap[ent->globalID] = ent;
-	}
-
-	if (aiSystemMap[ent->globalID] == NULL && ((ent->bitset & aiSystemMask) == aiSystemMask))
-	{
-		aiSystemEnts.push_back(ent);
-		aiSystemMap[ent->globalID] = ent;
-	}
-
-	if (animationSystemMap[ent->globalID] == NULL && ((ent->bitset & animationSystemMask) == animationSystemMask))
-	{
-		animationSystemEnts.push_back(ent);
-		animationSystemMap[ent->globalID] = ent;
-	}
+	//if (aiSystemMap[ent->globalID] == NULL && ((ent->bitset & aiSystemMask) == aiSystemMask))
+	//{
+	//	aiSystemEnts.push_back(ent);
+	//	aiSystemMap[ent->globalID] = ent;
+	//}
 }
 
 void GameObjectManager::clearEntFromSystems(Entity * ent)
 {
-	if (userInputMap[ent->globalID] != NULL)
-	{
-		for (int i = 0; i < userInputEnts.size(); i++)
-		{
-			if (ent == userInputEnts[i])
-			{
-				userInputEnts.erase(userInputEnts.begin() + i);
-				userInputMap.erase(ent->globalID);
-				break;
-			}
-		}
-	}
+	clearEntFromSystem(inputMap, inputEnts, ent);
+	clearEntFromSystem(movementMap, movementEnts, ent);
+	clearEntFromSystem(animationSystemMap, animationEnts, ent);
+	clearEntFromSystem(renderingMap, renderEnts, ent);
+	clearEntFromSystem(physicsMap, physicsEnts, ent);
+	
+	//clearEntFromSystem(timerSystemMap, ent);
+	//clearEntFromSystem(objectDestroyerMap, ent);
+	//clearEntFromSystem(checkCollisionMap, ent);
+	//clearEntFromSystem(attackSystemMap, ent);
+	//clearEntFromSystem(aiSystemMap, ent);
 
-	if (timerSystemMap[ent->globalID] != NULL)
-	{
-		for (int i = 0; i < timerSystemEnts.size(); i++)
-		{
-			if (ent == timerSystemEnts[i])
-			{
-				timerSystemEnts.erase(timerSystemEnts.begin() + i);
-				timerSystemMap.erase(ent->globalID);
-				break;
-			}
-		}
-	}
+	//delete ent;
+}
 
-	if (renderingMap[ent->globalID] != NULL)
+void GameObjectManager::addEntToSystem(std::unordered_map<int, Entity*>& map, std::vector<Entity*>& entBucket, const std::bitset<MAX_COMPONENTS>& mask, Entity* ent)
+{
+	if ((map.find(ent->globalID) == map.end()) && ((ent->bitset & mask) != 0))
 	{
-		for (int i = 0; i < renderingEnts.size(); i++)
-		{
-			if (ent == renderingEnts[i])
-			{
-				renderingEnts.erase(renderingEnts.begin() + i);
-				renderingMap.erase(ent->globalID);
-				break;
-			}
-		}
+		map[ent->globalID] = ent;
+		entBucket.push_back(ent);
 	}
+}
 
-	if (objectDestroyerMap[ent->globalID] != NULL)
+void GameObjectManager::clearEntFromSystem(std::unordered_map<int, Entity*>& map, std::vector<Entity*>& entBucket, Entity* ent)
+{
+	if (map.find(ent->globalID) != map.end())
 	{
-		for (int i = 0; i < objectDestroyerEnts.size(); i++)
+		map.erase(ent->globalID);
+		
+		for (int i = 0; i < entBucket.size(); i++)
 		{
-			if (ent == objectDestroyerEnts[i])
+			if (entBucket[i]->globalID == ent->globalID)
 			{
-				objectDestroyerEnts.erase(objectDestroyerEnts.begin() + i);
-				objectDestroyerMap.erase(ent->globalID);
-				break;
-			}
-		}
-	}
-
-	if (movementMap[ent->globalID] != NULL)
-	{
-		for (int i = 0; i < movementEnts.size(); i++)
-		{
-			if (ent == movementEnts[i])
-			{
-				movementEnts.erase(movementEnts.begin() + i);
-				movementMap.erase(ent->globalID);
-				break;
-			}
-		}
-	}
-
-	if (checkCollisionMap[ent->globalID] != NULL)
-	{
-		for (int i = 0; i < checkCollisionEnts.size(); i++)
-		{
-			if (ent == checkCollisionEnts[i])
-			{
-				checkCollisionEnts.erase(checkCollisionEnts.begin() + i);
-				checkCollisionMap.erase(ent->globalID);
-				break;
-			}
-		}
-	}
-
-	if (attackSystemMap[ent->globalID] != NULL)
-	{
-		for (int i = 0; i < attackSystemEnts.size(); i++)
-		{
-			if (ent == attackSystemEnts[i])
-			{
-				attackSystemEnts.erase(attackSystemEnts.begin() + i);
-				attackSystemMap.erase(ent->globalID);
-				break;
-			}
-		}
-	}
-
-	if (aiSystemMap[ent->globalID] != NULL)
-	{
-		for (int i = 0; i < aiSystemEnts.size(); i++)
-		{
-			if (ent == aiSystemEnts[i])
-			{
-				aiSystemEnts.erase(aiSystemEnts.begin() + i);
-				aiSystemMap.erase(ent->globalID);
-				break;
-			}
-		}
-	}
-
-	if (animationSystemMap[ent->globalID] != NULL)
-	{
-		for (int i = 0; i < animationSystemEnts.size(); i++)
-		{
-			if (ent == animationSystemEnts[i])
-			{
-				animationSystemEnts.erase(animationSystemEnts.begin() + i);
-				animationSystemMap.erase(ent->globalID);
+				entBucket.erase(entBucket.begin() + i);
 				break;
 			}
 		}

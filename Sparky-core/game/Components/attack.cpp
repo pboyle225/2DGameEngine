@@ -12,7 +12,6 @@ Attack::Attack(float attackDamage, float attackSpeed, bool isMelee, bool isFrien
 	this->isFriendly = isFriendly;
 	this->attackThisEntity = NULL;
 	this->attackID = attackID;
-	this->combatSkill = NULL;
 	this->hurtsWhentouched = hurtsWhenTouched;
 
 	if (attackID == 0)
