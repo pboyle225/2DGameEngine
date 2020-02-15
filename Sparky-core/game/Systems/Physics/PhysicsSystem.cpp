@@ -95,6 +95,7 @@ void PhysicsSystem::HandleCollisions(std::vector<Entity*>& entities, const math:
 	for (int i = 0; i < removeVel.size(); i++)
 	{
 		removeVel[i]->removeComponent(ComponentIDEnum::VelocityComp);
+		removeVel[i]->removeComponent(ComponentIDEnum::RenderComp);
 	}
 	removeVel.clear();
 }
@@ -114,3 +115,39 @@ bool PhysicsSystem::AreRectanglesCollided(RectangleCollider* rect1, math::vec3 l
 //		SoundEngine::soundEngine->play2D("sounds/bomp.wav", false);
 //	}
 //}
+
+// void PhysicsSystem::AreRectangleCircleCollided()
+//{
+	//			CircleAppearance * aggroCircleMain = static_cast<CircleAppearance *>(entities[i]->getComponent(12));
+//
+//			//Circle and rectangle collision
+//			if (transformCompMain && rectCompMain && transformCompSecond && aggroCircleMain && attackCompMain && attackCompSecondary)
+//			{
+//				float DeltaX = transformCompSecond->location.x - std::max(transformCompMain->location.x, std::min(transformCompSecond->location.x, transformCompMain->location.x + rectCompMain->width));
+//				float DeltaY = transformCompSecond->location.y - std::max(transformCompMain->location.y, std::min(transformCompSecond->location.y, transformCompMain->location.y + rectCompMain->height));
+//
+//				//AIComponent * aiCompMain = static_cast<AIComponent *>(entities[i]->getComponent(11));
+//
+//				//if ((DeltaX * DeltaX + DeltaY * DeltaY) < (aggroCircleMain->radius * aggroCircleMain->radius))
+//				//{
+//				//	//Rectangle circle collision occured
+//
+//				//	if ((attackCompMain->isFriendly && !attackCompSecondary->isFriendly)
+//				//		|| (!attackCompMain->isFriendly && attackCompSecondary->isFriendly))
+//				//	{
+//				//		//Friendly and enemy
+//				//		if (!aiCompMain->isAggro && !attackCompMain->isFriendly && entities[j]->name == "Player")
+//				//		{
+//				//			aiCompMain->isAggro = true;
+//				//			aiCompMain->entThatAggro = entities[j];
+//				//		}
+//				//	}
+//				//}
+//				
+//				//else if (aiCompMain && aiCompMain->entThatAggro == entities[j])
+//				//{
+//				//	aiCompMain->isAggro = false;
+//				//	aiCompMain->entThatAggro = NULL;
+//				//}
+//				
+//			}	

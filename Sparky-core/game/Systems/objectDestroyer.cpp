@@ -1,7 +1,6 @@
 #include "objectDestroyer.h"
 
 #include "../gameObjectManager.h"
-#include "../Levels/level0.h"
 
 void ObjectDestroyer::update(std::vector<Entity*> &entities)
 {

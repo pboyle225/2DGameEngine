@@ -1,5 +1,5 @@
 #include "../Engine.h"
-#include "Levels/level0.h"
+#include "Levels/Level.h"
 #include "gameObjectManager.h"
 #include "Systems/Physics/PhysicsSystem.h"
 #include "Systems\Control\KeyboardInputSystem.h"
@@ -36,7 +36,7 @@ public:
 		SoundEngine::soundEngine->play2D("sounds/game_intro_song_2.ogg", true);
 
 		// Create Level
-		currLevel = new Level0();
+		currLevel = new Level();
 
 		//Load systems
 		keyboardInputSystem = new KeyboardInputSystem();
@@ -89,7 +89,7 @@ public:
 		movementSystem->update(GameObjectManager::movementEnts);
 		physicsSystem->update(GameObjectManager::physicsEnts, deltaTime);
 		animationSystem->update(GameObjectManager::animationEnts);
-		renderSystem->update(GameObjectManager::renderEnts);
+		renderSystem->update(GameObjectManager::renderEnts, currLevel->GetObjectLayer());
 
 		//Level::cursorPos = cursor->getWorldCoords(player->getLocation());
 		//	
@@ -140,7 +140,7 @@ public:
 
 private:
 	Window* window;
-	Level0 * currLevel;
+	Level* currLevel;
 
 	KeyboardInputSystem* keyboardInputSystem;
 	MovementSystem* movementSystem;

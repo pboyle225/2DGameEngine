@@ -22,19 +22,19 @@ Scene::~Scene()
 	delete this->objectLayer;
 }
 
-void Scene::renderLayers()
+void Scene::renderLayers(math::vec3 cameraLoc)
 {
 	for (Layer* layer : this->backgroundLayers)
 	{
 		if (layer)
 		{
-			layer->render();
+			layer->render(cameraLoc);
 		}
 	}
 
 	if (objectLayer)
 	{
-		this->objectLayer->render();
+		this->objectLayer->render(cameraLoc);
 	}
 
 	if (hudLayer)

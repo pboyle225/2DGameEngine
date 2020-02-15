@@ -1,10 +1,10 @@
 #pragma once
 
 #include "..\\system.h"
-#include "../../Levels/level0.h"
+#include "../../../graphics/layers/layer.h"
 
 class EntitySpawnerSystem : public System
 {
 public:
-	void update(std::vector<Entity*>& entities, Level0* level);
+	void update(std::vector<Entity*>& entities, Layer* objectLayer);
 };

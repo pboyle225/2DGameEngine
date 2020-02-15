@@ -13,7 +13,7 @@ public:
 	Scene();
 	~Scene();
 
-	void renderLayers();
+	void renderLayers(math::vec3 loc);
 	void updateCamera(math::vec3 loc);
 	std::vector<Layer*> backgroundLayers;
 	Layer* objectLayer;

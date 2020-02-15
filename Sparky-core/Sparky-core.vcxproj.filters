@@ -87,9 +87,6 @@
     <ClCompile Include="..\Dependencies\FreeType-gl\vector.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="game\tilelayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="game\scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -100,9 +97,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="game\game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\Systems\checkCollision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="game\Components\toDelete.cpp">
@@ -142,9 +136,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="game\Components\knockBack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\Levels\level0.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="game\Helper Classes\LocationUtil.cpp">
@@ -199,6 +190,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="game\Systems\Physics\CollisionSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Layers\tilelayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Layers\ObjectLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Levels\Level.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -275,16 +275,7 @@
     <ClInclude Include="graphics\spritesheet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="game\tilelayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="game\scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\TmxFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\label.h">
@@ -315,9 +306,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\Systems\system.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Systems\checkCollision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="math\rectangle.h">
@@ -366,9 +354,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\Entities\attackTextEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Levels\level0.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\Enums\GlobalId.h">
@@ -441,6 +426,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\Components\component.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Layers\tilelayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Layers\Tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Layers\TmxFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Layers\ObjectLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Levels\Level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

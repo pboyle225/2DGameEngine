@@ -43,6 +43,11 @@ namespace engine {
 			m_Renderables.push_back(renderable);
 		}
 
+		void Layer::setRenderables(const std::vector<Renderable2D*>& renderables)
+		{
+			m_Renderables = renderables;
+		}
+
 		void Layer::remove(Renderable2D * renderable)
 		{
 			for (int i = 0; i < m_Renderables.size(); i++)
@@ -93,8 +98,7 @@ namespace engine {
 			m_Renderer->begin();
 
 			for (const Renderable2D * renderable : m_Renderables)
-			{
-				
+			{			
 				//Only render sprites on screen and slightly off
 				float diffLeft = camera.x - 20;
 				float diffRight = camera.x + 20;

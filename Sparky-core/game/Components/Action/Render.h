@@ -10,6 +10,7 @@ class Render : public Component
 public:
 	Render(Renderable2D* renderable);
 	Renderable2D* GetRenderable();
+	bool isShown = true;
 private:
 	Renderable2D* renderable;
 };
