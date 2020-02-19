@@ -1,4 +1,4 @@
-#include "gameObjectManager.h"
+#include "GameObjectManager.h"
 
 std::unordered_map<int, Entity*>GameObjectManager::inputMap;
 std::vector<Entity*> GameObjectManager::inputEnts;
@@ -24,12 +24,11 @@ std::vector<Entity*> GameObjectManager::timerEnts;
 std::unordered_map<int, Entity*>GameObjectManager::objectDestroyerMap;
 std::vector<Entity*> GameObjectManager::objectDestroyEnts;
 
-
 std::unordered_map<int, Entity*> GameObjectManager::attackSystemMap;
 std::vector<Entity*> GameObjectManager::attackEnts;
 
-
-
+std::unordered_map<int, Entity*> GameObjectManager::cursorSystemMap;
+std::vector<Entity*> GameObjectManager::cursorEnts;
 
 GameObjectManager::GameObjectManager()
 {
@@ -59,6 +58,7 @@ void GameObjectManager::refreshSystemContainers(Entity * ent)
 	addEntToSystem(animationSystemMap, animationEnts, ANIMATION_MASK, ent);
 	addEntToSystem(renderingMap, renderEnts, RENDER_MASK, ent);
 	addEntToSystem(physicsMap, physicsEnts, PHYSICS_MASK, ent);
+	addEntToSystem(cursorSystemMap, cursorEnts, CURSOR_MASK, ent);
 
 	//if (objectDestroyerMap[ent->globalID] == NULL && ((ent->bitset & objectDestroyerMask) == objectDestroyerMask))
 	//{
@@ -98,6 +98,7 @@ void GameObjectManager::clearEntFromSystems(Entity * ent)
 	clearEntFromSystem(animationSystemMap, animationEnts, ent);
 	clearEntFromSystem(renderingMap, renderEnts, ent);
 	clearEntFromSystem(physicsMap, physicsEnts, ent);
+	clearEntFromSystem(cursorSystemMap, cursorEnts, ent);
 	
 	//clearEntFromSystem(timerSystemMap, ent);
 	//clearEntFromSystem(objectDestroyerMap, ent);

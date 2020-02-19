@@ -8,6 +8,12 @@ Render::Render(Renderable2D* renderable)
 	this->renderable = renderable;
 }
 
+Render::Render(Renderable2D* renderable, bool isShown)
+	: Render(renderable)
+{
+	this->isShown = isShown;
+}
+
 Renderable2D* Render::GetRenderable()
 {
 	return this->renderable;

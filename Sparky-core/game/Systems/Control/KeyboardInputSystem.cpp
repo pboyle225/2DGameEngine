@@ -6,13 +6,17 @@ void KeyboardInputSystem::update(std::vector<Entity*> &entities, Window* window)
 	for (Entity* ent : entities)
 	{
 		Input* input = static_cast<Input*>(ent->getComponent(ComponentIDEnum::InputComp));
-		if (input->type != InputType::KEYBOARD)
+		
+		if (input)
 		{
-			continue;
-		}
+			if (input->type != InputType::KEYBOARD)
+			{
+				continue;
+			}
 
-		HandleMovement(input, window);
-		HandleAttack(input, window);
+			HandleMovement(input, window);
+			HandleAttack(input, window);
+		}
 	}
 }
 

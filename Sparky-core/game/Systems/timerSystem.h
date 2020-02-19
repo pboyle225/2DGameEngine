@@ -1,9 +1,9 @@
-#pragma once
-
-#include "system.h"
-
-class TimerSystem : public System
-{
-public:
-	void update(std::vector<Entity*> &entities)  override;
-};
+//#pragma once
+//
+//#include "system.h"
+//
+//class TimerSystem : public System
+//{
+//public:
+//	void update(std::vector<Entity*> &entities)  override;
+//};

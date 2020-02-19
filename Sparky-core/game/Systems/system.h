@@ -3,7 +3,6 @@
 #include "../Components/Control/input.h"
 #include "../Entities/fireball.h"
 #include "../Entities/attackTextEntity.h"
-#include "../Components/attack.h"
 #include "../Components/Control/Transform.h"
 #include "../Components/Physics/Collision.h"
 #include "../Components/Physics/Velocity.h"
@@ -14,23 +13,11 @@
 #include "../Components/knockBack.h"
 #include "..\\Components\Action\Animation.h"
 #include "..\\Components\Physics\RectangleCollider.h"
-#include "../player.h"
-#include "systemManager.h"
+#include "..\\\Entities\Player.h"
 #include "..\\Enums\GlobalId.h"
 #include "..\\Enums\ComponentIDEnum.h"
+#include "..\\Components\Control\CursorC.h"
 #include <vector>
-
-/*
-	Keys for Systems for message:
-	0 - userInput
-	1 - checkCollision
-	2 - movement
-	3 - objectDestroyer
-	4 - rendering 
-	5 - renderLayerOrder
-	6 - AISystem
-*/
-
 
 class System
 {

@@ -1,13 +1,14 @@
 #include "..\Physics\PhysicsSystem.h"
 #include "..\\..\\SoundEngine\soundEngine.h"
 
-void PhysicsSystem::update(std::vector<Entity*>& entities, Timer& deltaTime)
+void PhysicsSystem::update(std::vector<Entity*>& entities, const double& dt)
 {
-	const float MAX_DT = 0.15f;
-	math::vec3 dt = deltaTime.elapsed() < MAX_DT ? math::vec3(deltaTime.elapsed(), deltaTime.elapsed(), deltaTime.elapsed())
+	const float MAX_DT = 0.07f;
+	math::vec3 dtVec = dt < MAX_DT ? math::vec3(dt, dt, dt)
 		: math::vec3(MAX_DT, MAX_DT, MAX_DT);
-	HandleCollisions(entities, dt);
-	
+
+	HandleCollisions(entities, dtVec);
+
 	for (int i = 0; i < entities.size(); i++)
 	{
 		Transform* transformComp = static_cast<Transform*>(entities[i]->getComponent(ComponentIDEnum::TransformComp));
@@ -15,7 +16,7 @@ void PhysicsSystem::update(std::vector<Entity*>& entities, Timer& deltaTime)
 
 		if (transformComp && velocityComp)
 		{
-			transformComp->location += (velocityComp->velocity * dt);
+			transformComp->location += (velocityComp->velocity * dtVec);
 			removeVel.push_back(entities[i]);
 		}
 	}
@@ -88,14 +89,13 @@ void PhysicsSystem::HandleCollisions(std::vector<Entity*>& entities, const math:
 
 	for (auto const& pair : collisions)
 	{
-		entities[pair.first]->addComponent(new Collision(entities[pair.first], entities[pair.second]));
+		//entities[pair.first]->addComponent(new Collision(entities[pair.first], entities[pair.second]));
 	}
 	collisions.clear();
 
 	for (int i = 0; i < removeVel.size(); i++)
 	{
 		removeVel[i]->removeComponent(ComponentIDEnum::VelocityComp);
-		removeVel[i]->removeComponent(ComponentIDEnum::RenderComp);
 	}
 	removeVel.clear();
 }

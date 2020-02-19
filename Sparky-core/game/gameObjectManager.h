@@ -42,6 +42,9 @@ public:
 	static std::unordered_map<int, Entity*> animationSystemMap;
 	static std::vector<Entity*> animationEnts;
 
+	static std::unordered_map<int, Entity*> cursorSystemMap;
+	static std::vector<Entity*> cursorEnts;
+
 	static std::vector<Collision*> collisions;
 
 private:

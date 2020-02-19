@@ -105,13 +105,17 @@ namespace engine {	namespace graphics {
 			return false;
 		}
 
+		// TEST CURSOR
+		//unsigned char pixels[16 * 16 * 4];
+		//memset(pixels, 0xff, sizeof(pixels));
+
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, this);
 		glfwSetFramebufferSizeCallback(m_Window, windowResize);
 		glfwSetKeyCallback(m_Window, key_callback);
 		glfwSetMouseButtonCallback(m_Window, mouse_button_callback);
 		glfwSetCursorPosCallback(m_Window, cursor_position_callback);
-		glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glfwSwapInterval(0);
@@ -142,10 +146,9 @@ namespace engine {	namespace graphics {
 		return m_Keys[keycode];
 	}
 
-	void Window::getMousePosition(double &x, double &y) const
+	math::vec2 Window::getMousePosition() const
 	{
-		x = mx;
-		y = my;
+		return math::vec2(mx, my);
 	}
 
 	bool Window::isMouseButtonClicked(unsigned int button) const
@@ -175,6 +178,33 @@ namespace engine {	namespace graphics {
 		
 		return true;
 	}
+
+	void Window::SetCursor(math::vec2 size, BYTE* pixels)
+	{
+		int offset = 0;
+		unsigned char* newPixels = new unsigned char[size.x * size.y * 4];
+
+		// convert from bgra to rgba
+		for (int y = 0; y < size.y; y++) {
+			for (int x = 0; x < size.x; x++) {
+				newPixels[offset] = pixels[offset + 2];
+				newPixels[offset + 1] = pixels[offset + 1];
+				newPixels[offset + 2] = pixels[offset];
+				newPixels[offset + 3] = pixels[offset + 3];
+
+				offset += 4;
+			}
+		}
+
+		GLFWimage image;
+		image.width = size.x;
+		image.height = size.y;
+		image.pixels = newPixels;
+
+		GLFWcursor* cursor = glfwCreateCursor(&image, 0, 0);
+		glfwSetCursor(m_Window, cursor);
+	}
+
 	/*-----------------Friend functions (Used for GLFW Callbacks) ------------------------*/
 
 	void windowResize(GLFWwindow *window, int width, int height)

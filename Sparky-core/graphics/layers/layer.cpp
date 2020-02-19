@@ -105,15 +105,11 @@ namespace engine {
 				float diffUp = camera.y + 20;
 				float diffDown = camera.y - 20;
 
-				if ((renderable->m_Position.x < diffRight && renderable->m_Position.x > diffLeft)&& 
-					(renderable->m_Position.y < diffUp && renderable->m_Position.y > diffDown))
+				if ((renderable->m_Position.x < diffRight && renderable->m_Position.x > diffLeft)
+					&& (renderable->m_Position.y < diffUp && renderable->m_Position.y > diffDown))
 				{
 					renderable->submit(m_Renderer);
 				}
-				
-
-
-				//renderable->submit(m_Renderer);
 			}
 			m_Renderer->end();
 

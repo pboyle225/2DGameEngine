@@ -1,4 +1,4 @@
-#include "soundEngine.h"
+#include "SoundEngine.h"
 
 ISoundEngine * SoundEngine::soundEngine;
 

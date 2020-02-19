@@ -5,7 +5,7 @@
 class PhysicsSystem : public System
 {
 public:
-	void update(std::vector<Entity*>& entities, Timer& deltaTime);
+	void update(std::vector<Entity*>& entities, const double& dt);
 	bool AreRectanglesCollided(RectangleCollider* rect1, math::vec3 loc1, RectangleCollider* rect2, math::vec3 loc2);
 private:
 	std::vector<Entity*> removeVel;

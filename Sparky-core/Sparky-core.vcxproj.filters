@@ -87,16 +87,7 @@
     <ClCompile Include="..\Dependencies\FreeType-gl\vector.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="game\scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="graphics\label.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="game\Components\toDelete.cpp">
@@ -105,31 +96,13 @@
     <ClCompile Include="game\Systems\objectDestroyer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="game\Systems\systemManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="game\Components\TimerComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="game\Systems\timerSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="game\Components\attack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\Entities\entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="game\Systems\attackSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\gameObjectManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\Entities\slime.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\Components\circleAppearance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="game\Components\healthComponent.cpp">
@@ -174,9 +147,6 @@
     <ClCompile Include="game\Components\Control\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="game\SoundEngine\soundEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="game\Systems\Physics\PhysicsSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -192,13 +162,43 @@
     <ClCompile Include="game\Systems\Physics\CollisionSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="game\Layers\tilelayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="game\Layers\ObjectLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="game\Levels\Level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\GameObjectManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Entities\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Entities\Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Entities\Slimes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Layers\TileLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\SoundEngine\SoundEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Systems\Action\CursorSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Components\Control\CursorC.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Components\attacks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -269,13 +269,7 @@
     <ClInclude Include="Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="game\player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="graphics\spritesheet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\label.h">
@@ -302,12 +296,6 @@
     <ClInclude Include="..\Dependencies\FreeType-gl\vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="game\Entities\entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Systems\system.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="math\rectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -317,43 +305,19 @@
     <ClInclude Include="game\Systems\objectDestroyer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="game\Systems\systemManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="game\Components\timerComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\Systems\timerSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="game\cursor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Components\attack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="game\Systems\attackSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\gameObjectManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Entities\slime.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Components\circleAppearance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\Components\healthComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\Components\knockBack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Entities\fireball.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\Entities\attackTextEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\Enums\GlobalId.h">
@@ -401,9 +365,6 @@
     <ClInclude Include="game\Components\Control\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="game\SoundEngine\soundEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="game\Systems\Physics\PhysicsSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -428,9 +389,6 @@
     <ClInclude Include="game\Components\component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="game\Layers\tilelayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="game\Layers\Tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -443,9 +401,104 @@
     <ClInclude Include="game\Levels\Level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="game\GameObjectManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Entities\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Entities\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Entities\Slime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Entities\Fireball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Entities\AttackTextEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Layers\TileLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\SoundEngine\SoundEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Entities\Cursor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Systems\Action\CursorSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Components\Control\CursorC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Systems\System.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Components\attacks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\basic.vert" />
     <None Include="shaders\basic.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="imgs\basictiles.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\defaultCursor.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\dungeon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\Flooring.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\Flooring_01.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\handCursor.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\its_not_worth_to_go_in_small.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\playerSpritesheet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\sandTest.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\tileset_basic_terrain.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\tileset_cave.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\tileset_mountains.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\tileset_mountains2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\tileset_other.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\tileset_water.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\tileset_water_animated.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="imgs\when_you (1).png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

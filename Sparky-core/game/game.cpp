@@ -7,6 +7,7 @@
 #include "Systems/Action/RenderSystem.h"
 #include "Systems/Control/AIControlSystem.h"
 #include "Systems/Action/AnimationSystem.h"
+#include "Systems/Action/CursorSystem.h"
 
 using namespace engine;
 using namespace graphics;
@@ -29,6 +30,13 @@ public:
 	{
 		//Create window
 		window = createWindow("RPG BRO", 1280, 720);
+		
+		// Create hardware cursor
+		std::string cursorPath = "imgs/defaultCursor.png";
+		GLsizei width;
+		GLsizei height;
+		BYTE* pixels = load_image(cursorPath.c_str(), &width, &height);
+		window->SetCursor(math::vec2((int)width, (int)height), pixels);
 
 		// Create sound engine
 		SoundEngine::init();
@@ -45,6 +53,7 @@ public:
 		physicsSystem = new PhysicsSystem();
 		animationSystem = new AnimationSystem();
 		renderSystem = new RenderSystem();
+		cursorSystem = new CursorSystem();
 		//renderLayerOrder = new RenderLayerOrder();
 		//objectDestroyer = new ObjectDestroyer();
 		//rendering = new Rendering();
@@ -71,6 +80,8 @@ public:
 	{
 		if (currLevel)
 		{
+			cursorSystem->update(GameObjectManager::cursorEnts, window->getMousePosition(), math::vec2(window->getWidth(), window->getHeight()));
+			renderSystem->update(GameObjectManager::renderEnts, currLevel->GetObjectLayer());
 			currLevel->RenderScene();
 		}
 	}
@@ -87,9 +98,8 @@ public:
 		keyboardInputSystem->update(GameObjectManager::inputEnts, window);
 		aiControlSystem->update(GameObjectManager::inputEnts);
 		movementSystem->update(GameObjectManager::movementEnts);
-		physicsSystem->update(GameObjectManager::physicsEnts, deltaTime);
+		physicsSystem->update(GameObjectManager::physicsEnts, dt);
 		animationSystem->update(GameObjectManager::animationEnts);
-		renderSystem->update(GameObjectManager::renderEnts, currLevel->GetObjectLayer());
 
 		//Level::cursorPos = cursor->getWorldCoords(player->getLocation());
 		//	
@@ -148,6 +158,7 @@ private:
 	AnimationSystem* animationSystem;
 	RenderSystem* renderSystem;
 	AIControlSystem* aiControlSystem;
+	CursorSystem* cursorSystem;
 
 	//CheckCollision * checkCollision;
 	//RenderLayerOrder * renderLayerOrder;

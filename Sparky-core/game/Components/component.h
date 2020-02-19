@@ -16,6 +16,7 @@ const std::bitset <MAX_COMPONENTS> RENDER_MASK = 0x1 << ComponentIDEnum::RenderC
 const std::bitset <MAX_COMPONENTS> RECTANGLE_COLLIDER_MASK = 0x1 << ComponentIDEnum::RectangleColliderComp;
 const std::bitset <MAX_COMPONENTS> PHYSICS_MASK = RECTANGLE_COLLIDER_MASK;
 const std::bitset <MAX_COMPONENTS> COLLISION_MASK = 0x1 << ComponentIDEnum::CollisionComp;
+const std::bitset <MAX_COMPONENTS> CURSOR_MASK = 0x1 << ComponentIDEnum::CursorComp;
 
 //const std::bitset <MAX_COMPONENTS> TIMER_MASK = 0x100;
 //const std::bitset <MAX_COMPONENTS> OBJECT_DESTROYER_MASK = 0x200;

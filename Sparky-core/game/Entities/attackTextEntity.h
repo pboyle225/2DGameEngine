@@ -1,5 +1,5 @@
 #pragma once
-#include "entity.h"
+#include "Entity.h"
 
 class AttackTextEntity : public Entity
 {

@@ -25,13 +25,13 @@ namespace engine {
 		}
 
 		//returns seconds
-		float elapsed()
+		double elapsed()
 		{
 			LARGE_INTEGER current;
 
 			QueryPerformanceCounter(&current);
 			unsigned __int64 cycles = current.QuadPart - m_Start.QuadPart;
-			return (float)((cycles / m_Frequency) / 1000.0f);
+			return (double)((cycles / m_Frequency) / 1000.0);
 		}
 	private:
 		LARGE_INTEGER m_Start;

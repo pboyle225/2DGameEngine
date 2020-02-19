@@ -3,6 +3,8 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW\glfw3.h>
+#include "..//math/_math.h"
+#include <Windows.h>
 
 namespace engine {	namespace graphics {
 
@@ -22,9 +24,10 @@ namespace engine {	namespace graphics {
 		bool closed() const;
 		void clear() const;
 
+		void SetCursor(math::vec2 size, BYTE* pixels);
 		bool isKeyPressed(unsigned int keycode) const;
 		bool isMouseButtonPressed(unsigned int button) const;
-		void getMousePosition(double &x, double &y) const;
+		math::vec2 getMousePosition() const;
 		int getStateOfKey(int key);
 		int getWidth() const { return m_Width; }
 		int getHeight() const { return m_Height; }

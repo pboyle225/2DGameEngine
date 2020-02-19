@@ -85,7 +85,12 @@
       <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>C:\Users\Patrick\Documents\Visual Studio 2015\Projects\Sparky\Dependencies\FreeType\Includes;C:\Users\Patrick\Documents\Visual Studio 2015\Projects\Sparky\Dependencies\irrKlang-1.5.0\include;C:\Users\Patrick\Documents\Visual Studio 2015\Projects\Sparky\Dependencies\FreeImage\include;C:\Users\Patrick\Documents\Visual Studio 2015\Projects\sparky\Dependencies\GLFW\include;C:\Users\Patrick\Documents\Visual Studio 2015\Projects\sparky\Dependencies\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\Users\Patrick\Documents\Visual Studio 2015\Projects\Sparky\Dependencies\FreeType\Win32;C:\Users\Patrick\Documents\Visual Studio 2015\Projects\Sparky\Dependencies\irrKlang-1.5.0\lib\Win32-visualStudio;C:\Users\Patrick\Documents\Visual Studio 2015\Projects\Sparky\Dependencies\FreeImage\lib;C:\Users\Patrick\Documents\Visual Studio 2015\Projects\sparky\Dependencies\GLFW\lib-vc2015;C:\Users\Patrick\Documents\Visual Studio 2015\Projects\sparky\Dependencies\GLEW\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -96,7 +101,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\Patrick\Documents\Visual Studio 2015\Projects\Sparky\Dependencies\FreeType\Includes;C:\Users\Patrick\Documents\Visual Studio 2015\Projects\Sparky\Dependencies\irrKlang-1.5.0\include;C:\Users\Patrick\Documents\Visual Studio 2015\Projects\Sparky\Dependencies\FreeImage\include;C:\Users\Patrick\Documents\Visual Studio 2015\Projects\sparky\Dependencies\GLFW\include;C:\Users\Patrick\Documents\Visual Studio 2015\Projects\sparky\Dependencies\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -141,8 +148,8 @@
     <ClCompile Include="game\Animation\AnimationManager.cpp" />
     <ClCompile Include="game\Components\Action\Animation.cpp" />
     <ClCompile Include="game\Components\Action\Render.cpp" />
-    <ClCompile Include="game\Components\attack.cpp" />
-    <ClCompile Include="game\Components\circleAppearance.cpp" />
+    <ClCompile Include="game\Components\attacks.cpp" />
+    <ClCompile Include="game\Components\Control\CursorC.cpp" />
     <ClCompile Include="game\Components\Control\Transform.cpp" />
     <ClCompile Include="game\Components\healthComponent.cpp" />
     <ClCompile Include="game\Components\Control\Input.cpp" />
@@ -152,16 +159,17 @@
     <ClCompile Include="game\Components\Physics\Velocity.cpp" />
     <ClCompile Include="game\Components\TimerComponent.cpp" />
     <ClCompile Include="game\Components\toDelete.cpp" />
-    <ClCompile Include="game\Entities\entity.cpp" />
-    <ClCompile Include="game\Entities\slime.cpp" />
-    <ClCompile Include="game\game.cpp" />
-    <ClCompile Include="game\gameObjectManager.cpp" />
+    <ClCompile Include="game\Entities\Entity.cpp" />
+    <ClCompile Include="game\Entities\Slimes.cpp" />
+    <ClCompile Include="game\Game.cpp" />
+    <ClCompile Include="game\GameObjectManager.cpp" />
     <ClCompile Include="game\Layers\ObjectLayer.cpp" />
     <ClCompile Include="game\Levels\Level.cpp" />
     <ClCompile Include="game\Helper Classes\LocationUtil.cpp" />
-    <ClCompile Include="game\player.cpp" />
-    <ClCompile Include="game\scene.cpp" />
+    <ClCompile Include="game\Entities\Player.cpp" />
+    <ClCompile Include="game\Scene.cpp" />
     <ClCompile Include="game\Systems\Action\AnimationSystem.cpp" />
+    <ClCompile Include="game\Systems\Action\CursorSystem.cpp" />
     <ClCompile Include="game\Systems\Action\EntitySpawnerSystem.cpp" />
     <ClCompile Include="game\Systems\Action\MovementSystem.cpp" />
     <ClCompile Include="game\Systems\Action\RenderSystem.cpp" />
@@ -170,7 +178,6 @@
     <ClCompile Include="game\Systems\objectDestroyer.cpp" />
     <ClCompile Include="game\Systems\Physics\CollisionSystem.cpp" />
     <ClCompile Include="game\Systems\Physics\PhysicsSystem.cpp" />
-    <ClCompile Include="game\Systems\systemManager.cpp" />
     <ClCompile Include="game\Systems\timerSystem.cpp" />
     <ClCompile Include="game\Systems\Control\KeyboardInputSystem.cpp" />
     <ClCompile Include="graphics\batchrenderer2d.cpp" />
@@ -179,7 +186,7 @@
     <ClCompile Include="graphics\buffers\vertexarray.cpp" />
     <ClCompile Include="graphics\label.cpp" />
     <ClCompile Include="graphics\layers\group.cpp" />
-    <ClCompile Include="game\Layers\tilelayer.cpp" />
+    <ClCompile Include="game\Layers\TileLayer.cpp" />
     <ClCompile Include="graphics\shader.cpp" />
     <ClCompile Include="graphics\sprite.cpp" />
     <ClCompile Include="graphics\spritesheet.cpp" />
@@ -191,7 +198,7 @@
     <ClCompile Include="math\vec2.cpp" />
     <ClCompile Include="math\vec3.cpp" />
     <ClCompile Include="math\vec4.cpp" />
-    <ClCompile Include="game\SoundEngine\soundEngine.cpp" />
+    <ClCompile Include="game\SoundEngine\SoundEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Dependencies\FreeType-gl\freetype-gl.h" />
@@ -205,9 +212,9 @@
     <ClInclude Include="game\Animation\Frame.h" />
     <ClInclude Include="game\Components\Action\Animation.h" />
     <ClInclude Include="game\Components\Action\Render.h" />
-    <ClInclude Include="game\Components\attack.h" />
-    <ClInclude Include="game\Components\circleAppearance.h" />
+    <ClInclude Include="game\Components\attacks.h" />
     <ClInclude Include="game\Components\component.h" />
+    <ClInclude Include="game\Components\Control\CursorC.h" />
     <ClInclude Include="game\Components\Control\Input.h" />
     <ClInclude Include="game\Components\Control\Transform.h" />
     <ClInclude Include="game\Components\Physics\Collision.h" />
@@ -220,19 +227,20 @@
     <ClInclude Include="game\Components\knockBack.h" />
     <ClInclude Include="game\Components\timerComponent.h" />
     <ClInclude Include="game\Components\toDelete.h" />
-    <ClInclude Include="game\cursor.h" />
-    <ClInclude Include="game\Entities\attackTextEntity.h" />
-    <ClInclude Include="game\Entities\entity.h" />
-    <ClInclude Include="game\Entities\fireball.h" />
-    <ClInclude Include="game\Entities\slime.h" />
+    <ClInclude Include="game\Entities\Cursor.h" />
+    <ClInclude Include="game\Entities\AttackTextEntity.h" />
+    <ClInclude Include="game\Entities\Entity.h" />
+    <ClInclude Include="game\Entities\Fireball.h" />
+    <ClInclude Include="game\Entities\Slime.h" />
     <ClInclude Include="game\Enums\GlobalId.h" />
     <ClInclude Include="game\Enums\Direction.h" />
-    <ClInclude Include="game\gameObjectManager.h" />
+    <ClInclude Include="game\GameObjectManager.h" />
     <ClInclude Include="game\Layers\ObjectLayer.h" />
     <ClInclude Include="game\Levels\Level.h" />
-    <ClInclude Include="game\player.h" />
-    <ClInclude Include="game\scene.h" />
+    <ClInclude Include="game\Entities\Player.h" />
+    <ClInclude Include="game\Scene.h" />
     <ClInclude Include="game\Systems\Action\AnimationSystem.h" />
+    <ClInclude Include="game\Systems\Action\CursorSystem.h" />
     <ClInclude Include="game\Systems\Action\EntitySpawnerSystem.h" />
     <ClInclude Include="game\Systems\Action\MovementSystem.h" />
     <ClInclude Include="game\Systems\attackSystem.h" />
@@ -241,8 +249,7 @@
     <ClInclude Include="game\Systems\Action\RenderSystem.h" />
     <ClInclude Include="game\Systems\Physics\CollisionSystem.h" />
     <ClInclude Include="game\Systems\Physics\PhysicsSystem.h" />
-    <ClInclude Include="game\Systems\system.h" />
-    <ClInclude Include="game\Systems\systemManager.h" />
+    <ClInclude Include="game\Systems\System.h" />
     <ClInclude Include="game\Systems\timerSystem.h" />
     <ClInclude Include="game\Systems\Control\KeyboardInputSystem.h" />
     <ClInclude Include="game\Layers\Tile.h" />
@@ -253,7 +260,7 @@
     <ClInclude Include="graphics\buffers\vertexarray.h" />
     <ClInclude Include="graphics\label.h" />
     <ClInclude Include="graphics\layers\group.h" />
-    <ClInclude Include="game\Layers\tilelayer.h" />
+    <ClInclude Include="game\Layers\TileLayer.h" />
     <ClInclude Include="graphics\renderer2d.h" />
     <ClInclude Include="graphics\renderable2d.h" />
     <ClInclude Include="graphics\shader.h" />
@@ -270,7 +277,7 @@
     <ClInclude Include="math\vec4.h" />
     <ClInclude Include="math\_math.h" />
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="game\SoundEngine\soundEngine.h" />
+    <ClInclude Include="game\SoundEngine\SoundEngine.h" />
     <ClInclude Include="utils\fileutils.h" />
     <ClInclude Include="utils\imageLoad.h" />
     <ClInclude Include="utils\timer.h" />
@@ -278,6 +285,25 @@
   <ItemGroup>
     <None Include="shaders\basic.frag" />
     <None Include="shaders\basic.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="imgs\basictiles.png" />
+    <Image Include="imgs\defaultCursor.png" />
+    <Image Include="imgs\dungeon.png" />
+    <Image Include="imgs\Flooring.png" />
+    <Image Include="imgs\Flooring_01.png" />
+    <Image Include="imgs\handCursor.png" />
+    <Image Include="imgs\its_not_worth_to_go_in_small.png" />
+    <Image Include="imgs\playerSpritesheet.png" />
+    <Image Include="imgs\sandTest.png" />
+    <Image Include="imgs\tileset_basic_terrain.png" />
+    <Image Include="imgs\tileset_cave.png" />
+    <Image Include="imgs\tileset_mountains.png" />
+    <Image Include="imgs\tileset_mountains2.png" />
+    <Image Include="imgs\tileset_other.png" />
+    <Image Include="imgs\tileset_water.png" />
+    <Image Include="imgs\tileset_water_animated.png" />
+    <Image Include="imgs\when_you (1).png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

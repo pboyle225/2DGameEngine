@@ -1,4 +1,4 @@
-#include "entity.h"
+#include "Entity.h"
 #include "../gameObjectManager.h"
 int Entity::globalIDCounter = 0;
 

@@ -10,6 +10,7 @@
 #include "graphics\label.h"
 #include "graphics\layers\group.h"
 #include "soundEngine\soundEngine.h"
+#include <thread>
 
 
 namespace engine
@@ -19,6 +20,7 @@ namespace engine
 	public:
 		
 		Timer deltaTime;
+		double dt;
 		
 		void start()
 		{
@@ -72,23 +74,29 @@ namespace engine
 			float updateTimer = 0.0f;
 			float updateTick = 1.0f / 60.0f;
 			m_Timer = new Timer();
+			dt = 0;
 			unsigned int frames = 0;
 			unsigned int updates = 0;
 			deltaTime.reset();
 
 			while (!m_Window->closed())
 			{
-				render();
 				m_Window->update();
 				m_Window->clear();
+				render();
 
 				//limit to 60 updates a frame
 				if ((m_Timer->elapsed() - updateTimer) > updateTick)
 				{
 					updates++;
+					
+					double firstDT = deltaTime.elapsed();
+					dt += deltaTime.elapsed();
 					update();
-					updateTimer += updateTick;
+					dt = deltaTime.elapsed() - firstDT;
 					deltaTime.reset();
+
+					updateTimer += updateTick;
 				}
 
 				if (m_Timer->elapsed() - timer > 1.0f)

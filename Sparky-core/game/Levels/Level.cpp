@@ -33,8 +33,8 @@ void Level::LoadLevel()
 	TileLayer * backgroundLayer = new TileLayer(new Shader("shaders/basic.vert", "shaders/basic.frag"), tileSprites, level1File.getLayersData()[0]);
 	ObjectLayer* objectLayer = new ObjectLayer(new Shader("shaders/basic.vert", "shaders/basic.frag") , tileSprites, level1File.getLayersData()[1]);
 	TileLayer * collisionLayer = new TileLayer(new Shader("shaders/basic.vert", "shaders/basic.frag"), tileSprites, level1File.getLayersData()[2]);
+	Layer * hudLayer = new Layer(new BatchRenderer2D(), new Shader("shaders/basic.vert", "shaders/basic.frag"), math::mat4::orthographic(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
 	
-	//Layer * hudLayer = new Layer(new BatchRenderer2D(), new Shader("shaders/basic.vert", "shaders/basic.frag"), math::mat4::orthographic(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
 	
 	//TODO: Don't push the layer in the list, setup a walkable tile
 	//layers.push_back(collisionLayer);
@@ -42,6 +42,7 @@ void Level::LoadLevel()
 	Scene* scene = new Scene();
 	scene->backgroundLayers = std::vector<Layer*>(1, backgroundLayer);
 	scene->objectLayer = objectLayer;
+	scene->hudLayer = hudLayer;
 	scenes.push_back(scene);
 
 	//Player stuff
@@ -113,7 +114,7 @@ void Level::LoadLevel()
 	playerSprite->setAnchorPoint(math::vec3(0.5f, 0.0f, 0.5f));
 	Transform* playerTrans = new Transform(playerLoc);
 	player = new Player();
-	player->addComponent(new Input(10.0f, KEYBOARD));
+	player->addComponent(new Input(8.0f, KEYBOARD));
 	player->addComponent(playerTrans);
 	player->addComponent(new Render(playerSprite));
 	player->addComponent(new Animation(animManager));
@@ -128,6 +129,14 @@ void Level::LoadLevel()
 
 	objectLayer->add(playerSprite);
 	objectLayer->add(debugRect);
+
+	//Sprite* cursorSprite = new Sprite(0, 0, 0, 1, 1, new Texture("imgs/defaultCursor.png"));
+	//cursorSprite->setAnchorPoint(math::vec3(0, 1, 0));
+	//Cursor* cursor = new Cursor();
+	//cursor->addComponent(new Render(cursorSprite, false));
+	//cursor->addComponent(new Transform(math::vec3(0, 0, 0)));
+	//cursor->addComponent(new CursorC());
+	//hudLayer->add(cursorSprite);
 
 	//Create background for health/mana
 	//Group * group = new Group(math::mat4::translation(math::vec3(-1.0f, -1.0f, 0.0f)));s
@@ -208,4 +217,9 @@ void Level::RenderScene()
 Layer* Level::GetObjectLayer()
 {
 	return this->scenes[indexOfCurrScene]->objectLayer;
+}
+
+math::vec3 Level::GetPlayerLocation()
+{
+	return static_cast<Transform*>(player->getComponent(ComponentIDEnum::TransformComp))->location;
 }

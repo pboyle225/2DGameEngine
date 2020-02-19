@@ -1,10 +1,5 @@
 #include "scene.h"
 
-//Scene::Scene(std::vector<Layer*> layers)
-//{
-//	this->layers = layers;
-//}
-
 Scene::Scene()
 {
 	this->hudLayer = NULL;
@@ -56,15 +51,15 @@ void Scene::updateCamera(math::vec3 loc)
 		}
 	}
 
-	if (hudLayer)
-	{
-		this->hudLayer->getShader()->enable();
-		this->hudLayer->getShader()->setUniformMat4("vw_matrix", math::mat4::translation(newLoc));
-	}
-
 	if (objectLayer)
 	{
 		this->objectLayer->getShader()->enable();
 		this->objectLayer->getShader()->setUniformMat4("vw_matrix", math::mat4::translation(newLoc));
 	}
+
+	//if (hudLayer)
+	//{
+	//	this->hudLayer->getShader()->enable();
+	//	this->hudLayer->getShader()->setUniformMat4("vw_matrix", math::mat4::translation(newLoc));
+	//}
 }
