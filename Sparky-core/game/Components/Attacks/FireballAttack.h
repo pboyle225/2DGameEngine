@@ -5,6 +5,6 @@
 class FireballAttack : public ProjectileAttack
 {
 public:
-	FireballAttack(int damage, float speed);
+	FireballAttack(int damage, float speed, float cooldown);
 	~FireballAttack();
 };

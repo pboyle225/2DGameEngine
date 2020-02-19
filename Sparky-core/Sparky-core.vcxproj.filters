@@ -108,9 +108,6 @@
     <ClCompile Include="game\Components\knockBack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="game\Helper Classes\LocationUtil.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="game\Systems\Control\KeyboardInputSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -213,6 +210,15 @@
     <ClCompile Include="game\Components\Attacks\ProjectileAttack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="utils\Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\HelperClasses\LocationUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\HelperClasses\MyTimer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\vec2.h">
@@ -258,9 +264,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\sprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utils\timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphics\layers\layer.h">
@@ -474,6 +477,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\Enums\AttackEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\HelperClasses\MyTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

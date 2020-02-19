@@ -2,6 +2,7 @@
 #include <vector>
 #include <unordered_map>
 #include <bitset>
+#include "../HelperClasses/MyTimer.h"
 #include "../../math/_math.h"
 #include "..\\Enums\ComponentIDEnum.h"
 

@@ -8,8 +8,9 @@ void AttackSystem::update(std::vector<Entity*>& entities, math::vec2 mousePos)
 		Input* input = static_cast<Input*>(ent->getComponent(ComponentIDEnum::InputComp));
 		Attack* attack = static_cast<Attack*>(ent->getComponent(ComponentIDEnum::AttackComp));
 
-		if (input && input->isMainAttacking && attack)
+		if (input && input->isMainAttacking && attack && (attack->timer.elapsed() >= attack->cooldown))
 		{
+			attack->timer.reset();
 			if (attack->attackID == AttackEnum::FireballID)
 			{
 				FireballAttack* fireballAttack = static_cast<FireballAttack*>(attack);

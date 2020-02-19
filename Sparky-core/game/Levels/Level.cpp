@@ -118,7 +118,7 @@ void Level::LoadLevel()
 	player->addComponent(playerTrans);
 	player->addComponent(new Render(playerSprite));
 	player->addComponent(new Animation(animManager));
-	player->addComponent(new FireballAttack(5, 5.0f));
+	player->addComponent(new FireballAttack(5, 5.0f, 1.0f));
 
 	const float scale = 0.5f;
 	player->addComponent(new RectangleCollider(playerSprite->getSize().x * scale, playerSprite->getSize().y * scale));

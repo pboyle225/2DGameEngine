@@ -166,9 +166,10 @@
     <ClCompile Include="game\Entities\Slimes.cpp" />
     <ClCompile Include="game\Game.cpp" />
     <ClCompile Include="game\GameObjectManager.cpp" />
+    <ClCompile Include="game\HelperClasses\MyTimer.cpp" />
     <ClCompile Include="game\Layers\ObjectLayer.cpp" />
     <ClCompile Include="game\Levels\Level.cpp" />
-    <ClCompile Include="game\Helper Classes\LocationUtil.cpp" />
+    <ClCompile Include="game\HelperClasses\LocationUtil.cpp" />
     <ClCompile Include="game\Entities\Player.cpp" />
     <ClCompile Include="game\Scene.cpp" />
     <ClCompile Include="game\Systems\Action\AnimationSystem.cpp" />
@@ -203,6 +204,7 @@
     <ClCompile Include="math\vec3.cpp" />
     <ClCompile Include="math\vec4.cpp" />
     <ClCompile Include="game\SoundEngine\SoundEngine.cpp" />
+    <ClCompile Include="utils\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Dependencies\FreeType-gl\freetype-gl.h" />
@@ -245,6 +247,7 @@
     <ClInclude Include="game\Enums\GlobalId.h" />
     <ClInclude Include="game\Enums\Direction.h" />
     <ClInclude Include="game\GameObjectManager.h" />
+    <ClInclude Include="game\HelperClasses\MyTimer.h" />
     <ClInclude Include="game\Layers\ObjectLayer.h" />
     <ClInclude Include="game\Levels\Level.h" />
     <ClInclude Include="game\Entities\Player.h" />
@@ -291,7 +294,7 @@
     <ClInclude Include="game\SoundEngine\SoundEngine.h" />
     <ClInclude Include="utils\fileutils.h" />
     <ClInclude Include="utils\imageLoad.h" />
-    <ClInclude Include="utils\timer.h" />
+    <ClInclude Include="utils\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\basic.frag" />

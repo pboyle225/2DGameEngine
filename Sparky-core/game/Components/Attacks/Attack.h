@@ -1,14 +1,18 @@
 #pragma once
 
-#include "..//component.h"
+#include "..//Component.h"
 #include "..//..//Enums/AttackEnum.h"
+
+using namespace engine;
 
 class Attack : public Component
 {
 public:
 	int damage;
+	float cooldown;
 	AttackEnum attackID;
+	MyTimer timer;
 protected:
-	Attack(int damage, AttackEnum attackID);
+	Attack(int damage, AttackEnum attackID, float cooldown);
 	~Attack();
 };

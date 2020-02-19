@@ -7,5 +7,5 @@ class ProjectileAttack : public Attack
 public:
 	float speed;
 protected:
-	ProjectileAttack(int damage, float speed, AttackEnum id);
+	ProjectileAttack(int damage, float speed, AttackEnum id, float cooldown);
 };
