@@ -8,6 +8,7 @@
 #include "Systems/Control/AIControlSystem.h"
 #include "Systems/Action/AnimationSystem.h"
 #include "Systems/Action/CursorSystem.h"
+#include "Systems/Action/AttackSystem.h"
 
 using namespace engine;
 using namespace graphics;
@@ -54,13 +55,10 @@ public:
 		animationSystem = new AnimationSystem();
 		renderSystem = new RenderSystem();
 		cursorSystem = new CursorSystem();
-		//renderLayerOrder = new RenderLayerOrder();
+		attackSystem = new AttackSystem();
 		//objectDestroyer = new ObjectDestroyer();
 		//rendering = new Rendering();
 		//timerSystem = new TimerSystem();
-		//attackSystem = new AttackSystem();
-		//aiSystem = new AISystem();
-		//animSystem = new AnimationSystem();
 		
 		//cursor = new Cursor();
 
@@ -97,6 +95,7 @@ public:
 	{
 		keyboardInputSystem->update(GameObjectManager::inputEnts, window);
 		aiControlSystem->update(GameObjectManager::inputEnts);
+		attackSystem->update(GameObjectManager::attackEnts, math::vec2(window->getWidth(), window->getHeight()) - window->getMousePosition());
 		movementSystem->update(GameObjectManager::movementEnts);
 		physicsSystem->update(GameObjectManager::physicsEnts, dt);
 		animationSystem->update(GameObjectManager::animationEnts);
@@ -159,6 +158,7 @@ private:
 	RenderSystem* renderSystem;
 	AIControlSystem* aiControlSystem;
 	CursorSystem* cursorSystem;
+	AttackSystem* attackSystem;
 
 	//CheckCollision * checkCollision;
 	//RenderLayerOrder * renderLayerOrder;

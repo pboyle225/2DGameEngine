@@ -12,7 +12,12 @@ void MovementSystem::update(std::vector<Entity*>& entities)
 			{
 				ent->addComponent(new Velocity(input->movementDir));
 				input->direction = DetermineDirection(input->movementDir);
-				input->movementDir = math::vec3(0,0,0);
+				
+				if (ent->id != EntityEnum::Projectile)
+				{
+					//reset movement
+					input->movementDir = math::vec3(0,0,0);
+				}
 			}		
 		}
 	}

@@ -12,6 +12,12 @@ Input::Input(float speed, InputType type)
 	this->movementDir = math::vec3(0,0,0);
 }
 
+Input::Input(float speed, InputType type, math::vec3 movementDir)
+	: Input(speed, type)
+{
+	this->movementDir = movementDir;
+}
+
 Input::~Input()
 {
 

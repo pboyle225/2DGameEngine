@@ -13,9 +13,13 @@ void AIControlSystem::update(std::vector<Entity*>& entities)
 				continue;
 			}
 
-			input->movementDir += math::vec3(input->speed,0, 0);
-			input->direction = Direction::DEFAULT;
-			//input->isMainAttacking = true;
+			if (ent->id != EntityEnum::Projectile)
+			{
+				input->movementDir += math::vec3(input->speed,0, 0);
+				input->direction = Direction::DEFAULT;
+				//input->isMainAttacking = true;
+			}
+
 		}
 	}
 }

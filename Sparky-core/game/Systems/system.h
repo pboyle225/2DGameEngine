@@ -12,10 +12,12 @@
 #include "../Components/healthComponent.h"
 #include "../Components/knockBack.h"
 #include "..\\Components\Action\Animation.h"
+#include "..\\Components\Attacks\Attack.h"
 #include "..\\Components\Physics\RectangleCollider.h"
 #include "..\\\Entities\Player.h"
 #include "..\\Enums\GlobalId.h"
 #include "..\\Enums\ComponentIDEnum.h"
+#include "..\\Enums\EntityEnum.h"
 #include "..\\Components\Control\CursorC.h"
 #include <vector>
 

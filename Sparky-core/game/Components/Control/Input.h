@@ -16,6 +16,7 @@ class Input : public Component
 {
 public:
 	Input(float speed, InputType type);
+	Input(float speed, InputType type, math::vec3 movementDir);
 	~Input();
 
 	float speed;

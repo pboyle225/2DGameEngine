@@ -1,14 +1,13 @@
 #pragma once
 
-#include "Entity.h"
+#include "Projectile.h"
 
-class Fireball : public Entity
+class Fireball : public Projectile
 {
 public:
 	Fireball()
+		: Projectile()
 	{
-		id = 5;
 		name = "Fireball";
-		globalID = Entity::globalIDCounter++;
 	}
 };

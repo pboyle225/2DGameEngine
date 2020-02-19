@@ -59,6 +59,7 @@ void GameObjectManager::refreshSystemContainers(Entity * ent)
 	addEntToSystem(renderingMap, renderEnts, RENDER_MASK, ent);
 	addEntToSystem(physicsMap, physicsEnts, PHYSICS_MASK, ent);
 	addEntToSystem(cursorSystemMap, cursorEnts, CURSOR_MASK, ent);
+	addEntToSystem(attackSystemMap, attackEnts, ATTACK_MASK, ent);
 
 	//if (objectDestroyerMap[ent->globalID] == NULL && ((ent->bitset & objectDestroyerMask) == objectDestroyerMask))
 	//{
@@ -77,18 +78,6 @@ void GameObjectManager::refreshSystemContainers(Entity * ent)
 	//	checkCollisionEnts.push_back(ent);
 	//	checkCollisionMap[ent->globalID] = ent;
 	//}
-
-	//if (attackSystemMap[ent->globalID] == NULL && ((ent->bitset & attackSystemMask) == attackSystemMask))
-	//{
-	//	attackSystemEnts.push_back(ent);
-	//	attackSystemMap[ent->globalID] = ent;
-	//}
-
-	//if (aiSystemMap[ent->globalID] == NULL && ((ent->bitset & aiSystemMask) == aiSystemMask))
-	//{
-	//	aiSystemEnts.push_back(ent);
-	//	aiSystemMap[ent->globalID] = ent;
-	//}
 }
 
 void GameObjectManager::clearEntFromSystems(Entity * ent)
@@ -99,12 +88,11 @@ void GameObjectManager::clearEntFromSystems(Entity * ent)
 	clearEntFromSystem(renderingMap, renderEnts, ent);
 	clearEntFromSystem(physicsMap, physicsEnts, ent);
 	clearEntFromSystem(cursorSystemMap, cursorEnts, ent);
+	clearEntFromSystem(attackSystemMap, attackEnts, ent);
 	
 	//clearEntFromSystem(timerSystemMap, ent);
 	//clearEntFromSystem(objectDestroyerMap, ent);
 	//clearEntFromSystem(checkCollisionMap, ent);
-	//clearEntFromSystem(attackSystemMap, ent);
-	//clearEntFromSystem(aiSystemMap, ent);
 
 	//delete ent;
 }
