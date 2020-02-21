@@ -9,6 +9,7 @@
 #include "Systems/Action/AnimationSystem.h"
 #include "Systems/Action/CursorSystem.h"
 #include "Systems/Action/AttackSystem.h"
+#include "HelperClasses/LocationUtil.cpp"
 
 using namespace engine;
 using namespace graphics;
@@ -95,7 +96,8 @@ public:
 	{
 		keyboardInputSystem->update(GameObjectManager::inputEnts, window);
 		aiControlSystem->update(GameObjectManager::inputEnts);
-		attackSystem->update(GameObjectManager::attackEnts, math::vec2(window->getWidth(), window->getHeight()) - window->getMousePosition());
+		attackSystem->update(GameObjectManager::attackEnts, 
+			LocationUtil::cursorToWorldCoords(window->getMousePosition(), math::vec2(window->getWidth(), window->getHeight()), currLevel->GetPlayerLocation()));
 		movementSystem->update(GameObjectManager::movementEnts);
 		physicsSystem->update(GameObjectManager::physicsEnts, dt);
 		animationSystem->update(GameObjectManager::animationEnts);

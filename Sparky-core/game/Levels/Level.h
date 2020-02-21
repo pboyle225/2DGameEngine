@@ -1,6 +1,8 @@
 #pragma once
 
+#include "..\Components\Attacks\FireballAttack.h"
 #include "..\scene.h"
+#include "../Layers/tilelayer.h"
 #include "../Layers/ObjectLayer.h"
 #include "..\\Entities\Player.h"
 #include "..\\Components\Control\input.h"
@@ -9,7 +11,6 @@
 #include "..\\Components\Action\Animation.h"
 #include "..\\Components\Physics\RectangleCollider.h"
 #include "..\\Components\Control\CursorC.h"
-#include "..\\Components\Attacks\FireballAttack.h"
 #include "..\\Entities\RectangleColliderEnt.h"
 #include "..\\Entities\Wall.h"
 #include "..\\Entities\slime.h"

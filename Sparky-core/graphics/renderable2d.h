@@ -49,16 +49,6 @@ namespace engine {
 
 			void setColor(const math::vec4 color)
 			{
-				//Store 4 1-Byte color components in single 4 byte unsigned integer.
-				//~100 fps gain
-				/*
-				int r = color.x * 255.0f;
-				int g = color.y * 255.0f;
-				int b = color.z * 255.0f;
-				int a = color.w * 255.0f;
-				*/
-
-				//m_Color = a << 24 | b << 16 | g << 8 | r;
 				m_Color = color;
 			}
 			
@@ -109,8 +99,7 @@ namespace engine {
 				{
 					return 0;
 				}
-				
-				//return m_Texture->getID();
+
 				return texID;
 			}
 

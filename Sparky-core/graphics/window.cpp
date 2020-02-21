@@ -105,10 +105,6 @@ namespace engine {	namespace graphics {
 			return false;
 		}
 
-		// TEST CURSOR
-		//unsigned char pixels[16 * 16 * 4];
-		//memset(pixels, 0xff, sizeof(pixels));
-
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, this);
 		glfwSetFramebufferSizeCallback(m_Window, windowResize);

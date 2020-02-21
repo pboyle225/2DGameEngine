@@ -96,13 +96,8 @@ void PhysicsSystem::HandleCollisions(std::vector<Entity*>& entities, const math:
 	for (int i = 0; i < removeVel.size(); i++)
 	{
 		removeVel[i]->removeComponent(ComponentIDEnum::VelocityComp);
-		//delete removeVel[i];
+		delete removeVel[i];
 	}
-
-	//for (int i = 0; i < removeVel.size(); i++)
-	//{
-	//	delete removeVel[i];
-	//}
 	removeVel.clear();
 }
 

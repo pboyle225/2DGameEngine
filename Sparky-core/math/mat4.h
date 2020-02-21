@@ -29,6 +29,7 @@ namespace engine {namespace math {
 		mat4(float diagonal);
 
 		static mat4 identity();
+		mat4& Invert();
 		
 		vec3 multiply(const vec3& other) const;
 		friend vec3 operator*(const mat4& left,const vec3& right);

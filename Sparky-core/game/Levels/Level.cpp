@@ -1,6 +1,4 @@
 #include "Level.h"
-#include "../Layers/tilelayer.h"
-#include "../../graphics/layers/group.h"
 
 Level::Level()
 {
@@ -109,7 +107,7 @@ void Level::LoadLevel()
 	animMap[AnimationStates::Default] = currAnim;
 
 	AnimationManager* animManager = new AnimationManager(animMap);
-	math::vec3 playerLoc = math::vec3(10, 10, 0);
+	math::vec3 playerLoc = math::vec3(15, 10, 0);
 	Sprite* playerSprite = new Sprite(playerLoc.x, playerLoc.y, 2.2f, 2.2f, animManager->getCurrentTexture());
 	playerSprite->setAnchorPoint(math::vec3(0.5f, 0.0f, 0.5f));
 	Transform* playerTrans = new Transform(playerLoc);
@@ -118,7 +116,7 @@ void Level::LoadLevel()
 	player->addComponent(playerTrans);
 	player->addComponent(new Render(playerSprite));
 	player->addComponent(new Animation(animManager));
-	player->addComponent(new FireballAttack(5, 5.0f, 1.0f));
+	player->addComponent(new FireballAttack(5, 25.0f, 1.0f));
 
 	const float scale = 0.5f;
 	player->addComponent(new RectangleCollider(playerSprite->getSize().x * scale, playerSprite->getSize().y * scale));
@@ -210,7 +208,8 @@ void Level::LoadLevel()
 
 void Level::RenderScene()
 {
-	math::vec3 currCameraLoc = static_cast<Transform*>(player->getComponent(ComponentIDEnum::TransformComp))->location;
+	math::vec3 currCameraLoc = GetPlayerLocation();
+	//printf("Player - x: %f, y: %f\n", currCameraLoc.x, currCameraLoc.y);
 	this->scenes[indexOfCurrScene]->updateCamera(currCameraLoc);
 	this->scenes[indexOfCurrScene]->renderLayers(currCameraLoc);
 }
